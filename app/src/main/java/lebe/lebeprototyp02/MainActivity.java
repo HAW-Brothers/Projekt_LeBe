@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!openWeb) {
+
+                    //ipv6 kann nicht aufgelöst werden
                     String url = "http://lebe-app.hol.es/apps/ ";
                     openWeb = true;
                     wv1.setVisibility(View.VISIBLE);
