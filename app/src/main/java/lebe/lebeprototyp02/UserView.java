@@ -53,7 +53,7 @@ public class UserView extends AppCompatActivity {
             passwort.setText(password);
             EditText birthdateEdit = (EditText) findViewById(R.id.birthdateEdit);
             birthdateEdit.setText(birthdate);
-            birthdateEdit.setEnabled(false);
+            //birthdateEdit.setEnabled(false);
             EditText regdateEdit = (EditText) findViewById(R.id.regDateEdit);
             regdateEdit.setText(regdate);
             regdateEdit.setEnabled(false);
@@ -77,7 +77,7 @@ public class UserView extends AppCompatActivity {
         EditText usernameEdit = (EditText) findViewById(R.id.userNameEdit);
         String query = "UPDATE UserProfile SET Username='"+usernameEdit.getText().toString()+"';";
         db.execSQL(query);
-        Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich",Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
         toast.show();
 
     }

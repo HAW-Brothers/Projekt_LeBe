@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);
         bUserview = (Button) findViewById(R.id.bUser);
+        bUserview.setText(R.string.button_mainActivity_userview);
         lv = (ListView) findViewById(R.id.listView);
         wv1 = (WebView) findViewById(R.id.webView);
         wv1.setWebViewClient(new MyBrowser());
