@@ -30,6 +30,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     Button b1;
     Button b2;
+    Button bUserview;
     private WebView wv1;
     private ListView lv;
     Boolean openWeb = false;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);
+        bUserview = (Button) findViewById(R.id.bUser);
         lv = (ListView) findViewById(R.id.listView);
         wv1 = (WebView) findViewById(R.id.webView);
         wv1.setWebViewClient(new MyBrowser());
@@ -87,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
                     lv.setVisibility(View.INVISIBLE);
                 }
 
+            }
+        });
+
+
+        bUserview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserView.class);
+                startActivity(intent);
             }
         });
 
