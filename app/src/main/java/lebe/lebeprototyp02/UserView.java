@@ -25,8 +25,12 @@ public class UserView extends AppCompatActivity {
 
         db = openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
+        //db.execSQL("DROP TABLE IF EXISTS UserProfile");
+
 
         db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR);");
+        //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername');");
+
         //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
 
         Cursor resultSet = db.rawQuery("Select * FROM UserProfile",null);
@@ -40,9 +44,11 @@ public class UserView extends AppCompatActivity {
 
             String birthdate = resultSet.getString(2);
             String regdate = resultSet.getString(3);
+            String anzeigeName = resultSet.getString(4);
 
             EditText usernameEdit = (EditText) findViewById(R.id.userNameEdit);
             usernameEdit.setText(username);
+            usernameEdit.setEnabled(false);
             EditText passwort = (EditText) findViewById(R.id.passwortEdit);
             passwort.setText(password);
             EditText birthdateEdit = (EditText) findViewById(R.id.birthdateEdit);
@@ -51,10 +57,14 @@ public class UserView extends AppCompatActivity {
             EditText regdateEdit = (EditText) findViewById(R.id.regDateEdit);
             regdateEdit.setText(regdate);
             regdateEdit.setEnabled(false);
+            EditText anzeigename = (EditText)findViewById(R.id.anzeigeNameEdit);
+            anzeigename.setText(anzeigeName);
+
         }else{
-            db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', '10.10.2016', '01.01.1000');");
+            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername');");
         }
-        //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
+        db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
+
 
     }
     public void addToDatabase(SQLiteDatabase db){
