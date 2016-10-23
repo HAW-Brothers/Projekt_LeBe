@@ -1,8 +1,10 @@
 package lebe.lebeprototyp02;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -17,10 +19,12 @@ public class UserView extends AppCompatActivity {
 
     private SQLiteDatabase db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_view);
+
 
         //Intent intent = getIntent();
 
@@ -82,6 +86,16 @@ public class UserView extends AppCompatActivity {
         db.execSQL(query);
         Toast toast = Toast.makeText(getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
         toast.show();
+
+        /*
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppTheme);
+        builder.setTitle("AppCompatDialog");
+        builder.setMessage("Lorem ipsum dolor...");
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton("Cancel", null);
+        builder.show();*/
+
+
 
     }
 
