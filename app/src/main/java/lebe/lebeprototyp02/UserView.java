@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 /**
  * Created by Höling on 23.10.2016.
+ * Zeigt das Userprofil an. Die Daten werden aus der lokalen Datenbank geladen.
  */
 
 public class UserView extends AppCompatActivity {
@@ -66,7 +67,7 @@ public class UserView extends AppCompatActivity {
         }else{
             db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
-        db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
+        //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
 
 
     }
