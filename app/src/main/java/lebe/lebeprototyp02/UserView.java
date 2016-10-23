@@ -67,15 +67,12 @@ public class UserView extends AppCompatActivity {
         }else{
             db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
-        //jhgsdgfjhsd jhsdfg jhsdgf ghj
+
         //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
 
 
     }
-    public void addToDatabase(SQLiteDatabase db){
 
-        db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
-    }
     public void updateTodatabase(View view){
 
 
