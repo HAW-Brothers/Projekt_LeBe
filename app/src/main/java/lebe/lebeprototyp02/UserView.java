@@ -67,6 +67,7 @@ public class UserView extends AppCompatActivity {
         }else{
             db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
+        //jhgsdgfjhsd jhsdfg jhsdgf ghj
         //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
 
 
@@ -78,8 +79,9 @@ public class UserView extends AppCompatActivity {
     public void updateTodatabase(View view){
 
 
-        EditText usernameEdit = (EditText) findViewById(R.id.userNameEdit);
-        String query = "UPDATE UserProfile SET Username='"+usernameEdit.getText().toString()+"';";
+        EditText anzeigename = (EditText) findViewById(R.id.anzeigeNameEdit);
+        EditText emailAdresse = (EditText)findViewById(R.id.editEmail);
+        String query = "UPDATE UserProfile SET AnzeigeName='"+anzeigename.getText().toString()+"', Email='"+emailAdresse.getText().toString()+"';";
         db.execSQL(query);
         Toast toast = Toast.makeText(getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
         toast.show();
