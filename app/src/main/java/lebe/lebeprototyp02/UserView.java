@@ -28,7 +28,7 @@ public class UserView extends AppCompatActivity {
         //db.execSQL("DROP TABLE IF EXISTS UserProfile");
 
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
         //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername');");
 
         //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
@@ -45,6 +45,7 @@ public class UserView extends AppCompatActivity {
             String birthdate = resultSet.getString(2);
             String regdate = resultSet.getString(3);
             String anzeigeName = resultSet.getString(4);
+            String email = resultSet.getString(5);
 
             EditText usernameEdit = (EditText) findViewById(R.id.userNameEdit);
             usernameEdit.setText(username);
@@ -59,9 +60,11 @@ public class UserView extends AppCompatActivity {
             regdateEdit.setEnabled(false);
             EditText anzeigename = (EditText)findViewById(R.id.anzeigeNameEdit);
             anzeigename.setText(anzeigeName);
+            EditText emailEdit = (EditText)findViewById(R.id.editEmail);
+            emailEdit.setText(email);
 
         }else{
-            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername');");
+            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
         db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
 
