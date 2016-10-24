@@ -1,10 +1,12 @@
 package lebe.lebeprototyp02;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -30,6 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     Button b1;
     Button b2;
+    Button bUserview;
     private WebView wv1;
     private ListView lv;
     Boolean openWeb = false;
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);
+        bUserview = (Button) findViewById(R.id.bUser);
+        bUserview.setText(R.string.button_mainActivity_userview);
         lv = (ListView) findViewById(R.id.listView);
         wv1 = (WebView) findViewById(R.id.webView);
         wv1.setWebViewClient(new MyBrowser());
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!openWeb) {
+
+                    //ipv6 kann nicht aufgelöst werden
                     String url = "http://lebe-app.hol.es/apps/ ";
                     openWeb = true;
                     wv1.setVisibility(View.VISIBLE);
@@ -89,6 +96,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        bUserview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         loadApplication();
 
         ArrayAdapter<ApplicationDetail> arrayAdapter = new ArrayAdapter<>(
@@ -108,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
+
+
+
     }
 
     /**
