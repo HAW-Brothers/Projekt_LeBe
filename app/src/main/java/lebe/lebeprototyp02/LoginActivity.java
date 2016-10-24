@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity{
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
+        emailFeld.setText(getEmail());
         passwordFeld = (EditText)findViewById(R.id.login_password);
         loginButton = (Button)findViewById(R.id.login_button);
 
@@ -65,10 +66,6 @@ public class LoginActivity extends AppCompatActivity{
     public void onBackPressed() {
         // disable going back to the MainActivity
         moveTaskToBack(true);
-
-
-
-
     }
     public boolean validate(){
 
@@ -107,5 +104,22 @@ public class LoginActivity extends AppCompatActivity{
 
 
         return temp;
+    }
+    public String getEmail(){
+
+
+        String temp="";
+        Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
+
+
+
+        if(resultSet.moveToFirst()){
+            temp=resultSet.getString(0);
+
+        }else{
+            temp="hello@world.com";
+        }
+
+     return temp;
     }
 }
