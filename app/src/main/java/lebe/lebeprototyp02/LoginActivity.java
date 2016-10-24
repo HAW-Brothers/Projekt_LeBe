@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
+
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
