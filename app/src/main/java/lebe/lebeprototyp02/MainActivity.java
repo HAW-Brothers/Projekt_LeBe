@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         wv1 = (WebView) findViewById(R.id.webView);
         wv1.setWebViewClient(new MyBrowser());
 
+        startService(new Intent(this, MessageBroker.class));
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> adView, View view, int position, long id) {
-                openApp(getApplicationContext(), lv.getItemAtPosition(position).toString());
+                openPlugin(getApplicationContext(),
+                        ((ApplicationDetail) lv.getItemAtPosition(position))
+                                .getName().toString());
             }
         });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -174,16 +178,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static boolean openApp(Context context, String packageName) {
+    public static void openPlugin(Context context, String packageName) {
         PackageManager manager = context.getPackageManager();
-        Intent i = manager.getLaunchIntentForPackage(packageName);
-        if (i == null) {
-            return false;
-            //throw new PackageManager.NameNotFoundException();
-        }
-        i.addCategory(Intent.CATEGORY_LAUNCHER);
-        context.startActivity(i);
-        return true;
+        try {
+            Intent i = manager.getLaunchIntentForPackage(packageName);
+            if (i == null) {
+                throw new PackageManager.NameNotFoundException();
+            }
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {}
     }
 
     // sucht nach angegeben CATEGORY tag: "ltd.netarchitectures.PLUGIN" und sammelt alle
@@ -195,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         // we need an intent that will be used to load the packages
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         // in this case we want to load all packages wtih PLUGIN category
-        intent.addCategory("ltd.netarchitectures.PLUGIN");
+        intent.addCategory("lebe.PLUGIN");
         List<ResolveInfo> availableActivities = packageManager.queryIntentActivities(intent, 0);
         // for each one we create a custom list view item
         for (ResolveInfo resolveInfo : availableActivities) {
