@@ -1,5 +1,6 @@
 package lebe.lebeprototyp02;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,7 +28,10 @@ public class LoginActivity extends AppCompatActivity{
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
+        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
+
         emailFeld = (EditText)findViewById(R.id.login_email);
+        emailFeld.setText(getEmail());
         passwordFeld = (EditText)findViewById(R.id.login_password);
         loginButton = (Button)findViewById(R.id.login_button);
 
@@ -49,6 +53,8 @@ public class LoginActivity extends AppCompatActivity{
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
                     finish();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
                     toast.show();
@@ -61,18 +67,17 @@ public class LoginActivity extends AppCompatActivity{
     public void onBackPressed() {
         // disable going back to the MainActivity
         moveTaskToBack(true);
-
-
-
-
     }
     public boolean validate(){
 
         boolean temp = false;
 
         if(Patterns.EMAIL_ADDRESS.matcher(emailFeld.getText().toString()).matches()){
-            temp=true;
+            temp=false;
+
+
             Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
+
 
 
             if(resultSet.moveToFirst()){
@@ -89,13 +94,33 @@ public class LoginActivity extends AppCompatActivity{
                 }
                 return true;
 
+
             }else{
                 //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
+
+                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
             }
 
         }
 
 
         return temp;
+    }
+    public String getEmail(){
+
+
+        String temp="";
+        Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
+
+
+
+        if(resultSet.moveToFirst()){
+            temp=resultSet.getString(0);
+
+        }else{
+            temp="hello@world.com";
+        }
+
+     return temp;
     }
 }
