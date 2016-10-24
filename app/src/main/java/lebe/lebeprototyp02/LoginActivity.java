@@ -1,5 +1,6 @@
 package lebe.lebeprototyp02;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
+        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
         passwordFeld = (EditText)findViewById(R.id.login_password);
@@ -49,6 +51,8 @@ public class LoginActivity extends AppCompatActivity{
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
                     finish();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
                     toast.show();
@@ -73,7 +77,7 @@ public class LoginActivity extends AppCompatActivity{
         if(Patterns.EMAIL_ADDRESS.matcher(emailFeld.getText().toString()).matches()){
             temp=false;
 
-            dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
+
             Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
 
 
