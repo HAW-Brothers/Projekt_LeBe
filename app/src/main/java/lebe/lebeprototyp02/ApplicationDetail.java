@@ -6,6 +6,7 @@ package lebe.lebeprototyp02;
 
 import android.graphics.drawable.Drawable;
 
+
 public class ApplicationDetail {
 
     private CharSequence label;
@@ -22,8 +23,10 @@ public class ApplicationDetail {
         return label;
     }
 
-    public CharSequence getName() {
-        return name;
+    public CharSequence getName() { return name; }
+
+    public String toString() {
+        return label.toString();
     }
 
     public Drawable getIcon() {
