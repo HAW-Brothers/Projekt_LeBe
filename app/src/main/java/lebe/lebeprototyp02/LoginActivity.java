@@ -71,8 +71,11 @@ public class LoginActivity extends AppCompatActivity{
         boolean temp = false;
 
         if(Patterns.EMAIL_ADDRESS.matcher(emailFeld.getText().toString()).matches()){
-            temp=true;
+            temp=false;
+
+            dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
             Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
+
 
 
             if(resultSet.moveToFirst()){
@@ -89,8 +92,11 @@ public class LoginActivity extends AppCompatActivity{
                 }
                 return true;
 
+
             }else{
                 //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
+
+                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
             }
 
         }
