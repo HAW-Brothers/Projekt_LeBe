@@ -29,7 +29,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apps"
+        android:text="Plugins"
         android:id="@+id/b2"
         android:layout_above="@+id/webView"
         android:layout_alignRight="@+id/webView"

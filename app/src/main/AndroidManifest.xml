@@ -2,37 +2,49 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lebe.lebeprototyp02">
 
+    <uses-sdk android:minSdkVersion="10" />
     android:versionCode="1"
     android:versionName="0.2" >
-
-    <uses-sdk android:minSdkVersion="10" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name" >
-
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:label="@string/app_name" android:name=".UserView"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".UserView"
+            android:label="@string/app_name" />
+        <activity android:name=".MainActivity" />
 
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+     ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <service android:name="lebe.lebeprototyp02.MessageBroker"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="lebe.lebeprototyp02.MessageBroker.ACTION_BIND" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
