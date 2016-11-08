@@ -24,8 +24,8 @@ public class MessageBroker extends Service {        // MessageBroker ist ein Ser
 
     class MessageHandler extends Handler {
 
-        Map<String, String> messages = new HashMap<>();   // HashMap zum Speichern der Nachrichten
-        // in <Kategorie der Nachricht, Nachricht>
+        Map<String, Bundle> messages = new HashMap<>();   // HashMap zum Speichern der Nachrichten
+        // in <Kategorie der Nachricht, Datenpaket (Bundle)>
         // wahrscheinlich nicht optimal, kann sich noch ändern
         @Override
         public void handleMessage(Message msg) {          // Methode die eingehende Nchrichten abarbeitet
@@ -34,18 +34,15 @@ public class MessageBroker extends Service {        // MessageBroker ist ein Ser
 
                 case SET_DATA:                                          // Die erhaltene Nchricht möchte Daten speichern
                     Bundle setBundle = msg.getData();                   // Die Daten werden als Bundle übertragen und extrahiert
-                    String[] values = setBundle.getStringArray("key");  // Holt sich die eigentlichen Daten, evtl mehrere -> Array, diese Daten sind mit "key" gekennzeichnet
-                    assert values != null;                              // Sicherstellen dass Daten vorhanden sind
-                    messages.put(values[0], values[1]);                 // Speichern der Daten mit der Kategorie als key und den Daten als Value
+                    String setCategory = setBundle.getString("TAG");    // Die Kategorie der zu speichernden Daten
+                    messages.put(setCategory, setBundle);               // Speichern der Daten mit der Kategorie als key und den Daten als Value
                     break;
                 case GET_DATA:                                          // Die erhaltene Nchricht fordert bestimmte Daten an
                     Bundle getBundle = msg.getData();                   // s.o.
-                    String category = getBundle.getString("key");       // Welche Kategorie von Daten sind gefordert?
-                    String answer = messages.get(category);             // Erhalten der Daten der geforderten kategorie aus der HashMap
-                    Bundle replyBundle = new Bundle();                  // Erstellen eines neuen Bundles für die Antwort
-                    replyBundle.putString("reply", answer);             // Antwort ins Bundle einfügen und mit "reply" kennzeichnen
+                    String getCategory = getBundle.getString("TAG");    // Welche Kategorie von Daten sind gefordert?
+                    Bundle answer = messages.get(getCategory);          // Erhalten der Daten der geforderten kategorie aus der HashMap
                     Message replyMessage = Message.obtain();            // Antwortnchricht erstellen
-                    replyMessage.setData(replyBundle);                  // Antwort-Bundle in Nachricht einfügen
+                    replyMessage.setData(answer);                       // Antwort-Bundle in Nachricht einfügen
                     replyMessage.what = 0;                              // Antwortnachricht als solche kennzeichnen, siehe Connector Klasse in Plugins
                     try {
                         replyMessage.replyTo = brokerMessenger;         // brokerMessenger als Sender eintragen
