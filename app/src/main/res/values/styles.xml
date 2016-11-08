@@ -12,4 +12,43 @@
 
     </style>
 
+    <!-- Das Style damit es keine blaue Headline in der App gibt - CG -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- GUI-Styles start here -CG -->
+    <!-- Style für Login Textfelder -->
+    <style name="LoginTextfield">
+        <item name="android:textColor">#A6A6A6</item>
+        <item name="android:textColorHint">#A6A6A6</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:dividerPadding">8dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:layout_marginBottom">6dp</item>
+
+    </style>
+
+    <!-- Style für Login Button <item name="android:background">#1F4E79</item> -->
+    <style name="LoginButton">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@drawable/button_login_animation</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Style für Login Text -->
+    <style name="LoginText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
