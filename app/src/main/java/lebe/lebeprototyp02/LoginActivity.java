@@ -3,6 +3,7 @@ package lebe.lebeprototyp02;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
@@ -118,7 +119,7 @@ public class LoginActivity extends AppCompatActivity{
             temp=resultSet.getString(0);
 
         }else{
-            temp="hello@world.com";
+            temp="Email";
         }
 
      return temp;

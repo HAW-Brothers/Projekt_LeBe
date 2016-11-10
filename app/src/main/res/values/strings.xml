@@ -2,4 +2,7 @@
     <string name="app_version">0.2</string>
     <string name="app_name">LeBe</string>
     <string name="button_mainActivity_userview">Profil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

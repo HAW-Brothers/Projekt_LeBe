@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+dependencies {
+    compile 'com.android.support:support-v4:24.2.1'
+}
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -23,6 +26,7 @@ android {
         testCompile 'junit:junit:4.12'
         compile 'com.android.support:appcompat-v7:24.2.0'
         compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+        compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     }
 
 }

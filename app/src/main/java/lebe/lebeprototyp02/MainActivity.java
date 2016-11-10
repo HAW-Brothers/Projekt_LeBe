@@ -1,35 +1,24 @@
 package lebe.lebeprototyp02;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.view.View;
 
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-
+import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.util.ArrayList;
-import java.util.List;
+import lebe.lebeprototyp02.gui.control.PagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
+    /*
     Button b1;
     Button b2;
     Button bUserview;
@@ -38,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
     Boolean openWeb = false;
     Boolean openList = false;
     private List<ApplicationDetail> applications;
+    */
+
+
+    /*
+    GUI
+     */
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
+    private PagerSlidingTabStrip pagerSlidingTabStrip;
+
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);
         bUserview = (Button) findViewById(R.id.bUser);
@@ -125,11 +127,23 @@ public class MainActivity extends AppCompatActivity {
                                 .getName().toString());
             }
         });
+
+         */
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
 
+
+
+        /*
+        GUI
+         */
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
+        viewPager.setAdapter(pagerAdapter);
+        pagerSlidingTabStrip.setViewPager(viewPager);
 
 
     }
@@ -178,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
     public static void openPlugin(Context context, String packageName) {
         PackageManager manager = context.getPackageManager();
         try {
@@ -190,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {}
     }
 
-    // sucht nach angegeben CATEGORY tag: "ltd.netarchitectures.PLUGIN" und sammelt alle
+    // sucht nach angegeben CATEGORY tag: <category android:name="lebe.PLUGIN" /> (in Manifest) und sammelt alle
 
     private void loadApplication() {
         // package manager is used to retrieve the system's packages
@@ -210,4 +225,5 @@ public class MainActivity extends AppCompatActivity {
             applications.add(applicationDetail);
         }
     }
+    */
 }

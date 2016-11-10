@@ -1,0 +1,198 @@
+<!-- GUI - Gibt das Aussehen der SettingsView an -CG -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="lebe.lebeprototyp02.gui.fragments.UserViewFragment">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+
+
+            <TextView
+                style="@style/UserViewText"
+                android:text="UserName:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:id="@+id/labelUserName" />
+
+            <EditText
+                style="@style/EditText"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/userNameEdit"
+                android:layout_alignBaseline="@+id/labelUserName"
+                android:layout_alignBottom="@+id/labelUserName"
+                android:layout_alignLeft="@+id/passwortEdit"
+                android:layout_alignStart="@+id/passwortEdit" />
+
+            <TextView
+                style="@style/UserViewText"
+                android:text="Anzeigename:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userNameEdit"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textView" />
+
+            <EditText
+                style="@style/EditText"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/anzeigeNameEdit" />
+
+            <TextView
+                style="@style/UserViewText"
+                android:text="Passwort:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textPasswd"
+                android:layout_below="@+id/userNameEdit"
+                android:layout_alignParentStart="true" />
+
+
+            <EditText
+                style="@style/EditText"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passwortEdit"
+                android:layout_alignBaseline="@+id/textPasswd"
+                android:layout_alignBottom="@+id/textPasswd"
+                android:layout_toRightOf="@+id/labelRegDate"
+                android:layout_toEndOf="@+id/labelRegDate" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingEnd="5dp">
+
+                <TextView
+                    style="@style/UserViewText"
+                    android:text="Geburtdatum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/labelBirthdate"
+                    android:layout_alignBaseline="@+id/birthdateEdit"
+                    android:layout_alignBottom="@+id/birthdateEdit"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <EditText
+                    style="@style/EditText"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/birthdateEdit"
+                    android:layout_below="@+id/passwortEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="match_parent"/>
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingStart="5dp">
+
+        <TextView
+                style="@style/UserViewText"
+                android:text="Registierungsdatum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/labelRegDate" />
+
+            <EditText
+                style="@style/EditText"
+                android:inputType="date"
+                android:ems="10"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/regDateEdit"
+                android:layout_width="match_parent"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <TextView
+                style="@style/UserViewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="Email"/>
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/editEmail"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="test@testmann.test"/>
+
+
+            <Button
+                style="@style/UserViewButton"
+                android:text="save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/regDateEdit"
+                android:layout_toStartOf="@+id/regDateEdit"
+                android:layout_marginBottom="28dp"
+                android:layout_marginTop="40dp"
+                android:id="@+id/button2"/>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

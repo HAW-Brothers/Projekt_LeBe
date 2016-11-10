@@ -1,68 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- GUI - Wird nicht mehr gebraucht -CG 10.11.2016 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#0086EA">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            app:srcCompat="@drawable/common_google_signin_btn_text_dark_disabled"
-            android:id="@+id/imageView2" />
-
-        <TextView
-            android:text="Email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3" />
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="80dp"
+            android:layout_width="146dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/loginlogo01"
+            android:id="@+id/imageView2"
+            android:layout_gravity="center"/>
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/LoginTextfield"
             android:inputType="textEmailAddress"
-            android:text="hello@world.com"
+            android:hint="Email"
             android:ems="10"
-            android:id="@+id/login_email"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:text="Passwort"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:layout_marginTop="16dp" />
+            android:id="@+id/login_email"/>
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/LoginTextfield"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/login_password"
             tools:text="Password"
+            android:hint="Password"
             android:singleLine="true"
-            android:layout_marginBottom="16dp" />
+            />
 
         <Button
+            style="@style/LoginButton"
             android:text="LOGIN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/login_button"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"/>
 
         <TextView
+            style="@style/LoginText"
             android:text="Noch keinen Account?"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/login_registerText"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="72dp"
             android:gravity="center" />
 
     </LinearLayout>

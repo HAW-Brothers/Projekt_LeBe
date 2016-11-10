@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GUI - Lässt den Login Button seine Farbe bei einem Click ändern -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Button nicht gedrückt -->
+    <item android:state_pressed="false">
+        <shape>
+            <gradient
+                android:startColor="#FFF"
+                android:endColor="#FFF"
+                android:angle="270" />
+            <stroke
+                android:color="@color/colorLebeLightBlue"
+                android:width="1dp"
+                />
+
+        <corners
+            android:bottomRightRadius="7dp"
+            android:bottomLeftRadius="7dp"
+            android:topLeftRadius="7dp"
+            android:topRightRadius="7dp"/>
+        </shape>
+    </item>
+
+
+</selector>
