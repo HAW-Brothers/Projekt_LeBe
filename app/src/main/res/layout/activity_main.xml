@@ -49,6 +49,8 @@
         android:layout_centerHorizontal="true" />
 
 
+    <!-- Wird nicht mehr gebraucht -CG 10.11.2016 -->
+<!--
     <RelativeLayout
         android:layout_below="@+id/pager"
         android:layout_width="match_parent"
@@ -107,6 +109,6 @@
     </RelativeLayout>
 
 
-
+-->
 
 </RelativeLayout>

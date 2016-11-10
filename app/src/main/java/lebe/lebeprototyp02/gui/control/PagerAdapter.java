@@ -1,10 +1,19 @@
-package lebe.lebeprototyp02.gui.fragments;
+package lebe.lebeprototyp02.gui.control;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import lebe.lebeprototyp02.gui.fragments.HomeFragment;
+import lebe.lebeprototyp02.gui.fragments.StoreFragment;
+import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
+
 public class PagerAdapter extends FragmentPagerAdapter {
+
+    /*
+    Der PageAdapter hat die Aufgabe die Funktionalität des PageSliders zu bestimmen
+    -> Hier ist es möglich die Navigationsleiste anzupassen
+     */
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
@@ -16,10 +25,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) { // Returns Fragment based on position
         switch (position) {
             case 0:
-                f = new BlankFragment();
+                f = new HomeFragment();
                 break;
             case 1:
-                f = new BlankFragment();
+                f = new StoreFragment();
                 break;
             case 2:
                 f = new UserViewFragment();

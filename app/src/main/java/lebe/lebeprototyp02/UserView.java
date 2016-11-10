@@ -15,8 +15,14 @@ import android.widget.Toast;
  * Zeigt das Userprofil an. Die Daten werden aus der lokalen Datenbank geladen.
  */
 
+/*
+!!!!!!!!!!!!!!!!!!!!! Funktionalität in Fragments/UserView gewandert !!!!!!!!!!!!!!!!!!!!!
+Datenleiche +_+
+ */
+
 public class UserView extends AppCompatActivity {
 
+    /*
     private SQLiteDatabase db;
 
 
@@ -97,6 +103,7 @@ public class UserView extends AppCompatActivity {
 
 
 
-    }
+    /*}*/
+
 
 }

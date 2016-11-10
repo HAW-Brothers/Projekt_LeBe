@@ -6,14 +6,21 @@
     <item android:state_pressed="false">
         <shape>
             <gradient
-                android:startColor="#FFFFFF"
-                android:endColor="#FFFFFF"
-                android:angle="270"/>
+                android:startColor="#FFF"
+                android:endColor="#FFF"
+                android:angle="270" />
             <stroke
+                android:color="@color/colorLebeLightBlue"
                 android:width="1dp"
-                android:color="@color/colorGrey" />
-            <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp"
-                android:topLeftRadius="7dp" android:topRightRadius="7dp"/>
+                />
+
+        <corners
+            android:bottomRightRadius="7dp"
+            android:bottomLeftRadius="7dp"
+            android:topLeftRadius="7dp"
+            android:topRightRadius="7dp"/>
         </shape>
     </item>
+
+
 </selector>
