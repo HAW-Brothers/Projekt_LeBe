@@ -9,6 +9,9 @@
                 android:startColor="#1F4E79"
                 android:endColor="#004F81"
                 android:angle="270" />
+
+        <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp"
+            android:topLeftRadius="7dp" android:topRightRadius="7dp"/>
         </shape>
     </item>
     <!-- Button gedrückt -->
@@ -18,6 +21,9 @@
                 android:startColor="#276398"
                 android:endColor="#276398"
                 android:angle="270" />
+
+        <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp"
+            android:topLeftRadius="7dp" android:topRightRadius="7dp"/>
         </shape>
     </item>
 

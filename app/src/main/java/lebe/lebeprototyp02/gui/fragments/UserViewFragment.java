@@ -38,30 +38,22 @@ public class UserViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        /*
-        View view = inflater.inflate(R.layout.fragment_user_view,
-                container, false);
-                */
-
-        final FrameLayout myFrameLayout = (FrameLayout) inflater.inflate(R.layout.fragment_user_view,
-                container, false);
-
-
-        Button button = (Button) myFrameLayout.findViewById(R.id.button2);
+        final View view = inflater.inflate(R.layout.fragment_user_view, container, false);
+        Button button;
+        button = (Button) view.findViewById(R.id.button2);
+        System.out.println("-----------------------------------------" + button);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
-                toast.show();
+               updateTodatabase(view);
             }
         });
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_view, container, false);
+        return view;
     }
 
     @Override

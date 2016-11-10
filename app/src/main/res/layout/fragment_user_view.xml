@@ -6,7 +6,8 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,21 +16,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
+                style="@style/UserViewText"
+                android:text="Settings"
+                android:textSize="12pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/UserViewText"
                 android:text="UserName:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/labelUserName" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/userNameEdit"
@@ -38,38 +52,24 @@
                 android:layout_alignLeft="@+id/passwortEdit"
                 android:layout_alignStart="@+id/passwortEdit" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="@dimen/userView_line_marginTop"
-                android:layout_marginBottom="@dimen/userView_line_marginBottom"/>
-
             <TextView
+                style="@style/UserViewText"
                 android:text="Anzeigename:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/userNameEdit"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textView"
-                android:paddingTop="16dp" />
+                android:id="@+id/textView" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:ems="10"
                 android:id="@+id/anzeigeNameEdit" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="@dimen/userView_line_marginTop"
-                android:layout_marginBottom="@dimen/userView_line_marginBottom"/>
-
             <TextView
+                style="@style/UserViewText"
                 android:text="Passwort:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,8 +79,7 @@
 
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:inputType="textPassword"
                 android:ems="10"
                 android:id="@+id/passwortEdit"
@@ -88,42 +87,58 @@
                 android:layout_alignBottom="@+id/textPasswd"
                 android:layout_toRightOf="@+id/labelRegDate"
                 android:layout_toEndOf="@+id/labelRegDate" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:text="Geburtdatum"
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/labelBirthdate"
-                android:layout_alignBaseline="@+id/birthdateEdit"
-                android:layout_alignBottom="@+id/birthdateEdit"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingEnd="5dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/birthdateEdit"
-                android:layout_below="@+id/passwortEdit"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="@dimen/userView_line_marginBottom"/>
+                <TextView
+                    style="@style/UserViewText"
+                    android:text="Geburtdatum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/labelBirthdate"
+                    android:layout_alignBaseline="@+id/birthdateEdit"
+                    android:layout_alignBottom="@+id/birthdateEdit"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-            <TextView
+                <EditText
+                    style="@style/EditText"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/birthdateEdit"
+                    android:layout_below="@+id/passwortEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="match_parent"/>
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingStart="5dp">
+
+        <TextView
+                style="@style/UserViewText"
                 android:text="Registierungsdatum"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -131,21 +146,33 @@
                 android:id="@+id/labelRegDate" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:inputType="date"
                 android:ems="10"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/regDateEdit" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="@dimen/userView_line_marginTop"
-                android:layout_marginBottom="@dimen/userView_line_marginBottom"/>
+                android:id="@+id/regDateEdit"
+                android:layout_width="match_parent"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
             <TextView
+                style="@style/UserViewText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -153,8 +180,7 @@
                 android:layout_alignParentStart="true"
                 android:text="Email"/>
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:id="@+id/editEmail"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -162,13 +188,8 @@
                 android:text="test@testmann.test"/>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="@dimen/userView_line_marginTop"
-                android:layout_marginBottom="@dimen/userView_line_marginBottom"/>
             <Button
+                style="@style/LoginButton"
                 android:text="save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,6 +197,7 @@
                 android:layout_toLeftOf="@+id/regDateEdit"
                 android:layout_toStartOf="@+id/regDateEdit"
                 android:layout_marginBottom="28dp"
+                android:layout_marginTop="40dp"
                 android:id="@+id/button2"/>
 
         </LinearLayout>
