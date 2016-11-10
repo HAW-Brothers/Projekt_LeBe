@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -27,6 +29,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lebe.lebeprototyp02.gui.fragments.PagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
     Boolean openWeb = false;
     Boolean openList = false;
     private List<ApplicationDetail> applications;
+
+
+    /*
+    GUI
+     */
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
+    private PagerSlidingTabStrip pagerSlidingTabStrip;
+
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -130,6 +145,16 @@ public class MainActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
 
+
+
+        /*
+        GUI
+         */
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
+        viewPager.setAdapter(pagerAdapter);
+        pagerSlidingTabStrip.setViewPager(viewPager);
 
 
     }

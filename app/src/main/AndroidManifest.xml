@@ -29,7 +29,9 @@
         <activity
             android:name=".UserView"
             android:label="@string/app_name" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for

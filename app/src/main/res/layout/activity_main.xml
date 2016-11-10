@@ -1,56 +1,112 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
 
-    <Button
+    <LinearLayout
+        android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Plugin-Store"
-        android:id="@+id/b1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="vertical"
+        android:layout_margin="0dp"
+        >
 
-    <WebView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/webView"
-        android:layout_below="@+id/b1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            app:srcCompat="@drawable/lebenewlogo"
+            android:layout_weight="0.41"
+            />
+
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/PageSliderTabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#0086EA"
+            android:textColorPrimary="#fff"
+            app:pstsIndicatorColor="#045FB4"
+            app:pstsIndicatorHeight="4dp"
+            app:pstsShouldExpand="true"
+            app:pstsUnderlineHeight="0dp"/>
+
+    </LinearLayout>
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_below="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"
-        android:visibility="invisible" />
+        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Plugins"
-        android:id="@+id/b2"
-        android:layout_above="@+id/webView"
-        android:layout_alignRight="@+id/webView"
-        android:layout_alignEnd="@+id/webView" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignTop="@+id/webView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:visibility="invisible" />
+    <RelativeLayout
+        android:layout_below="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:text="UserView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/b1"
-        android:layout_marginStart="24dp"
-        android:id="@+id/bUser" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plugin-Store"
+            android:id="@+id/b1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <WebView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/webView"
+            android:layout_below="@+id/b1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plugins"
+            android:id="@+id/b2"
+            android:layout_above="@+id/webView"
+            android:layout_alignRight="@+id/webView"
+            android:layout_alignEnd="@+id/webView" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_alignTop="@+id/webView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="invisible" />
+
+        <Button
+            android:text="UserView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/b1"
+            android:layout_marginStart="24dp"
+            android:id="@+id/bUser" />
+
+
+
+    </RelativeLayout>
+
+
+
 
 </RelativeLayout>
