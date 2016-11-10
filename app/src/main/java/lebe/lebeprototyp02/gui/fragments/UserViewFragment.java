@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import lebe.lebeprototyp02.R;
@@ -37,9 +39,16 @@ public class UserViewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
+        /*
         View view = inflater.inflate(R.layout.fragment_user_view,
                 container, false);
-        Button button = (Button) view.findViewById(R.id.button2);
+                */
+
+        final FrameLayout myFrameLayout = (FrameLayout) inflater.inflate(R.layout.fragment_user_view,
+                container, false);
+
+
+        Button button = (Button) myFrameLayout.findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
