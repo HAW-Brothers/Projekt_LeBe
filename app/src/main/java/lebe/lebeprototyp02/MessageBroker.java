@@ -40,7 +40,12 @@ public class MessageBroker extends Service {        // MessageBroker ist ein Ser
                 case GET_DATA:                                          // Die erhaltene Nchricht fordert bestimmte Daten an
                     Bundle getBundle = msg.getData();                   // s.o.
                     String getCategory = getBundle.getString("TAG");    // Welche Kategorie von Daten sind gefordert?
-                    Bundle answer = messages.get(getCategory);          // Erhalten der Daten der geforderten kategorie aus der HashMap
+                    Bundle answer;
+                    if (messages.get(getCategory) != null) {
+                        answer = messages.get(getCategory);          // Erhalten der Daten der geforderten kategorie aus der HashMap
+                    } else {
+                        break;
+                    }
                     Message replyMessage = Message.obtain();            // Antwortnchricht erstellen
                     replyMessage.setData(answer);                       // Antwort-Bundle in Nachricht einfügen
                     replyMessage.what = 0;                              // Antwortnachricht als solche kennzeichnen, siehe Connector Klasse in Plugins
