@@ -44,7 +44,7 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
             c.connect();
 
 
-            File sdcard = Environment.getDownloadCacheDirectory();
+            File sdcard = Environment.getExternalStorageDirectory();
 
             File myDir = new File(sdcard,"Android/data/com.example.chris.lebeprototyp02.test/temp");
             myDir.mkdirs();
