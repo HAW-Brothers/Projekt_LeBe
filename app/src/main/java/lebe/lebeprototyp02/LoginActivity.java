@@ -27,6 +27,20 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //##############################################################################
+        //##############################################################################
+        final Button bMarket = (Button) findViewById(R.id.button);
+
+        bMarket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent marketIntetnt = new Intent(LoginActivity.this, Market.class);
+                LoginActivity.this.startActivity(marketIntetnt);
+            }
+        });
+        //##############################################################################
+        //##############################################################################
+
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
