@@ -48,7 +48,8 @@
 
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="download" />
+        android:text="download"
+        android:id="@+id/market_download" />
 
 
 </RelativeLayout>

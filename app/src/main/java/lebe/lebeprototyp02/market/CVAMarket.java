@@ -1,14 +1,18 @@
 package lebe.lebeprototyp02.market;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +52,9 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
     }
     public View getView(int position, View convertview, ViewGroup parent){
 
+
+        final int poosition=position;
+
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowViev=inflater.inflate(R.layout.market_single_item,parent,false);
@@ -56,10 +63,39 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
         ImageView logo = (ImageView) rowViev.findViewById(R.id.market_logo);
         TextView name = (TextView) rowViev.findViewById(R.id.market_Name);
         TextView beschreibung = (TextView) rowViev.findViewById(R.id.market_beschreibung);
+        Button download = (Button) rowViev.findViewById(R.id.market_download);
+
+
 
 
         //MarketItem Objekt erzeugen
         MarketItem item = itemListe.get(position);
+
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i;
+                PackageManager manager = getContext().getPackageManager();
+                try {
+                    i = manager.getLaunchIntentForPackage("com.mycompany.mygame");
+                    if (i == null)
+                        throw new PackageManager.NameNotFoundException();
+                    i.addCategory(Intent.CATEGORY_LAUNCHER);
+                    getContext().startActivity(i);
+                } catch (PackageManager.NameNotFoundException e) {
+                    InstallAPK downloadAndInstall = new InstallAPK();
+
+
+                    downloadAndInstall.setContext(getContext());
+                    downloadAndInstall.execute("http://www.droidbin.com/p1b1icah40r671fik11sm1uoq1eor3");
+                }
+            }
+
+
+        });
+
+
 
         name.setText(item.getName());
 
