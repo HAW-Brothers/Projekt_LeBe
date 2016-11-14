@@ -42,9 +42,9 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
         View rowViev=inflater.inflate(R.layout.market_single_item,parent,false);
 
 
-        final ImageView logo = (ImageView) rowViev.findViewById(R.id.market_logo);
+        ImageView logo = (ImageView) rowViev.findViewById(R.id.market_logo);
         TextView name = (TextView) rowViev.findViewById(R.id.market_Name);
-        TextView beschreibung = (TextView) rowViev.findViewById(R.id.market_beschreibungTextView);
+        TextView beschreibung = (TextView) rowViev.findViewById(R.id.market_beschreibung);
 
 
         //MarketItem Objekt erzeugen
@@ -52,28 +52,9 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
         name.setText(item.getName());
 
-        final String imgPfad = item.getImgpath();
 
-        new Thread() {
+        logo.setImageResource(R.mipmap.ic_launcher);
 
-            public void run() {
-                URL url=null;
-                final ImageView logo2 = logo;
-                Bitmap image=null;
-                try {
-                   url = new URL(imgPfad);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    image = BitmapFactory.decodeStream(url.openStream());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                logo2.setImageBitmap(image);
-
-            }
-        }.start();
 
         beschreibung.setText(item.getDiscription());
 
