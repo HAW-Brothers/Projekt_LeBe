@@ -1,33 +1,28 @@
 package lebe.lebeprototyp02.gui.fragments;
 
-
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
 import lebe.lebeprototyp02.market.CVAMarket;
 import lebe.lebeprototyp02.market.MarketItem;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Höling on 13.11.2016.
  */
-public class StoreFragment extends Fragment {
+
+public class MarketFragment extends Fragment {
 
     private ListView marketview;
-    private ArrayList<MarketItem> datensatz = new ArrayList<>();
+    private ArrayList<MarketItem> datensatz;
 
-
-    public StoreFragment() {
+    public MarketFragment() {
         // Required empty public constructor
     }
 
@@ -45,12 +40,6 @@ public class StoreFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        MarketItem item = new MarketItem();
-        item.setName("hallo");
-        item.setDiscription("beschreibung");
-        item.setImgpath("https://de.wikipedia.org/wiki/Federal_Bureau_of_Investigation#/media/File:Federal_Bureau_of_Investigation.svg");
-        datensatz.add(item);
-
         marketview = (ListView) getView().findViewById(R.id.listview_market);
 
         CVAMarket adapter = new CVAMarket(this.getContext(),datensatz);
@@ -59,14 +48,6 @@ public class StoreFragment extends Fragment {
 
     }
 
-
-    private class MyBrowser extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
 
 
 }

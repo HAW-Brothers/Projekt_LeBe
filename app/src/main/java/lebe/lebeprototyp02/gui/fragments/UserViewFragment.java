@@ -78,6 +78,8 @@ public class UserViewFragment extends Fragment {
         if(resultSet.moveToFirst()){
 
 
+
+
             String username = resultSet.getString(0);
             String password = resultSet.getString(1);
 

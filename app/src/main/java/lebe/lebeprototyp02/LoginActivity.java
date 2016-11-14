@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity{
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
-        emailFeld.setText(getEmail());
+        //emailFeld.setText(getEmail());
         passwordFeld = (EditText)findViewById(R.id.login_password);
         loginButton = (Button)findViewById(R.id.login_button);
 
