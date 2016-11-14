@@ -99,7 +99,7 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
         name.setText(item.getName());
 
-        Picasso.with(getContext()).load(item.getImgpath()).into(logo);
+        Picasso.with(getContext()).load(item.getImgpath()).resize(256,256).centerCrop().into(logo);
 
         //logo.setImageResource(R.mipmap.ic_launcher);
 
