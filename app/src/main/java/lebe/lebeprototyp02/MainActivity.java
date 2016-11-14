@@ -16,6 +16,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import lebe.lebeprototyp02.gui.control.PagerAdapter;
 
+import static lebe.lebeprototyp02.R.styleable.PagerSlidingTabStrip;
+
 
 public class MainActivity extends AppCompatActivity {
     /*

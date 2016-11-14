@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import lebe.lebeprototyp02.R;
@@ -30,10 +37,14 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
     private ArrayList<MarketItem> itemListe;
 
 
+
     public CVAMarket(Context context, ArrayList<MarketItem> liste) {
         super(context, R.layout.market_single_item, liste);
         mContext = context;
         itemListe= liste;
+
+
+
     }
     public View getView(int position, View convertview, ViewGroup parent){
 
@@ -52,8 +63,9 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
         name.setText(item.getName());
 
+        Picasso.with(getContext()).load(item.getImgpath()).into(logo);
 
-        logo.setImageResource(R.mipmap.ic_launcher);
+        //logo.setImageResource(R.mipmap.ic_launcher);
 
 
         beschreibung.setText(item.getDiscription());
@@ -64,4 +76,7 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
         return rowViev;
     }
+
+
+
 }
