@@ -80,7 +80,7 @@ public class StoreFragment extends Fragment {
 
     }
 
-
+    //--
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
     public class TestAsyncTask extends AsyncTask<Void, Void, String> {
