@@ -59,7 +59,7 @@ public class Market extends AppCompatActivity {
                             //an das JSON anpassen!!!
                             appObject.getString("pfadBild"),
                             appObject.getString("name"),
-                            appObject.getString("pfadApp")
+                            appObject.getString("beschreibung")
 
                     ));
                 }
