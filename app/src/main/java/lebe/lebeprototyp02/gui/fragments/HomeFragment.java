@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.util.List;
 import lebe.lebeprototyp02.ApplicationDetail;
 import lebe.lebeprototyp02.MessageBroker;
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.gui.control.GUIController;
 
 
 /**
@@ -33,10 +35,13 @@ public class HomeFragment extends Fragment {
 
     private List<ApplicationDetail> applications;
     private TableLayout tl;
+    private String gender;
+    private GUIController guiController;
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
+
 
 
     @Override
@@ -44,6 +49,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        guiController.updateView(view);
+        guiController.handelFragmentHome();
 
         /*
         Das ListView ist rausgewandert, weil es keine Plugin Icons + Plugin Text anzeigen kann.
@@ -61,6 +69,7 @@ public class HomeFragment extends Fragment {
         tl = (TableLayout) view.findViewById(R.id.table);
         tl.setVisibility(View.VISIBLE);
         loadApplication();
+        List<TableRow> tableRows = new ArrayList<TableRow>();
 
         for(int i = 0 ; i< applications.size() ; i++){
             final TableRow toAdd = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow, null);
@@ -88,7 +97,18 @@ public class HomeFragment extends Fragment {
                 }
             } );
 
+            TableLayout.LayoutParams tableRowParams=
+                    new TableLayout.LayoutParams();
+
+            tableRowParams.setMargins(0, 0, 0, 25);
+
+            toAdd.setLayoutParams(tableRowParams);
+
+            tableRows.add(toAdd);
         }
+
+        this.guiController.handleTableRow(tableRows);
+
 
         tl.setClickable(true);
 
@@ -136,6 +156,10 @@ public class HomeFragment extends Fragment {
                     resolveInfo.activityInfo.loadIcon(packageManager));
             applications.add(applicationDetail);
         }
+    }
+
+    public void setGUIController(GUIController controller){
+        this.guiController = controller;
     }
 
 }

@@ -2,6 +2,7 @@ package lebe.lebeprototyp02;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.guiController = new GUIController(this, this.getApplicationContext(), this.findViewById(android.R.id.content).getRootView());
-        guiController.handleMainInterface("female");
+        this.guiController = new GUIController(this.findViewById(android.R.id.content).getRootView(), "female");
+        guiController.handleMainInterface();
 
         /*
         b1 = (Button) findViewById(R.id.b1);
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         GUI
          */
         viewPager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), this.guiController);
         pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
         viewPager.setAdapter(pagerAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);

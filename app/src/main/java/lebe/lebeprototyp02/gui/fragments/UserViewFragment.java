@@ -53,8 +53,8 @@ public class UserViewFragment extends Fragment {
             }
         });
 
-        this.guiController = new GUIController(view);
-        guiController.handleFragmentSettings("female");
+        guiController.updateView(view);
+        guiController.handleFragmentSettings();
 
 
         // Inflate the layout for this fragment
@@ -137,6 +137,10 @@ public class UserViewFragment extends Fragment {
 
 
 
+    }
+
+    public void setGUIController(GUIController controller){
+        this.guiController = controller;
     }
 
 }

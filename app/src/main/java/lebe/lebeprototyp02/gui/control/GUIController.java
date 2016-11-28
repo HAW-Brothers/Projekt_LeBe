@@ -9,8 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 
 import com.astuetz.PagerSlidingTabStrip;
+
+import java.io.Serializable;
+import java.util.List;
 
 import lebe.lebeprototyp02.R;
 
@@ -18,35 +22,33 @@ import lebe.lebeprototyp02.R;
  * Created by Chris on 28.11.2016.
  */
 
-public class GUIController {
+public class GUIController implements Serializable{
 
-    private Activity activity;
     private Context context;
     private View view;
+    private String gender;
 
-
-    // Konstruktor für Activities
-    public GUIController(Activity activity, Context context, View view){
-        this.activity = activity;
-        this.context = context;
-        this.view = view;
-    }
-
-    // Konstruktor für Fragments
     public GUIController(View view){
         this.view = view;
         this.context = view.getContext();
     }
 
+    // Konstruktor für Fragments
+    public GUIController(View view, String gender){
+        this.view = view;
+        this.context = view.getContext();
+        this.gender = gender;
+    }
 
-    public void handleLoginInterface(String gender){
+
+    public void handleLoginInterface(){
         ScrollView scrollView1 = (ScrollView) view.findViewById(R.id.scrollView1);
         ImageView lebeLogo = (ImageView) view.findViewById(R.id.imageView2);
         Drawable logo;
         Button button_login = (Button) view.findViewById(R.id.login_button);
         Drawable buttin_login_drawable;
 
-        if(gender.equals("male")) {
+        if(this.gender.equals("male")) {
             scrollView1.setBackgroundColor(this.context.getResources().getColor(R.color.colorLebePrimaryBackground_Male));
 
             logo = this.context.getResources().getDrawable(R.drawable.logo_male);
@@ -55,7 +57,7 @@ public class GUIController {
             buttin_login_drawable = this.context.getResources().getDrawable(R.drawable.button_login_male);
             button_login.setBackground(buttin_login_drawable);
 
-        } else if (gender.equals("female")) {
+        } else if (this.gender.equals("female")) {
             scrollView1.setBackgroundColor(this.context.getResources().getColor(R.color.colorLebePrimaryBackground_Female));
 
             logo = this.context.getResources().getDrawable(R.drawable.logo_female);
@@ -71,14 +73,14 @@ public class GUIController {
 
     }
 
-    public void handleMainInterface(String gender){
+    public void handleMainInterface(){
         LinearLayout navigation = (LinearLayout) view.findViewById(R.id.navigation);
         PagerSlidingTabStrip slider = (PagerSlidingTabStrip) view.findViewById(R.id.PageSliderTabs);
         ImageView header_view = (ImageView) view.findViewById(R.id.header);
         Drawable header;
 
 
-        if(gender.equals("male")) {
+        if(this.gender.equals("male")) {
             navigation.setBackgroundColor(this.context.getResources().getColor(R.color.colorLebePrimaryBackground_Male));
             slider.setIndicatorColor(this.context.getResources().getColor(R.color.color_pageslider_indicator_male));
             slider.setBackgroundColor(this.context.getResources().getColor(R.color.colorLebePrimaryBackground_Male));
@@ -87,7 +89,7 @@ public class GUIController {
             header_view.setImageDrawable(header);
 
 
-        } else if (gender.equals("female")) {
+        } else if (this.gender.equals("female")) {
             slider.setBackgroundColor(this.context.getResources().getColor(R.color.colorLebePrimaryBackground_Female));
             slider.setIndicatorColor(this.context.getResources().getColor(R.color.color_pageslider_indicator_female));
             navigation.setBackgroundColor(this.context.getResources().getColor(R.color.colorLebePrimaryBackground_Female));
@@ -104,7 +106,8 @@ public class GUIController {
     }
 
 
-    public void handleFragmentSettings(String gender){
+    public void handleFragmentSettings(){
+
         EditText ed1 = (EditText) view.findViewById(R.id.userNameEdit);
         EditText ed2 = (EditText) view.findViewById(R.id.anzeigeNameEdit);
         EditText ed3 = (EditText) view.findViewById(R.id.passwortEdit);
@@ -115,7 +118,7 @@ public class GUIController {
 
 
 
-        if(gender.equals("male")) {
+        if(this.gender.equals("male")) {
             ed1.setBackground(this.context.getResources().getDrawable(R.drawable.edittext_user_view_male));
             ed2.setBackground(this.context.getResources().getDrawable(R.drawable.edittext_user_view_male));
             ed3.setBackground(this.context.getResources().getDrawable(R.drawable.edittext_user_view_male));
@@ -125,7 +128,7 @@ public class GUIController {
             button_login.setBackground(this.context.getResources().getDrawable(R.drawable.button_login_male));
 
 
-        } else if (gender.equals("female")) {
+        } else if (this.gender.equals("female")) {
             ed1.setBackground(this.context.getResources().getDrawable(R.drawable.edittext_user_view_female));
             ed2.setBackground(this.context.getResources().getDrawable(R.drawable.edittext_user_view_female));
             ed3.setBackground(this.context.getResources().getDrawable(R.drawable.edittext_user_view_female));
@@ -139,6 +142,41 @@ public class GUIController {
         }
 
     }
+
+    public void handleTableRow(List<TableRow> list){
+
+        if(gender.equals("male")) {
+
+            for(int i = 0; i < list.size() ; i++){
+                list.get(i).setBackground(this.context.getResources().getDrawable(R.drawable.table_row_bib_male));
+            }
+
+
+        } else if (gender.equals("female")) {
+
+            for(int i = 0; i < list.size() ; i++){
+                list.get(i).setBackground(this.context.getResources().getDrawable(R.drawable.table_row_bib_female));
+            }
+
+        } else {
+
+        }
+
+    }
+
+    public void handelFragmentHome(){
+
+    }
+
+    public void handleFragmentStore(){
+
+    }
+
+    public void updateView(View view){
+        this.view = view;
+        this.context = view.getContext();
+    }
+
 
 
 }

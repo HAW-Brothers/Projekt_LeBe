@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 
 import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.gui.control.GUIController;
 
 
 /**
@@ -19,6 +20,7 @@ import lebe.lebeprototyp02.R;
 public class StoreFragment extends Fragment {
 
     private WebView wv1;
+    private GUIController guiController;
 
 
     public StoreFragment() {
@@ -29,8 +31,13 @@ public class StoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false);
+        View view = inflater.inflate(R.layout.fragment_store, container, false);
+
+        guiController.updateView(view);
+        guiController.handelFragmentHome();
+
+
+        return view;
     }
 
 
@@ -61,6 +68,11 @@ public class StoreFragment extends Fragment {
             view.loadUrl(url);
             return true;
         }
+    }
+
+
+    public void setGUIController(GUIController controller){
+        this.guiController = controller;
     }
 
 

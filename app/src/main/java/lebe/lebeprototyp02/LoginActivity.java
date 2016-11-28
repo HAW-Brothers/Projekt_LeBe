@@ -33,10 +33,9 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
 
-        this.guiController = new GUIController(this, this.getApplicationContext(), this.findViewById(android.R.id.content).getRootView());
-        guiController.handleLoginInterface("female");
-
-
+        this.guiController = new GUIController(this.findViewById(android.R.id.content).getRootView(), "female");
+        guiController.handleLoginInterface();
+        // Übergabe dieses Objectes fehlt
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
