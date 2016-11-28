@@ -1,5 +1,6 @@
 package lebe.lebeprototyp02.market;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -86,9 +87,16 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
                 } catch (PackageManager.NameNotFoundException e) {
                     InstallAPK downloadAndInstall = new InstallAPK();
 
-
+//                    DownloadManager mgr =(DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+//                    Uri uri;
+//                    uri =Uri.parse("http://wfarm2.dataknet.com/static/resources/icons/set52/ba7285f0.png");
+//                    DownloadManager.Request request = new DownloadManager.Request(uri);
+//                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+//                    Long reference = mgr.enqueue(request);
                     downloadAndInstall.setContext(getContext());
-                    downloadAndInstall.execute("http://wfarm2.dataknet.com/static/resources/icons/set52/ba7285f0.png", "test.png");
+                    downloadAndInstall.execute("http://www.mediafire.com/file/4yoc0a6reoj5x52/com.bizoteam.mobilebox_1.0.3-103.apk", name.getText()+".apk");
+
+//                    downloadAndInstall.execute("http://www.droidbin.com/p1b132ioq216bb1acitjo1u3v100u5", "test.apk");
                 }
             }
 

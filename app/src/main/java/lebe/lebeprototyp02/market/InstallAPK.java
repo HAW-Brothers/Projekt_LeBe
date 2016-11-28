@@ -43,17 +43,21 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
             URL url = new URL(arg0[0]);
             HttpURLConnection c = (HttpURLConnection) url.openConnection();
             c.setRequestMethod("GET");
-            c.setDoOutput(true);
+            c.connect();
+//            c.setDoOutput(true);
 
 
             File sdcard = Environment.getExternalStorageDirectory();
 
 
-            File file = new File(sdcard.toString(), "test/"+arg0[1]);
-            file.mkdirs();
-            file.setWritable(true);
+            File file = new File(sdcard, "test/"+arg0[1]);
+            file.mkdir();
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            file.setExecutable(true);
+//            file.setWritable(true);
             file.setReadable(true);
-
+//            file.createNewFile();
 
             FileOutputStream fileOutput = new FileOutputStream(file);
             InputStream inputStream = c.getInputStream();
@@ -76,9 +80,13 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 
 
 
-//            File myDir = new File(sdcard,"temp2/"+arg0[1]);
+//            File myDir = context.getDir("Android/data/com.example.chris.lebeprototyp02", Context.MODE_PRIVATE);
+////            File myDir = new File(sdcard,"Android/data/com.example.chris.lebeprototyp02/");
+//            System.out.println("neues Verzeichnis soll erstellt werden");
+//            myDir.mkdir();
 //            myDir.mkdirs();
-//            File outputFile = new File(myDir, url.getFile());
+//            myDir.createNewFile();
+//            File outputFile = new File(myDir, arg0[1]);
 //            if(outputFile.exists()){
 //                outputFile.delete();
 //            }
@@ -95,10 +103,10 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            fos.close();
 //            is.close();
 //
-//            /*Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setDataAndType(Uri.fromFile(new File(sdcard,"Android/data/com.example.chris.lebeprototyp02.test/temp/"+url.getFile())), "application/vnd.android.package-archive");
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
-//            context.startActivity(intent);*/
+////            Intent intent = new Intent(Intent.ACTION_VIEW);
+////            intent.setDataAndType(Uri.fromFile(new File(sdcard,"Android/data/com.example.chris.lebeprototyp02/temp/"+arg0[1])), "application/vnd.android.package-archive");
+////            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
+////            context.startActivity(intent);
 //
 //
 //        } catch (FileNotFoundException fnfe) {
