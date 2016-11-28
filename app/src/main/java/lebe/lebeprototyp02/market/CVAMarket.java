@@ -78,7 +78,7 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
                 Intent i;
                 PackageManager manager = getContext().getPackageManager();
                 try {
-                    i = manager.getLaunchIntentForPackage("com.mycompany.mygame");
+                    i = manager.getLaunchIntentForPackage("lebe.lebeprototyp02");
                     if (i == null)
                         throw new PackageManager.NameNotFoundException();
                     i.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -88,7 +88,7 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
 
                     downloadAndInstall.setContext(getContext());
-                    downloadAndInstall.execute("http://www.droidbin.com/p1b1icah40r671fik11sm1uoq1eor3");
+                    downloadAndInstall.execute("http://wfarm2.dataknet.com/static/resources/icons/set52/ba7285f0.png", "test.png");
                 }
             }
 
