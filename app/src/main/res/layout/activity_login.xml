@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#0086EA">
+    android:id="@+id/scrollView1">
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,7 +18,7 @@
             android:layout_marginBottom="80dp"
             android:layout_width="146dp"
             android:layout_height="85dp"
-            app:srcCompat="@drawable/loginlogo01"
+            app:srcCompat="@drawable/logo_male"
             android:id="@+id/imageView2"
             android:layout_gravity="center"/>
 

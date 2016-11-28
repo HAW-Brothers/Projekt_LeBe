@@ -4,4 +4,4 @@
     android:layout_height="48dp"
     android:background="@drawable/table_row_bib"
     android:gravity="center_vertical"
-    android:padding="5dp" />
+    />

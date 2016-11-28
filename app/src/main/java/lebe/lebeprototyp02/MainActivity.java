@@ -15,6 +15,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import lebe.lebeprototyp02.gui.control.GUIController;
 import lebe.lebeprototyp02.gui.control.PagerAdapter;
 
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private PagerSlidingTabStrip pagerSlidingTabStrip;
+    GUIController guiController;
 
 
 
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.guiController = new GUIController(this, this.getApplicationContext(), this.findViewById(android.R.id.content).getRootView());
+        guiController.handleMainInterface("female");
+
         /*
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);

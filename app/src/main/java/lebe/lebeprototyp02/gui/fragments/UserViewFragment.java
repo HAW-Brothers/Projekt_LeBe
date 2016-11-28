@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.gui.control.GUIController;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -28,6 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class UserViewFragment extends Fragment {
 
     private SQLiteDatabase db;
+    private GUIController guiController;
 
     public UserViewFragment() {
         // Required empty public constructor
@@ -50,6 +52,9 @@ public class UserViewFragment extends Fragment {
                updateTodatabase(view);
             }
         });
+
+        this.guiController = new GUIController(view);
+        guiController.handleFragmentSettings("female");
 
 
         // Inflate the layout for this fragment

@@ -10,7 +10,10 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
+
+import lebe.lebeprototyp02.gui.control.GUIController;
 
 /**
  * Created by Höling on 23.10.2016.
@@ -22,14 +25,44 @@ public class LoginActivity extends AppCompatActivity{
     EditText passwordFeld;
     Button loginButton;
     SQLiteDatabase dataBase;
+    ScrollView sc;
+    GUIController guiController;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        this.guiController = new GUIController(this, this.getApplicationContext(), this.findViewById(android.R.id.content).getRootView());
+        guiController.handleLoginInterface("female");
+
+
+
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
+
+
+        /*
+        Je nachdem welcher User sich hier einloggt, soll das jewielige Design geladen werden
+         */
+           /*
+        Cursor resultSet = dataBase.rawQuery("Select * FROM UserProfile",null);
+        // Was ist, wenn die DB leer ist?
+        resultSet.moveToFirst();
+        String username = resultSet.getString(0);
+        System.out.println(username + "**************************************");
+        if (username.equals("TestUser1")){
+            System.out.println(username + "----------************+++++++++++++//////++++++++++");
+            setContentView(R.layout.activity_login_female);
+        } else {
+            System.out.println("************************************1: " + username);
+
+        }
+        */
+
+
+
 
         emailFeld = (EditText)findViewById(R.id.login_email);
         emailFeld.setText(getEmail());
@@ -62,6 +95,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
             }
         });
+
 
     }
     @Override

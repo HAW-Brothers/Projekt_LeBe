@@ -42,14 +42,9 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/table"
-                android:divider="?dividerVertical"
-                android:showDividers="middle"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:dividerPadding="50dp"
-                >
+                android:orientation="vertical">
 
             </TableLayout>
 
