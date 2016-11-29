@@ -50,8 +50,7 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        guiController.updateView(view);
-        guiController.handelFragmentHome();
+
 
         /*
         Das ListView ist rausgewandert, weil es keine Plugin Icons + Plugin Text anzeigen kann.
@@ -107,10 +106,18 @@ public class HomeFragment extends Fragment {
             tableRows.add(toAdd);
         }
 
-        this.guiController.handleTableRow(tableRows);
-
 
         tl.setClickable(true);
+
+
+        /*
+        GUIController guiController
+        Setzt das Design für das Fragment -CG
+         */
+        if(guiController != null){
+            guiController.handelFragmentHome(view, tableRows);
+        }
+
 
         return view;
     }

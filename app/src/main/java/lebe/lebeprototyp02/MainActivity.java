@@ -54,8 +54,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.guiController = new GUIController(this.findViewById(android.R.id.content).getRootView(), "female");
-        guiController.handleMainInterface();
+        /*
+        Nimmt das GUIController Object von der LoginActivity entgegen
+         */
+        guiController = (GUIController) getIntent().getSerializableExtra("gui");
+        /*
+        GUIController guiController
+        Setzt das Design für die Activity -CG
+         */
+        if(guiController != null){
+            guiController.handleMainInterface(getWindow().getDecorView().getRootView());
+        }
+
 
         /*
         b1 = (Button) findViewById(R.id.b1);

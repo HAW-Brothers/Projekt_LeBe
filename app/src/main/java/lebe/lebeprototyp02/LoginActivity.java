@@ -13,13 +13,15 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import lebe.lebeprototyp02.gui.control.GUIController;
 
 /**
  * Created by Höling on 23.10.2016.
  */
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
 
     EditText emailFeld;
     EditText passwordFeld;
@@ -32,10 +34,23 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
+        // entscheidet darüber welches Design der GUIController läd
+        this.guiController = new GUIController("female");
 
-        this.guiController = new GUIController(this.findViewById(android.R.id.content).getRootView(), "female");
-        guiController.handleLoginInterface();
-        // Übergabe dieses Objectes fehlt
+        /*
+        GUIController guiController
+        Setzt das Design für die Activity -CG
+         */
+        if(guiController != null){
+            guiController.handleLoginInterface(getWindow().getDecorView().getRootView());
+        }
+
+        // Übergibt das GUIController Object an das Intent. Dieses Intent wird beim start der
+        // MainActivity übergeben
+        final Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("gui", guiController);
+
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
@@ -86,7 +101,7 @@ public class LoginActivity extends AppCompatActivity{
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
                     finish();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);

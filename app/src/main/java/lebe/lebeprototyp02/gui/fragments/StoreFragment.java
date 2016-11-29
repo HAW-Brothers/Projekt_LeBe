@@ -33,8 +33,10 @@ public class StoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
-        guiController.updateView(view);
-        guiController.handelFragmentHome();
+        if(guiController != null){
+            guiController.handleFragmentStore(view);
+        }
+
 
 
         return view;

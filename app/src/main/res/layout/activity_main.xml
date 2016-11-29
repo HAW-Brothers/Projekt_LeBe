@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="0dp"
+        android:background="@color/colorLebePrimaryBackground_Male"
         >
 
         <ImageView
             android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="53dp"
-            app:srcCompat="@drawable/header_male"
+            app:srcCompat="@drawable/header_main"
             android:layout_weight="0.41"
             />
 

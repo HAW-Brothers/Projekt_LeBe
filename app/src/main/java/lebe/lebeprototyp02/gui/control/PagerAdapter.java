@@ -27,6 +27,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) { // Returns Fragment based on position
         switch (position) {
             case 0:
+                // Jedem Fragment muss der GUIController mit übergeben werden, damit das Design angepasst werden kann
                 HomeFragment f1 = new HomeFragment();
                 f1.setGUIController(this.guiController);
                 f = f1;

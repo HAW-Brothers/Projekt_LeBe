@@ -53,9 +53,14 @@ public class UserViewFragment extends Fragment {
             }
         });
 
-        guiController.updateView(view);
-        guiController.handleFragmentSettings();
 
+        /*
+        GUIController guiController
+        Setzt das Design für das Fragment -CG
+         */
+        if(guiController != null){
+            guiController.handleFragmentSettings(view);
+        }
 
         // Inflate the layout for this fragment
         return view;
