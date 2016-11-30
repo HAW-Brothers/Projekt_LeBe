@@ -65,6 +65,9 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
             byte[] buffer = new byte[1024];
             int bufferLength = 0;
 
+            Toast.makeText(context,"Downloade Daten",Toast.LENGTH_LONG).show();
+
+
             while ( (bufferLength = inputStream.read(buffer)) > 0 ) {
                 fileOutput.write(buffer, 0, bufferLength);
             }

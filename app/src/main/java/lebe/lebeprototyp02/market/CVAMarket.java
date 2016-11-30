@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -72,6 +73,8 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
         //MarketItem Objekt erzeugen
         MarketItem item = itemListe.get(position);
 
+        final String tempDateiname = item.getName();
+        final String tempdownload = item.getDdlpath();
 
         download.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +90,9 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
                 } catch (PackageManager.NameNotFoundException e) {
                     InstallAPK downloadAndInstall = new InstallAPK();
 
+
+//                    Toast.makeText(getContext(),"download?!",Toast.LENGTH_LONG).show();
+
 //                    DownloadManager mgr =(DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
 //                    Uri uri;
 //                    uri =Uri.parse("http://wfarm2.dataknet.com/static/resources/icons/set52/ba7285f0.png");
@@ -94,9 +100,9 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 //                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 //                    Long reference = mgr.enqueue(request);
                     downloadAndInstall.setContext(getContext());
-                    downloadAndInstall.execute("http://www.mediafire.com/file/4yoc0a6reoj5x52/com.bizoteam.mobilebox_1.0.3-103.apk", name.getText()+".apk");
+//                    downloadAndInstall.execute("http://www.mediafire.com/file/4yoc0a6reoj5x52/com.bizoteam.mobilebox_1.0.3-103.apk", "test.apk");
 
-//                    downloadAndInstall.execute("http://www.droidbin.com/p1b132ioq216bb1acitjo1u3v100u5", "test.apk");
+                    downloadAndInstall.execute(tempdownload, tempDateiname+".apk");
                 }
             }
 
