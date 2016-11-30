@@ -24,7 +24,9 @@ import java.net.URL;
 
 public class InstallAPK extends AsyncTask<String, Void, Void> {
 
-    private String pfad="LeBePlugins/";
+    private String pfad="Android/data/com.example.chris.lebeprototyp02/LeBePlugins/";
+//    private String pfad="LeBePlugins/";
+    private String name;
 
 
     ProgressDialog progressDialog;
@@ -42,6 +44,8 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... arg0) {
+
+        name=arg0[1];
         File sdcard = Environment.getExternalStorageDirectory();
         try {
 //            URL url = new URL(arg0[0]);
@@ -52,16 +56,18 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            c.setDoOutput(true);
 
 
-            sdcard = Environment.getExternalStorageDirectory();
+            sdcard = Environment.getExternalStorageDirectory().getAbsoluteFile();
 
 
+            File myDir = new File(sdcard,pfad);
             File file = new File(sdcard, pfad+arg0[1]);
-            file.mkdir();
-            file.getParentFile().mkdirs();
+            myDir.mkdirs();
+            myDir.getParentFile().mkdirs();
+            myDir.setWritable(true);
             file.createNewFile();
 
             file.setExecutable(true);
-//            file.setWritable(true);
+
             file.setReadable(true);
 //            file.createNewFile();
 
@@ -112,10 +118,7 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            fos.close();
 //            is.close();
 //
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setDataAndType(Uri.fromFile(new File(sdcard,pfad+arg0[1])), "application/vnd.android.package-archive");
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
-//            context.startActivity(intent);
+
 //
 //
 //        } catch (FileNotFoundException fnfe) {
@@ -131,6 +134,15 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
     }
 
     public void onPostExecute(Void unused) {
+
+        File sdcard = Environment.getExternalStorageDirectory().getAbsoluteFile();
+
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(sdcard,pfad+name)), "application/vnd.android.package-archive");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
+        context.startActivity(intent);
+
 
         if(status == 1)
             Toast.makeText(context,"APK Not Available",Toast.LENGTH_LONG).show();
