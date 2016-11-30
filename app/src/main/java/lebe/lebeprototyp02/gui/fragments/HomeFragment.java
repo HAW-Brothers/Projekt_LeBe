@@ -34,9 +34,8 @@ import lebe.lebeprototyp02.gui.control.GUIController;
 public class HomeFragment extends Fragment {
 
     private List<ApplicationDetail> applications;
-    private TableLayout tl;
-    private String gender;
-    private GUIController guiController;
+    private TableLayout tl;;
+    private List<TableRow> tableRows;
 
     public HomeFragment() {
 
@@ -68,7 +67,7 @@ public class HomeFragment extends Fragment {
         tl = (TableLayout) view.findViewById(R.id.table);
         tl.setVisibility(View.VISIBLE);
         loadApplication();
-        List<TableRow> tableRows = new ArrayList<TableRow>();
+        tableRows = new ArrayList<TableRow>();
 
         for(int i = 0 ; i< applications.size() ; i++){
             final TableRow toAdd = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow, null);
@@ -110,16 +109,13 @@ public class HomeFragment extends Fragment {
         tl.setClickable(true);
 
 
-        /*
-        GUIController guiController
-        Setzt das Design für das Fragment -CG
-         */
-        if(guiController != null){
-            guiController.handelFragmentHome(view, tableRows);
-        }
-
 
         return view;
+    }
+
+
+    public List<TableRow> getTablesRows(){
+        return this.tableRows;
     }
 
 
@@ -163,10 +159,6 @@ public class HomeFragment extends Fragment {
                     resolveInfo.activityInfo.loadIcon(packageManager));
             applications.add(applicationDetail);
         }
-    }
-
-    public void setGUIController(GUIController controller){
-        this.guiController = controller;
     }
 
 }

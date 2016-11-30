@@ -29,7 +29,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class UserViewFragment extends Fragment {
 
     private SQLiteDatabase db;
-    private GUIController guiController;
 
     public UserViewFragment() {
         // Required empty public constructor
@@ -54,13 +53,6 @@ public class UserViewFragment extends Fragment {
         });
 
 
-        /*
-        GUIController guiController
-        Setzt das Design für das Fragment -CG
-         */
-        if(guiController != null){
-            guiController.handleFragmentSettings(view);
-        }
 
         // Inflate the layout for this fragment
         return view;
@@ -144,8 +136,5 @@ public class UserViewFragment extends Fragment {
 
     }
 
-    public void setGUIController(GUIController controller){
-        this.guiController = controller;
-    }
 
 }

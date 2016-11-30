@@ -20,7 +20,6 @@ import lebe.lebeprototyp02.gui.control.GUIController;
 public class StoreFragment extends Fragment {
 
     private WebView wv1;
-    private GUIController guiController;
 
 
     public StoreFragment() {
@@ -32,12 +31,6 @@ public class StoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
-
-        if(guiController != null){
-            guiController.handleFragmentStore(view);
-        }
-
-
 
         return view;
     }
@@ -72,10 +65,6 @@ public class StoreFragment extends Fragment {
         }
     }
 
-
-    public void setGUIController(GUIController controller){
-        this.guiController = controller;
-    }
 
 
 }

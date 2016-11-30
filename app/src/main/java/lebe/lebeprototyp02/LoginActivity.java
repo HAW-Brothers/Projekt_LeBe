@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         // MainActivity übergeben
         final Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("gui", guiController);
+
 
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);

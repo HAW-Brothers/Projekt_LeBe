@@ -1,7 +1,10 @@
 package lebe.lebeprototyp02.gui.control;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +21,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.gui.fragments.HomeFragment;
+import lebe.lebeprototyp02.gui.fragments.StoreFragment;
+import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
 
 /**
- * Created by Chris on 28.11.2016.
+ * Created by Graumann on 28.11.2016.
+ * <br><br>
+ * Die Klasse GUIController ist dafür verantwortlich, dass das Design der Applikation angepasst wird <br>
+ * Dafür benötigt der GUIController das jeweils aktive View von der jeweiligen aktiven Activity oder Fragment<br>
+ * Jede Activity und jedes Fragment hat dafür seine eigene Methode
+ *
  */
 
 public class GUIController implements Serializable{
@@ -52,16 +63,42 @@ public class GUIController implements Serializable{
     private static String SETTINGS_DRAWABLE_BUTTON_FEMALE   = "button_female";
 
     static final long serialVersionUID = 42L;
-    private String gender;
+    private static String gender;
 
-    // Konstruktor für Fragments
+
+    /**
+     * Erstellt ein GUIController der auf einen Style fixiert wird
+     * @param gender - Gibt an, welchen Style der GUIController umsetzen soll
+     */
     public GUIController(String gender){
         this.gender = gender;
     }
 
+    public void updateGUIActivity(View view, Activity activity){
+        Class value = activity.getClass();
 
+
+    }
+
+    public void updateGUIFragment(View view, Fragment fragment){
+        Class value = fragment.getClass();
+
+        if(value.equals(HomeFragment.class)){
+            this.handelFragmentHome(view, (HomeFragment) fragment);
+
+        } else if(value.equals(StoreFragment.class)){
+            this.handleFragmentStore(view);
+
+        } else if(value.equals(UserViewFragment.class)){
+            this.handleFragmentSettings(view);
+        }
+    }
+
+    /**
+     * Test1 Test1 Test1 Test1 Test1
+     * @param view - Test2 Test2 Test2 Test2
+     */
     public void handleLoginInterface(View view){
-        Context context = view.getContext();
 
         if(this.gender.equals("male")) {
             this.handleLoginInterfaceHelper(view, LOGIN_COLOR_BACKGROUNG_MALE,
@@ -74,17 +111,18 @@ public class GUIController implements Serializable{
         } else {
 
         }
+
     }
 
     // Helper für handleLoginInterface
-    public void handleLoginInterfaceHelper(View view, String scrollViewColor, String lebeLogoDrawable, String buttonDrawable){
+    public void handleLoginInterfaceHelper(View view, String scrollViewColorBackground, String lebeLogoDrawable, String buttonDrawable){
         Context context = view.getContext();
 
         ScrollView scrollView1 = (ScrollView) view.findViewById(R.id.scrollView1);
         ImageView lebeLogo = (ImageView) view.findViewById(R.id.imageView2);
         Button button_login = (Button) view.findViewById(R.id.login_button);
 
-        scrollView1.setBackgroundColor(this.getColor(view, scrollViewColor));
+        scrollView1.setBackgroundColor(this.getColor(view, scrollViewColorBackground));
         lebeLogo.setImageDrawable(this.getDrawable(view, lebeLogoDrawable));
         button_login.setBackground(this.getDrawable(view, buttonDrawable));
 
@@ -147,7 +185,6 @@ public class GUIController implements Serializable{
         } else {
 
         }
-
     }
 
     // Hilfsfunktion: Identifiziert die EditText aus der SettingsView und speichert sie in eine ArrayList
@@ -205,7 +242,8 @@ public class GUIController implements Serializable{
     }
 
 
-    public void handelFragmentHome(View view, List<TableRow> list){
+    public void handelFragmentHome(View view, HomeFragment fragment){
+        List<TableRow> list = fragment.getTablesRows();
         Context context = view.getContext();
         this.handleTableRow(list, view);
 

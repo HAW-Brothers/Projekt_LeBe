@@ -1,12 +1,17 @@
 package lebe.lebeprototyp02;
 
+import android.app.Activity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -15,6 +20,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.List;
 
 import lebe.lebeprototyp02.gui.control.GUIController;
 import lebe.lebeprototyp02.gui.control.PagerAdapter;
@@ -65,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         if(guiController != null){
             guiController.handleMainInterface(getWindow().getDecorView().getRootView());
         }
+
+
+
 
 
         /*
@@ -159,6 +169,20 @@ public class MainActivity extends AppCompatActivity {
          */
         viewPager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), this.guiController);
+        final android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
+        viewPager.addOnLayoutChangeListener((new View.OnLayoutChangeListener() {
+
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+                if(guiController != null){
+                    guiController.updateGUIFragment(viewPager.getRootView().findViewById(R.id.pager),
+                            pagerAdapter.getActiveFragment(viewPager,fm , viewPager.getCurrentItem()));
+                }
+            }
+        }));
+
+
         pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
         viewPager.setAdapter(pagerAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);
