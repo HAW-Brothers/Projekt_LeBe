@@ -11,7 +11,6 @@ import android.webkit.WebViewClient;
 
 import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
-import lebe.lebeprototyp02.gui.control.GUIController;
 
 
 /**

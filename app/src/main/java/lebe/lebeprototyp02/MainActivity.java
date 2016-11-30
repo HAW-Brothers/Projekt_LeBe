@@ -40,14 +40,22 @@ public class MainActivity extends AppCompatActivity {
     */
 
 
-    /*
-    GUI
+     /**
+     * GUI - Container für die Fragments
      */
     private ViewPager viewPager;
+    /**
+     * GUI - Entscheidet, welche Navigatonspunkte vorhanden sind und welches Fragment dazu geladen wird
+     */
     private PagerAdapter pagerAdapter;
+    /**
+     * GUI - Navigationsleiste
+     */
     private PagerSlidingTabStrip pagerSlidingTabStrip;
-    GUIController guiController;
-
+    /**
+     * GUI - Setzt das gewähte Design um
+     */
+    private GUIController guiController;
 
 
     /**
@@ -60,20 +68,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-        Nimmt das GUIController Object von der LoginActivity entgegen
-         */
-        guiController = (GUIController) getIntent().getSerializableExtra("gui");
-        /*
-        GUIController guiController
-        Setzt das Design für die Activity -CG
-         */
-        if(guiController != null){
-            guiController.handleMainInterface(getWindow().getDecorView().getRootView());
-        }
-
-
 
 
 
@@ -160,33 +154,12 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-
-
-
-        /*
-        GUI
-         */
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), this.guiController);
-        final android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
-        viewPager.addOnLayoutChangeListener((new View.OnLayoutChangeListener() {
-
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-
-                if(guiController != null){
-                    guiController.updateGUIFragment(viewPager.getRootView().findViewById(R.id.pager),
-                            pagerAdapter.getActiveFragment(viewPager,fm , viewPager.getCurrentItem()));
-                }
-            }
-        }));
-
-
-        pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
-        viewPager.setAdapter(pagerAdapter);
-        pagerSlidingTabStrip.setViewPager(viewPager);
         startService(new Intent(this, MessageBroker.class));
+
+        /**
+         * GUI - Initialisierung - Startet hier
+         */
+        this.initializeGUI();
 
     }
 
@@ -232,6 +205,49 @@ public class MainActivity extends AppCompatActivity {
             view.loadUrl(url);
             return true;
         }
+    }
+
+    /**
+     * Initialisiert das Design und die Design-Elemente für die MainActivity.<br>
+     * Diese Methode nimmt den GUIController von der LoginActivity entgegen und setzt das Design für die MainActivity.<br>
+     * Außerdem wird die Navigationsleiste der MainActivity erstellt.
+     */
+    private void initializeGUI(){
+        /**
+         * Nimmt das GUIController Object von der LoginActivity entgegen
+         */
+        guiController = (GUIController) getIntent().getSerializableExtra("gui");
+
+        /**
+         * Setzt das Design für die Activity
+         */
+        if (guiController != null) {
+            guiController.updateGUI(getWindow().getDecorView().getRootView(), this);
+        }
+
+        /**
+         * Erstellt und Initiliasiert den ViewPager und setzt einen ChangeListener auf ihn, so dass bei jedem neugeladenen
+         * Fragment die GUI angepasst wird
+         */
+        this.viewPager = (ViewPager) findViewById(R.id.pager);
+        final android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
+        this.viewPager.addOnLayoutChangeListener((new View.OnLayoutChangeListener() {
+
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+                if (guiController != null) {
+                    guiController.updateGUI(getWindow().getDecorView().getRootView(), pagerAdapter.getActiveFragment(viewPager, fm, viewPager.getCurrentItem()));
+                }
+            }
+        }));
+
+        this.pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
+
+        this.pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        this.viewPager.setAdapter(pagerAdapter);
+        this.pagerSlidingTabStrip.setViewPager(viewPager);
+
     }
 
     /*

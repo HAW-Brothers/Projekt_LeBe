@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import lebe.lebeprototyp02.R;
-import lebe.lebeprototyp02.gui.control.GUIController;
 
 import static android.content.Context.MODE_PRIVATE;
 

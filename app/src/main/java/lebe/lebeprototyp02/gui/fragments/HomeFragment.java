@@ -25,7 +25,7 @@ import java.util.List;
 import lebe.lebeprototyp02.ApplicationDetail;
 import lebe.lebeprototyp02.MessageBroker;
 import lebe.lebeprototyp02.R;
-import lebe.lebeprototyp02.gui.control.GUIController;
+
 
 
 /**

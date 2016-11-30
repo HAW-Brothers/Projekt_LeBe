@@ -3,9 +3,7 @@ package lebe.lebeprototyp02;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
@@ -13,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
-import java.io.Serializable;
 
 import lebe.lebeprototyp02.gui.control.GUIController;
 
@@ -29,56 +25,23 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     SQLiteDatabase dataBase;
     ScrollView sc;
-    GUIController guiController;
+    /**
+     * GUI - Setzt das gewähte Design um
+     */
+    private GUIController guiController;
+    /**
+     * GUI - Intent, um den GUIController an die MainActivity zu übergeben
+     */
+    private Intent intent;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
-        // entscheidet darüber welches Design der GUIController läd
-        this.guiController = new GUIController("female");
-
-        /*
-        GUIController guiController
-        Setzt das Design für die Activity -CG
-         */
-        if(guiController != null){
-            guiController.handleLoginInterface(getWindow().getDecorView().getRootView());
-        }
-
-        // Übergibt das GUIController Object an das Intent. Dieses Intent wird beim start der
-        // MainActivity übergeben
-        final Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("gui", guiController);
-
-
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
-
-
-        /*
-        Je nachdem welcher User sich hier einloggt, soll das jewielige Design geladen werden
-         */
-           /*
-        Cursor resultSet = dataBase.rawQuery("Select * FROM UserProfile",null);
-        // Was ist, wenn die DB leer ist?
-        resultSet.moveToFirst();
-        String username = resultSet.getString(0);
-        System.out.println(username + "**************************************");
-        if (username.equals("TestUser1")){
-            System.out.println(username + "----------************+++++++++++++//////++++++++++");
-            setContentView(R.layout.activity_login_female);
-        } else {
-            System.out.println("************************************1: " + username);
-
-        }
-        */
-
-
-
 
         emailFeld = (EditText)findViewById(R.id.login_email);
         emailFeld.setText(getEmail());
@@ -96,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
                     finish();
-                    //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
                     startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
@@ -111,6 +75,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        /**
+         * GUI - Initialisierung - Startet hier
+         */
+        this.initializeIntent();
+        this.initializeGUI();
 
 
     }
@@ -174,4 +145,37 @@ public class LoginActivity extends AppCompatActivity {
 
      return temp;
     }
+
+    /**
+     * GUI - GUIContoller - Initialisierung.<br>
+     * Erstellt den GUIController, setzt das Design für die LoginActivity und verpackt denn
+     * GUIController in den Intent für die MainActivity.
+     */
+    private void initializeGUI(){
+        /**
+         * Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
+         * entscheidet darüber welches Design der GUIController läd
+         */
+        this.guiController = new GUIController("female");
+
+        /**
+         * Setzt das Design für die Activity
+         */
+        if(guiController != null){
+            guiController.updateGUI(getWindow().getDecorView().getRootView(), this);
+        }
+
+        /**
+         * Verpackt den GUIController in den Intent, damit er an die MainActivity gesendet werden kann
+         */
+        this.intent.putExtra("gui", guiController);
+    }
+
+    /**
+     * Initialisiert den Intent für die MainActivity.
+     */
+    private void initializeIntent(){
+        this.intent = new Intent(this, MainActivity.class);
+    }
+
 }
