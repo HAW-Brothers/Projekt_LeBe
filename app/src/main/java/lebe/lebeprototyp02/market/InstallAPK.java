@@ -23,6 +23,10 @@ import java.net.URL;
  */
 
 public class InstallAPK extends AsyncTask<String, Void, Void> {
+
+    private String pfad="LeBePlugins/";
+
+
     ProgressDialog progressDialog;
     int status = 0;
 
@@ -38,6 +42,7 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... arg0) {
+        File sdcard = Environment.getExternalStorageDirectory();
         try {
 //            URL url = new URL(arg0[0]);
             URL url = new URL(arg0[0]);
@@ -47,10 +52,10 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            c.setDoOutput(true);
 
 
-            File sdcard = Environment.getExternalStorageDirectory();
 
 
-            File file = new File(sdcard, "test/"+arg0[1]);
+
+            File file = new File(sdcard, pfad+arg0[1]);
             file.mkdir();
             file.getParentFile().mkdirs();
             file.createNewFile();
@@ -106,10 +111,10 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            fos.close();
 //            is.close();
 //
-////            Intent intent = new Intent(Intent.ACTION_VIEW);
-////            intent.setDataAndType(Uri.fromFile(new File(sdcard,"Android/data/com.example.chris.lebeprototyp02/temp/"+arg0[1])), "application/vnd.android.package-archive");
-////            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
-////            context.startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(new File(sdcard,pfad+arg0[1])), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
+            context.startActivity(intent);
 //
 //
 //        } catch (FileNotFoundException fnfe) {

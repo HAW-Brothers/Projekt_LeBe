@@ -144,6 +144,7 @@ public class TestAsyncTask extends AsyncTask<Void, Void, String> {
 
                 tempItem.setName(c.getString("name"));
                 tempItem.setDiscription(c.getString("pfadApp"));
+                tempItem.setDdlpath(c.getString("pfadApp"));
                 datensatz.add(tempItem);
 
             }

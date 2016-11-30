@@ -146,6 +146,7 @@ public class StoreFragment extends Fragment {
                     item.setName(json.getString("name"));
                     item.setDiscription(json.getString("beschreibung"));
                     item.setImgpath(json.getString("pfadBild"));
+                    item.setDdlpath(json.getString("pfadApp"));
                     datensatz.add(item);
 
 
