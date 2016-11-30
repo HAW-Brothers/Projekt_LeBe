@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -67,7 +69,7 @@ public class UserViewFragment extends Fragment {
         //db.execSQL("DROP TABLE IF EXISTS UserProfile");
 
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
+//        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
         //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername');");
 
         //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
@@ -88,6 +90,8 @@ public class UserViewFragment extends Fragment {
             String anzeigeName = resultSet.getString(4);
             String email = resultSet.getString(5);
 
+            String rememberMe = resultSet.getString(7);
+
             EditText usernameEdit = (EditText) getView().findViewById(R.id.userNameEdit);
             usernameEdit.setText(username);
             usernameEdit.setEnabled(false);
@@ -104,6 +108,30 @@ public class UserViewFragment extends Fragment {
             EditText emailEdit = (EditText)getView().findViewById(R.id.editEmail);
             emailEdit.setText(email);
 
+            CheckBox remember = (CheckBox)getView().findViewById(R.id.checkBoxRemember);
+            if (rememberMe.equals("true")){
+                remember.setChecked(true);
+            }else{
+                remember.setChecked(false);
+            }
+
+            remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(buttonView.isChecked()){
+                        //hier in der Datenbank ändern
+
+                        System.out.println("merken");
+
+                    }else{
+                        //ist nicht gecheckt
+                        System.out.println("nicht mehr merken");
+
+                    }
+                }
+            });
+
+
         }else{
             db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
@@ -119,7 +147,19 @@ public class UserViewFragment extends Fragment {
 
         EditText anzeigename = (EditText) getView().findViewById(R.id.anzeigeNameEdit);
         EditText emailAdresse = (EditText)getView().findViewById(R.id.editEmail);
-        String query = "UPDATE UserProfile SET AnzeigeName='"+anzeigename.getText().toString()+"', Email='"+emailAdresse.getText().toString()+"';";
+        CheckBox remember = (CheckBox) getView().findViewById(R.id.checkBoxRemember);
+
+
+        String rememberMe="false";
+        if(remember.isChecked()){
+            rememberMe="true";
+        }else{
+            rememberMe="false";
+        }
+
+
+
+        String query = "UPDATE UserProfile SET AnzeigeName='"+anzeigename.getText().toString()+"', Email='"+emailAdresse.getText().toString()+"', Remember='"+rememberMe+"';";
         db.execSQL(query);
         Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
         toast.show();

@@ -52,13 +52,14 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            c.setDoOutput(true);
 
 
-
+            sdcard = Environment.getExternalStorageDirectory();
 
 
             File file = new File(sdcard, pfad+arg0[1]);
             file.mkdir();
             file.getParentFile().mkdirs();
             file.createNewFile();
+
             file.setExecutable(true);
 //            file.setWritable(true);
             file.setReadable(true);
@@ -70,7 +71,7 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
             byte[] buffer = new byte[1024];
             int bufferLength = 0;
 
-            Toast.makeText(context,"Downloade Daten",Toast.LENGTH_LONG).show();
+
 
 
             while ( (bufferLength = inputStream.read(buffer)) > 0 ) {
@@ -111,10 +112,10 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 //            fos.close();
 //            is.close();
 //
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(sdcard,pfad+arg0[1])), "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
-            context.startActivity(intent);
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setDataAndType(Uri.fromFile(new File(sdcard,pfad+arg0[1])), "application/vnd.android.package-archive");
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // without this flag android returned a intent error!
+//            context.startActivity(intent);
 //
 //
 //        } catch (FileNotFoundException fnfe) {

@@ -30,12 +30,15 @@ public class LoginActivity extends AppCompatActivity{
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
         //wird zum resetten benutzt
-      if(true){
+      if(false){
           dataBase.execSQL("DROP TABLE UserProfile;");
-          dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER);");
-          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'));");
-          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'));");
+          dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN);");
+          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'),'true');");
+          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'),'true');");
       }
+
+
+        autoLogin();
 
         dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER);");
 
@@ -61,9 +64,7 @@ public class LoginActivity extends AppCompatActivity{
                 if(validate()){
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
-                    finish();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    login();
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
                     toast.show();
@@ -141,6 +142,35 @@ public class LoginActivity extends AppCompatActivity{
     private void aktualisiereLastLogin(String email){
 
         dataBase.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email ='"+email+"';");
+
+
+    }
+    private void login(){
+        finish();
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+
+    }
+    private void autoLogin(){
+
+        String tempMail="";
+        String tempRemeber="";
+        Cursor resultSet = dataBase.rawQuery("Select Email, Password, Remember,LastLogin FROM UserProfile ORDER BY LastLogin DESC",null);
+
+
+
+        if(resultSet.moveToFirst()){
+            tempMail=resultSet.getString(0);
+            tempRemeber=resultSet.getString(2);
+
+        }
+
+        if(!(tempMail.equals("")) && tempRemeber.equals("true")){
+
+            aktualisiereLastLogin(tempMail);
+            login();
+        }
+
 
 
     }

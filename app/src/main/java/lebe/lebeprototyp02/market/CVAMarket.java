@@ -102,7 +102,7 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
                     downloadAndInstall.setContext(getContext());
 //                    downloadAndInstall.execute("http://www.mediafire.com/file/4yoc0a6reoj5x52/com.bizoteam.mobilebox_1.0.3-103.apk", "test.apk");
 
-                    System.out.println(tempdownload);
+//                    System.out.println(tempdownload);
 //                    tempdownload.replaceAll("\\","");
                     System.out.println(tempdownload);
                     downloadAndInstall.execute(tempdownload, tempDateiname+".apk");
