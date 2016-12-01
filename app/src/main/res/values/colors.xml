@@ -12,6 +12,7 @@
 
     <!-- GUI - Male Colors -->
     <!-- General -->
+    <color name="colorTextWhite">#FFFFFF</color>
     <color name="colorLebePrimaryBackground_Male">#0086EA</color>
 
     <!-- Login -->

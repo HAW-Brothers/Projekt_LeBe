@@ -1,13 +1,18 @@
 package lebe.lebeprototyp02.gui.fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +20,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import lebe.lebeprototyp02.ApplicationDetail;
 import lebe.lebeprototyp02.MessageBroker;
@@ -47,7 +55,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
 
@@ -69,7 +77,7 @@ public class HomeFragment extends Fragment {
         loadApplication();
         tableRows = new ArrayList<TableRow>();
 
-        for(int i = 0 ; i< applications.size() ; i++){
+        for(int i = 0; i< applications.size() ; i++){
             final TableRow toAdd = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow, null);
             //TableRow toAdd = new TableRow(getActivity());
 
@@ -77,8 +85,9 @@ public class HomeFragment extends Fragment {
             pluginIcon.setImageDrawable(applications.get(i).getIcon());
             toAdd.addView(pluginIcon);
 
+            final String name = applications.get(i).getLabel().toString();
             TextView pluginName = new TextView(getActivity());
-            pluginName.setText(applications.get(i).getLabel().toString());
+            pluginName.setText(name);
 
 
             toAdd.addView(pluginName);
@@ -94,6 +103,26 @@ public class HomeFragment extends Fragment {
 
                 }
             } );
+
+            toAdd.setLongClickable(true);
+
+            toAdd.setOnLongClickListener(new View.OnLongClickListener() {
+
+                @Override
+                public boolean onLongClick(View v) {
+                    System.out.println("6666++59+59+8*+/*-/*-*-*-*-*-**--: " + "LOOOOONG CLICK");
+
+                    showPopup(v, name);
+
+                    return false;
+                }
+            } );
+
+            System.out.println("6666++59+59+8*+/*-/*-*-*-*-*-**--: " + toAdd.isLongClickable());
+
+
+
+
 
             TableLayout.LayoutParams tableRowParams=
                     new TableLayout.LayoutParams();
@@ -111,6 +140,59 @@ public class HomeFragment extends Fragment {
 
 
         return view;
+    }
+
+
+    public void showPopup(View anchorView, String pluginName) {
+
+        /**
+         * Abspeicherung der Favoriten
+         */
+        /*
+        // Teil 1
+        SharedPreferences prefs=this.getActivity().getSharedPreferences("yourPrefsKey",Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit=prefs.edit();
+
+        Set<String> set = new HashSet<String>();
+
+        set.add("Test");
+        edit.putStringSet("yourKey", set);
+        edit.commit();
+
+        // Teil 2
+        Set<String> set = prefs.getStringSet("yourKey", null);
+        List<String> sample=new ArrayList<String>(set);
+
+        System.out.println("56665565615156>>>>>>>>>>>>>>>>>>: " + sample.get(0));
+        */
+
+
+
+        View popupView = getActivity().getLayoutInflater().inflate(R.layout.home_bibliothek_popup, null);
+
+        PopupWindow popupWindow = new PopupWindow(popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        TextView pluginNameTextView = (TextView) popupView.findViewById(R.id.popup_bib_textView);
+
+        pluginNameTextView.setText(pluginName);
+
+
+        // If the PopupWindow should be focusable
+        popupWindow.setFocusable(true);
+
+        // If you need the PopupWindow to dismiss when when touched outside
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+
+        int location[] = new int[2];
+
+        // Get the View's(the one that was clicked in the Fragment) location
+        anchorView.getLocationOnScreen(location);
+
+        // Using location, the PopupWindow will be displayed right under anchorView
+
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER,
+                0, 0);
     }
 
 

@@ -27,9 +27,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserView"
-            android:label="@string/app_name" />
-        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 

@@ -67,14 +67,15 @@ public class GUIController implements Serializable{
     private static String SETTINGS_DRAWABLE_BUTTON_FEMALE   = "button_female";
 
     private static final long serialVersionUID = 42L;
-    private final String gender;
-
+    private final GUIStyles gender;
+    private final GUIStyles MALE = GUIStyles.MALE;
+    private final GUIStyles FEMALE = GUIStyles.FEMALE;
 
     /**
      * Erstellt ein GUIController der auf ein Style fixiert wird.
      * @param gender Gibt an, welchen Style der GUIController umsetzen soll
      */
-    public GUIController(String gender){
+    public GUIController(GUIStyles gender){
         this.gender = gender;
     }
 
@@ -142,11 +143,11 @@ public class GUIController implements Serializable{
     private void handleLoginInterface(View view){
         this.verifyArguments(view);
 
-        if(this.gender.equals("male")) {
+        if(this.gender.equals(MALE)) {
             this.handleLoginInterfaceHelper(view, LOGIN_COLOR_BACKGROUNG_MALE,
                     LOGIN_DRAWABLE_LOGO_MALE, LOGIN_DRAWABLE_BUTTON_MALE);
 
-        } else if (this.gender.equals("female")) {
+        } else if (this.gender.equals(FEMALE)) {
             this.handleLoginInterfaceHelper(view, LOGIN_COLOR_BACKGROUNG_FEMALE,
                     LOGIN_DRAWABLE_LOGO_FEMALE, LOGIN_DRAWABLE_BUTTON_FEMALE);
 
@@ -188,12 +189,12 @@ public class GUIController implements Serializable{
 
         Context context = view.getContext();
 
-        if(this.gender.equals("male")) {
+        if(this.gender.equals(MALE)) {
             this.handleMainInterfaceHelper(view, MAIN_COLOR_NAVIGATION_MALE,
                     MAIN_COLOR_SLIDER_INDICATOR_MALE, MAIN_COLOR_SLIDER_BACKGROUND_MALE,
                     MAIN_DRAWABLE_HEADER_MALE);
 
-        } else if (this.gender.equals("female")) {
+        } else if (this.gender.equals(FEMALE)) {
             this.handleMainInterfaceHelper(view, MAIN_COLOR_NAVIGATION_FEMALE,
                     MAIN_COLOR_SLIDER_INDICATOR_FEMALE, MAIN_COLOR_SLIDER_BACKGROUND_FEMALE,
                     MAIN_DRAWABLE_HEADER_FEMALE);
@@ -243,12 +244,12 @@ public class GUIController implements Serializable{
 
         ArrayList<EditText> editTexts = this.handleFragmentSettingsEditTextIdentifier(view, editTextLabels);
 
-        if(this.gender.equals("male")) {
+        if(this.gender.equals(MALE)) {
             handleFragmentSettingsHelper(view, editTexts, SETTINGS_DRAWABLE_EDITTEXT_MALE,
                     SETTINGS_DRAWABLE_BUTTON_MALE);
 
 
-        } else if (this.gender.equals("female")) {
+        } else if (this.gender.equals(FEMALE)) {
             handleFragmentSettingsHelper(view, editTexts, SETTINGS_DRAWABLE_EDITTEXT_FEMALE,
                     SETTINGS_DRAWABLE_BUTTON_FEMALE);
 
@@ -326,10 +327,10 @@ public class GUIController implements Serializable{
 
         Context context = view.getContext();
 
-        if(gender.equals("male")) {
+        if(gender.equals(MALE)) {
             this.handleTableRowHelper(view, list, HOME_DRAWABLE_TABLEROW_MALE);
 
-        } else if (gender.equals("female")) {
+        } else if (gender.equals(FEMALE)) {
             this.handleTableRowHelper(view, list, HOME_DRAWABLE_TABLEROW_FEMALE);
 
         } else {

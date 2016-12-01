@@ -23,8 +23,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by Höling on 23.10.2016. Weitere Bearbeitung Graumann.
+ * Zeigt das Userprofil an. Die Daten werden aus der lokalen Datenbank geladen. *
+ * */
 public class UserViewFragment extends Fragment {
 
     private SQLiteDatabase db;
