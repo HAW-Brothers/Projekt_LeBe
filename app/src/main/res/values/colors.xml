@@ -9,4 +9,37 @@
     <color name="colorGrey">#A6A6A6</color>
     <color name="colorLebeLightBlue">#0086EA</color>
 
+
+    <!-- GUI - Male Colors -->
+    <!-- General -->
+    <color name="colorTextWhite">#FFFFFF</color>
+    <color name="colorLebePrimaryBackground_Male">#0086EA</color>
+
+    <!-- Login -->
+    <!-- Button - Login -->
+    <color name="color_button_login_pressed_false_start_male">#1F4E79</color>
+    <color name="color_button_login_pressed_false_end_male">#004F81</color>
+    <color name="color_button_login_pressed_true_male">#276398</color>
+
+    <!-- Main -->
+    <!-- PageSlider -->
+    <color name="color_pageslider_indicator_male">#045FB4</color>
+
+
+    <!-- GUI - Female Colors -->
+    <!-- General -->
+    <color name="colorLebePrimaryBackground_Female">#AD5A7A</color>
+    <color name="color_lebe_pramary_dark_female">#6C384C</color>
+
+    <!-- Login -->
+    <!-- Button - Login -->
+    <color name="color_button_login_pressed_false_start_female">#562C3C</color>
+    <color name="color_button_login_pressed_false_end_female">#6C384C</color>
+    <color name="color_button_login_pressed_true_female">#562C3C</color>
+
+    <!-- Main -->
+    <!-- PageSlider -->
+    <color name="color_pageslider_indicator_female">#6C384C</color>
+
+
 </resources>

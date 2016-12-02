@@ -5,4 +5,11 @@
     <dimen name="userView_line_marginTop">16dp</dimen>
     <dimen name="userView_line_marginBottom">16dp</dimen>
 
+    <dimen name="standard_marging">5dp</dimen>
+
+
+
+    <dimen name="popup_bib_width">250dp</dimen>
+    <dimen name="popup_bib_height">100dp</dimen>
+
 </resources>

@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="0dp"
+        android:background="@color/colorLebePrimaryBackground_Male"
         >
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="53dp"
-            app:srcCompat="@drawable/lebenewlogo"
+            app:srcCompat="@drawable/header_main"
             android:layout_weight="0.41"
             />
 
@@ -29,7 +30,7 @@
             android:layout_height="48dp"
             android:background="#0086EA"
             android:textColor="#FFFFFF"
-            app:pstsIndicatorColor="#045FB4"
+            app:pstsIndicatorColor="@color/color_pageslider_indicator_male"
             app:pstsIndicatorHeight="4dp"
             app:pstsShouldExpand="true"
             app:pstsUnderlineHeight="0dp"/>

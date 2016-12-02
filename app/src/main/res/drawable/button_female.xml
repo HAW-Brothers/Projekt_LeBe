@@ -6,8 +6,8 @@
     <item android:state_pressed="false">
         <shape>
             <gradient
-                android:startColor="#1F4E79"
-                android:endColor="#004F81"
+                android:startColor="@color/color_button_login_pressed_false_start_female"
+                android:endColor="@color/color_button_login_pressed_false_end_female"
                 android:angle="270" />
 
         <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp"
@@ -18,8 +18,8 @@
     <item android:state_pressed="true" >
         <shape>
             <gradient
-                android:startColor="#276398"
-                android:endColor="#276398"
+                android:startColor="@color/color_button_login_pressed_true_female"
+                android:endColor="@color/color_button_login_pressed_true_female"
                 android:angle="270" />
 
         <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp"
