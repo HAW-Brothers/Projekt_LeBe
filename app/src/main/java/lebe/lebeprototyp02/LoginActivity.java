@@ -32,13 +32,12 @@ public class LoginActivity extends AppCompatActivity{
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
         //wird zum resetten benutzt
-      if(false){
-          dataBase.execSQL("DROP TABLE UserProfile;");
+      if(true){
+          dataBase.execSQL("DROP TABLE IF EXISTS UserProfile;");
           dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
           dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'),'false', 'test', 'true');");
           dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'),'false', 'test', 'false');");
       }
-
 
         autoLogin();
 
