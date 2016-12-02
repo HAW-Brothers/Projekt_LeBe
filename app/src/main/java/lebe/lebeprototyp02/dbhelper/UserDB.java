@@ -71,11 +71,11 @@ public class UserDB {
 //            String[] temp= {};
 //            db.delete("UserProfile","",temp);
 //            SQLiteDatabase.deleteDatabase(new File(db.getPath()));
-            db.execSQL("DROP TABLE IF EXIST "+"UserProfile");
+//            db.execSQL("DROP TABLE IF EXIST "+"Lebe.UserProfile;");
             db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN, Points INTEGER);");
-            db.execSQL("INSERT INTO UserProfile VALUES ('Jung','Test', date('now','-6 years'), date('now'),'kind','jung@haw-hamburg.de', date('now','-1 month'),'false', 'test', 'true',0);");
-            db.execSQL("INSERT INTO UserProfile VALUES ('Teen','Test', date('now','-15 years'), date('now'),'teenager','teen@haw-hamburg.de', date('now'),'false', 'test', 'false',1000);");
-            db.execSQL("INSERT INTO UserProfile VALUES ('Alt','Test', date('now','-30 years'), date('now'),'hentai jiji','alt@haw-hamburg.de', date('now','-1 year'),'false', 'test', 'true',13);");
+            db.execSQL("INSERT INTO UserProfile VALUES ('Jung','Test', date('now','-6 years'), date('now'),'kind','jung@haw-hamburg.de', datetime('now','-1 month'),'false', 'test', 'true',0);");
+            db.execSQL("INSERT INTO UserProfile VALUES ('Teen','Test', date('now','-15 years'), date('now'),'teenager','teen@haw-hamburg.de', datetime('now','-1 seconds'),'false', 'test', 'false',1000);");
+            db.execSQL("INSERT INTO UserProfile VALUES ('Alt','Test', date('now','-30 years'), date('now'),'hentai jiji','alt@haw-hamburg.de', datetime('now','-1 year'),'false', 'test', 'true',13);");
 
 //            db = context.openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
         }
@@ -193,7 +193,7 @@ public class UserDB {
      * aktualisiert den Zeitpunkt des letzten logins
      */
     private void updateLastLogin(){
-        db.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email = '"+email+"';");
+        db.execSQL("UPDATE UserProfile SET LastLogin = datetime('now') WHERE Email = '"+email+"';");
     }
     private boolean rememberMe(String email){
         boolean temp=false;
