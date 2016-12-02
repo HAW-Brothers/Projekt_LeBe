@@ -33,13 +33,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
 
-
         dbHelper = UserDB.getInstance(this.getApplicationContext());
-
-
-
-
-
 
 
 
