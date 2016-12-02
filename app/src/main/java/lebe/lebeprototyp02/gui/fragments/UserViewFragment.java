@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.dbhelper.UserDB;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,8 +31,12 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class UserViewFragment extends Fragment {
 
-    private SQLiteDatabase db;
-    public static String emailAddresse;
+//    private SQLiteDatabase db;
+//    public static String emailAddresse;
+
+
+    private UserDB dbHelper;
+
 
     public UserViewFragment() {
         // Required empty public constructor
@@ -45,16 +50,18 @@ public class UserViewFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_user_view, container, false);
         Button button;
         button = (Button) view.findViewById(R.id.button2);
-        System.out.println("-----------------------------------------" + button);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-               updateTodatabase(view);
-            }
-        });
+//        System.out.println("-----------------------------------------" + button);
+//        button.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//               updateTodatabase(view);
+//            }
+//        });
 
+
+        dbHelper=UserDB.getInstance();
 
         // Inflate the layout for this fragment
         return view;
@@ -66,54 +73,118 @@ public class UserViewFragment extends Fragment {
 
         //Intent intent = getIntent();
 
-        db = getActivity().openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
+//        db = getActivity().openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
+//
+//        //db.execSQL("DROP TABLE IF EXISTS UserProfile");
+//
+//
+////        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
+//        //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername');");
+//
+//        //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
+//
+//        Cursor resultSet = db.rawQuery("Select * FROM UserProfile WHERE Email ='"+emailAddresse+"'",null);
+//
+//
+//        if(resultSet.moveToFirst()){
+//
+//
+//
+//
+//            String username = resultSet.getString(0);
+//            String password = resultSet.getString(1);
+//
+//            String birthdate = resultSet.getString(2);
+//            String regdate = resultSet.getString(3);
+//            String anzeigeName = resultSet.getString(4);
+//            String email = resultSet.getString(5);
+//
+//            String rememberMe = resultSet.getString(7);
+//            String geschlecht = resultSet.getString(9);
+//
+//            EditText usernameEdit = (EditText) getView().findViewById(R.id.userNameEdit);
+//            usernameEdit.setText(username);
+//            usernameEdit.setEnabled(false);
+//            EditText passwort = (EditText) getView().findViewById(R.id.passwortEdit);
+//            passwort.setText(password);
+//            EditText birthdateEdit = (EditText) getView().findViewById(R.id.birthdateEdit);
+//            birthdateEdit.setText(birthdate);
+//            //birthdateEdit.setEnabled(false);
+//            EditText regdateEdit = (EditText) getView().findViewById(R.id.regDateEdit);
+//            regdateEdit.setText(regdate);
+//            regdateEdit.setEnabled(false);
+//            EditText anzeigename = (EditText)getView().findViewById(R.id.anzeigeNameEdit);
+//            anzeigename.setText(anzeigeName);
+//            EditText emailEdit = (EditText)getView().findViewById(R.id.editEmail);
+//            emailEdit.setText(email);
+//            TextView geschlechtFeld = (TextView)getView().findViewById(R.id.tv_uf_geschlecht);
+//
+//
+//            if(geschlecht.equals("true")){
+//                geschlechtFeld.setText("Geschlecht: maennlich");
+//            }else{
+//                geschlechtFeld.setText("Geschlecht: weiblich");
+//            }
+//
+//
+//
+//            CheckBox remember = (CheckBox)getView().findViewById(R.id.checkBoxRemember);
+//            if (rememberMe.equals("true")){
+//                remember.setChecked(true);
+//            }else{
+//                remember.setChecked(false);
+//            }
+//
+//            remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if(buttonView.isChecked()){
+//                        //hier in der Datenbank ändern
+//
+//                        System.out.println("merken");
+//
+//                    }else{
+//                        //ist nicht gecheckt
+//                        System.out.println("nicht mehr merken");
+//
+//                    }
+//                }
+//            });
+//
+//
+//        }else{
+////            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
+//        }
+//
+//        //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
 
-        //db.execSQL("DROP TABLE IF EXISTS UserProfile");
 
-
-//        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
-        //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername');");
-
-        //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
-
-        Cursor resultSet = db.rawQuery("Select * FROM UserProfile WHERE Email ='"+emailAddresse+"'",null);
-
-
-        if(resultSet.moveToFirst()){
-
-
-
-
-            String username = resultSet.getString(0);
-            String password = resultSet.getString(1);
-
-            String birthdate = resultSet.getString(2);
-            String regdate = resultSet.getString(3);
-            String anzeigeName = resultSet.getString(4);
-            String email = resultSet.getString(5);
-
-            String rememberMe = resultSet.getString(7);
-            String geschlecht = resultSet.getString(9);
-
-            EditText usernameEdit = (EditText) getView().findViewById(R.id.userNameEdit);
-            usernameEdit.setText(username);
+                    EditText usernameEdit = (EditText) getView().findViewById(R.id.userNameEdit);
+            usernameEdit.setText(dbHelper.getUsername());
             usernameEdit.setEnabled(false);
+
             EditText passwort = (EditText) getView().findViewById(R.id.passwortEdit);
-            passwort.setText(password);
+            passwort.setText(dbHelper.getPasswort());
+
             EditText birthdateEdit = (EditText) getView().findViewById(R.id.birthdateEdit);
-            birthdateEdit.setText(birthdate);
+            birthdateEdit.setText(dbHelper.getGeburtsdatum());
             //birthdateEdit.setEnabled(false);
+
             EditText regdateEdit = (EditText) getView().findViewById(R.id.regDateEdit);
-            regdateEdit.setText(regdate);
+            regdateEdit.setText(dbHelper.getRegDatum());
             regdateEdit.setEnabled(false);
+
+
             EditText anzeigename = (EditText)getView().findViewById(R.id.anzeigeNameEdit);
-            anzeigename.setText(anzeigeName);
+            anzeigename.setText(dbHelper.getAnzeigeName());
+
             EditText emailEdit = (EditText)getView().findViewById(R.id.editEmail);
-            emailEdit.setText(email);
+            emailEdit.setText(dbHelper.getEmail());
+
             TextView geschlechtFeld = (TextView)getView().findViewById(R.id.tv_uf_geschlecht);
 
 
-            if(geschlecht.equals("true")){
+            if(dbHelper.getGeschlecht().equals("true")){
                 geschlechtFeld.setText("Geschlecht: maennlich");
             }else{
                 geschlechtFeld.setText("Geschlecht: weiblich");
@@ -122,34 +193,13 @@ public class UserViewFragment extends Fragment {
 
 
             CheckBox remember = (CheckBox)getView().findViewById(R.id.checkBoxRemember);
-            if (rememberMe.equals("true")){
+            if (dbHelper.getRememberMe()){
                 remember.setChecked(true);
             }else{
                 remember.setChecked(false);
             }
 
-            remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(buttonView.isChecked()){
-                        //hier in der Datenbank ändern
 
-                        System.out.println("merken");
-
-                    }else{
-                        //ist nicht gecheckt
-                        System.out.println("nicht mehr merken");
-
-                    }
-                }
-            });
-
-
-        }else{
-//            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
-        }
-
-        //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
 
 
     }
@@ -158,24 +208,24 @@ public class UserViewFragment extends Fragment {
     public void updateTodatabase(View view){
 
 
-        EditText anzeigename = (EditText) getView().findViewById(R.id.anzeigeNameEdit);
-        EditText emailAdresse = (EditText)getView().findViewById(R.id.editEmail);
-        CheckBox remember = (CheckBox) getView().findViewById(R.id.checkBoxRemember);
-
-
-        String rememberMe="false";
-        if(remember.isChecked()){
-            rememberMe="true";
-        }else{
-            rememberMe="false";
-        }
-
-
-
-        String query = "UPDATE UserProfile SET AnzeigeName='"+anzeigename.getText().toString()+"', Email='"+emailAdresse.getText().toString()+"', Remember='"+rememberMe+"';";
-        db.execSQL(query);
-        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
-        toast.show();
+//        EditText anzeigename = (EditText) getView().findViewById(R.id.anzeigeNameEdit);
+//        EditText emailAdresse = (EditText)getView().findViewById(R.id.editEmail);
+//        CheckBox remember = (CheckBox) getView().findViewById(R.id.checkBoxRemember);
+//
+//
+//        String rememberMe="false";
+//        if(remember.isChecked()){
+//            rememberMe="true";
+//        }else{
+//            rememberMe="false";
+//        }
+//
+//
+//
+//        String query = "UPDATE UserProfile SET AnzeigeName='"+anzeigename.getText().toString()+"', Email='"+emailAdresse.getText().toString()+"', Remember='"+rememberMe+"';";
+//        db.execSQL(query);
+//        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
+//        toast.show();
 
         /*
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppTheme);

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.dbhelper.UserDB;
 import lebe.lebeprototyp02.market.CVAMarket;
 import lebe.lebeprototyp02.market.MarketItem;
 
@@ -68,7 +69,9 @@ public class StoreFragment extends Fragment {
         datensatz.add(item);*/
 
 
-        TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString);
+        String geburtsdatum = UserDB.getInstance().getGeburtsdatum();
+
+        TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString+"?alter="+geburtsdatum);
         testTask.execute();
 
 
