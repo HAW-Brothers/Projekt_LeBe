@@ -47,6 +47,12 @@
             android:id="@+id/login_button"
             android:layout_marginTop="16dp"/>
 
+        <CheckBox
+            android:text="Remember Me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBoxRemember" />
+
         <TextView
             style="@style/LoginText"
             android:text="Noch keinen Account?"
