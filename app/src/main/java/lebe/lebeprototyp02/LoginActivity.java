@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
 import lebe.lebeprototyp02.gui.control.GUIController;
 import lebe.lebeprototyp02.gui.control.GUIStyles;
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     SQLiteDatabase dataBase;
     ScrollView sc;
+
     /**
      * GUI - Setzt das gewähte Design um
      */
@@ -38,11 +40,23 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        intent = new Intent(LoginActivity.this, MainActivity.class);
 
         dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
 
-        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
+        //wird zum resetten benutzt
+        if (true) {
+            dataBase.execSQL("DROP TABLE IF EXISTS UserProfile;");
+            dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
+            dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'),'false', 'test', 'true');");
+            dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'),'false', 'test', 'false');");
+        }
+
+
+        autoLogin();
+
+
+        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
         emailFeld.setText(getEmail());
@@ -67,9 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(validate()){
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
-                    finish();
-
-                    startActivity(intent);
+                    login(emailFeld.getText().toString());
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
                     toast.show();
@@ -99,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             temp=false;
 
 
-            Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
+            Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile WHERE Email ='"+emailFeld.getText()+"';",null);
 
 
 
@@ -115,13 +127,17 @@ public class LoginActivity extends AppCompatActivity {
                     System.out.println("passwd: "+resultSet.getString(1));
                     return false;
                 }
+                //last login aktualisieren anhand der email
+                //aktualisiereLastLogin(resultSet.getString(0));
+
                 return true;
 
 
             }else{
                 //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
 
-                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
+                //                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test123', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'));");
+                //                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'));");
             }
 
         }
@@ -133,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         String temp="";
-        Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile",null);
+        Cursor resultSet = dataBase.rawQuery("Select Email, Password, LastLogin FROM UserProfile ORDER BY LastLogin DESC",null);
 
 
 
@@ -147,6 +163,46 @@ public class LoginActivity extends AppCompatActivity {
      return temp;
     }
 
+
+    private void aktualisiereLastLogin(String email) {
+
+        dataBase.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email ='" + email + "';");
+        UserViewFragment.emailAddresse = email;
+
+
+    }
+
+    private void login(String email) {
+
+        aktualisiereLastLogin(email);
+        finish();
+
+        startActivity(intent);
+
+    }
+
+    private void autoLogin() {
+
+        String tempMail = "";
+        String tempRemeber = "";
+        Cursor resultSet = dataBase.rawQuery("Select Email, Password, Remember,LastLogin FROM UserProfile ORDER BY LastLogin DESC", null);
+
+
+        if (resultSet.moveToFirst()) {
+            tempMail = resultSet.getString(0);
+            tempRemeber = resultSet.getString(2);
+
+        }
+
+        if (!(tempMail.equals("")) && tempRemeber.equals("true")) {
+
+            aktualisiereLastLogin(tempMail);
+            login(tempMail);
+        }
+
+
+    }
+
     /**
      * GUI - GUIContoller - Initialisierung.<br>
      * Erstellt den GUIController, setzt das Design für die LoginActivity und verpackt denn
@@ -157,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
          * Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
          * entscheidet darüber welches Design der GUIController läd
          */
-        this.guiController = new GUIController(GUIStyles.DEFAULT);
+        this.guiController = new GUIController(GUIStyles.FEMALE);
         //this.guiController = null;
 
         /**

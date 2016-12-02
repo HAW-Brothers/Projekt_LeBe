@@ -163,7 +163,7 @@ public class UserViewFragment extends Fragment {
 
 
         } else {
-//            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de', 0);");
+//            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
 
         //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import lebe.lebeprototyp02.gui.fragments.HomeFragment;
+import lebe.lebeprototyp02.gui.fragments.MarketFragment;
 import lebe.lebeprototyp02.gui.fragments.StoreFragment;
 import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
 
