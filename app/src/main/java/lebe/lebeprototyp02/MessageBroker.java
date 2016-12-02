@@ -1,7 +1,6 @@
 package lebe.lebeprototyp02;
 
 
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,16 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class MessageBroker extends Service {        // MessageBroker ist ein Service -> Activity, die im Hintergrund läuft
 
     static final int SET_DATA = 0;                  // Konstanten um eingehende Nachrichten zu
     static final int GET_DATA = 1;                  // unterscheiden.
     public Messenger brokerMessenger;
+    static private Map<String, Bundle> messages = new HashMap<>();   // HashMap zum Speichern der Nachrichten
 
     class MessageHandler extends Handler {
 
-        Map<String, Bundle> messages = new HashMap<>();   // HashMap zum Speichern der Nachrichten
+
         // in <Kategorie der Nachricht, Datenpaket (Bundle)>
         // wahrscheinlich nicht optimal, kann sich noch ändern
         @Override
@@ -65,10 +64,17 @@ public class MessageBroker extends Service {        // MessageBroker ist ein Ser
 
     }
 
+    static public Bundle getFromMessageMap(String category) {
+        if (messages.get(category) != null) {
+            return messages.get(category);
+        } else {
+            return null;
+        }
+    }
 
 
     @Override
-    public void onCreate(){
+    public void onCreate() {
         brokerMessenger = new Messenger(new MessageHandler());
     }  // initialisierung des MessageHandlers
 
