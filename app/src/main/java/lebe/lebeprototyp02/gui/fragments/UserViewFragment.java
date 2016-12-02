@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import lebe.lebeprototyp02.MessageBroker;
 import lebe.lebeprototyp02.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -67,11 +69,26 @@ public class UserViewFragment extends Fragment {
         //db.execSQL("DROP TABLE IF EXISTS UserProfile");
 
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR);");
-        //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername');");
+        db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate VARCHAR, Regdate VARCHAR, AnzeigeName VARCHAR, Email VARCHAR, Points VARCHAR);");
+        //db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '01.01.1900', '01.06.2016','blahUsername','test@haw-hamburg.de', 0);");
 
         //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
 
+        if (MessageBroker.getFromMessageMap("points") != null) {
+            Bundle pointsBundle = MessageBroker.getFromMessageMap("points");
+            String pointsFromMB = new Integer(pointsBundle.getInt("points")).toString();
+
+            Cursor usernameSet = db.rawQuery("Select Username FROM UserProfile", null);
+
+            String tempUser = "";
+
+            if (usernameSet.moveToFirst()) {
+                tempUser = usernameSet.getString(0);
+            }
+
+            db.execSQL("UPDATE UserProfile SET Points = '" + pointsFromMB + "' WHERE Username='" + tempUser + "'");
+
+        }
         Cursor resultSet = db.rawQuery("Select * FROM UserProfile",null);
 
 
@@ -85,6 +102,7 @@ public class UserViewFragment extends Fragment {
             String regdate = resultSet.getString(3);
             String anzeigeName = resultSet.getString(4);
             String email = resultSet.getString(5);
+            String points = resultSet.getString(6);
 
             EditText usernameEdit = (EditText) getView().findViewById(R.id.userNameEdit);
             usernameEdit.setText(username);
@@ -101,12 +119,15 @@ public class UserViewFragment extends Fragment {
             anzeigename.setText(anzeigeName);
             EditText emailEdit = (EditText)getView().findViewById(R.id.editEmail);
             emailEdit.setText(email);
+            TextView pointsTextView = (TextView) getView().findViewById(R.id.pointsTextView);
+            pointsTextView.setText(points);
 
         }else{
-            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
+            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de', 0);");
         }
 
         //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");
+
 
 
     }
