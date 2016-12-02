@@ -29,6 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/popup_bib_textView2"
             android:text="zu Favorit hinzufügen?"
             android:textColor="@color/colorTextWhite"
             android:textStyle="bold"

@@ -10,5 +10,5 @@ package lebe.lebeprototyp02.gui.control;
  *
  */
 public enum GUIStyles {
-    MALE, FEMALE
+    MALE, FEMALE, DEFAULT
 }

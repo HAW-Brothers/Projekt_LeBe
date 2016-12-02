@@ -67,33 +67,43 @@ public class GUIController implements Serializable{
     private static String SETTINGS_DRAWABLE_BUTTON_FEMALE   = "button_female";
 
     private static final long serialVersionUID = 42L;
-    private final GUIStyles gender;
+    private GUIStyles style;
     private final GUIStyles MALE = GUIStyles.MALE;
     private final GUIStyles FEMALE = GUIStyles.FEMALE;
+    private final GUIStyles DEFAULT = GUIStyles.DEFAULT;
 
     /**
      * Erstellt ein GUIController der auf ein Style fixiert wird.
      * @param gender Gibt an, welchen Style der GUIController umsetzen soll
      */
     public GUIController(GUIStyles gender){
-        this.gender = gender;
+        this.style = gender;
+    }
+
+    public void changeGUI(){
+
     }
 
     /**
      * Bei Ausführung wird das Style des GUIController auf die übergebende View und Object angewandt.
+     * Es passiert nur eine Design anpassung, wenn nicht GUIStyle.DEFAULT gewählt ist
      * @param view Aktuelle View der Applikation
      * @param object Object, welches updateGUI() ausführt
      */
     public void updateGUI(View view, Object object){
         this.verifyArguments(view, object);
+        System.out.println(" -------------------> Werden ausgeführt");
 
-        if(object instanceof Activity){
-            this.updateGUIActivity(view, (Activity) object);
-        } else if (object instanceof Fragment){
-            this.updateGUIFragment(view, (Fragment) object);
-        } else {
-            throw new IllegalArgumentException("only works on activitys or fragments");
-        }
+       if(this.style != GUIStyles.DEFAULT){
+           if(object instanceof Activity){
+               this.updateGUIActivity(view, (Activity) object);
+           } else if (object instanceof Fragment){
+               this.updateGUIFragment(view, (Fragment) object);
+           } else {
+               throw new IllegalArgumentException("only works on activitys or fragments");
+           }
+       }
+
 
     }
 
@@ -143,11 +153,11 @@ public class GUIController implements Serializable{
     private void handleLoginInterface(View view){
         this.verifyArguments(view);
 
-        if(this.gender.equals(MALE)) {
+        if(this.style.equals(MALE)) {
             this.handleLoginInterfaceHelper(view, LOGIN_COLOR_BACKGROUNG_MALE,
                     LOGIN_DRAWABLE_LOGO_MALE, LOGIN_DRAWABLE_BUTTON_MALE);
 
-        } else if (this.gender.equals(FEMALE)) {
+        } else if (this.style.equals(FEMALE)) {
             this.handleLoginInterfaceHelper(view, LOGIN_COLOR_BACKGROUNG_FEMALE,
                     LOGIN_DRAWABLE_LOGO_FEMALE, LOGIN_DRAWABLE_BUTTON_FEMALE);
 
@@ -189,12 +199,12 @@ public class GUIController implements Serializable{
 
         Context context = view.getContext();
 
-        if(this.gender.equals(MALE)) {
+        if(this.style.equals(MALE)) {
             this.handleMainInterfaceHelper(view, MAIN_COLOR_NAVIGATION_MALE,
                     MAIN_COLOR_SLIDER_INDICATOR_MALE, MAIN_COLOR_SLIDER_BACKGROUND_MALE,
                     MAIN_DRAWABLE_HEADER_MALE);
 
-        } else if (this.gender.equals(FEMALE)) {
+        } else if (this.style.equals(FEMALE)) {
             this.handleMainInterfaceHelper(view, MAIN_COLOR_NAVIGATION_FEMALE,
                     MAIN_COLOR_SLIDER_INDICATOR_FEMALE, MAIN_COLOR_SLIDER_BACKGROUND_FEMALE,
                     MAIN_DRAWABLE_HEADER_FEMALE);
@@ -244,12 +254,12 @@ public class GUIController implements Serializable{
 
         ArrayList<EditText> editTexts = this.handleFragmentSettingsEditTextIdentifier(view, editTextLabels);
 
-        if(this.gender.equals(MALE)) {
+        if(this.style.equals(MALE)) {
             handleFragmentSettingsHelper(view, editTexts, SETTINGS_DRAWABLE_EDITTEXT_MALE,
                     SETTINGS_DRAWABLE_BUTTON_MALE);
 
 
-        } else if (this.gender.equals(FEMALE)) {
+        } else if (this.style.equals(FEMALE)) {
             handleFragmentSettingsHelper(view, editTexts, SETTINGS_DRAWABLE_EDITTEXT_FEMALE,
                     SETTINGS_DRAWABLE_BUTTON_FEMALE);
 
@@ -327,10 +337,10 @@ public class GUIController implements Serializable{
 
         Context context = view.getContext();
 
-        if(gender.equals(MALE)) {
+        if(style.equals(MALE)) {
             this.handleTableRowHelper(view, list, HOME_DRAWABLE_TABLEROW_MALE);
 
-        } else if (gender.equals(FEMALE)) {
+        } else if (style.equals(FEMALE)) {
             this.handleTableRowHelper(view, list, HOME_DRAWABLE_TABLEROW_FEMALE);
 
         } else {
@@ -410,7 +420,7 @@ public class GUIController implements Serializable{
      * Wift eine IllegalArgumentException.
      */
     private void missingSytle(){
-        throw new IllegalArgumentException("no style for: " + this.gender);
+        throw new IllegalArgumentException("no style for: " + this.style);
     }
 
     /**

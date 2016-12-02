@@ -22,5 +22,24 @@
         </shape>
     </item>
 
+    <item android:state_pressed="true">
+        <shape>
+            <gradient
+                android:startColor="@color/color_lebe_pramary_dark_female"
+                android:endColor="@color/colorLebePrimaryBackground_Female"
+                android:angle="270" />
+            <stroke
+                android:color="@color/color_lebe_pramary_dark_female"
+                android:width="1dp"
+                />
+
+            <corners
+                android:bottomRightRadius="7dp"
+                android:bottomLeftRadius="7dp"
+                android:topLeftRadius="7dp"
+                android:topRightRadius="7dp"/>
+        </shape>
+    </item>
+
 
 </selector>

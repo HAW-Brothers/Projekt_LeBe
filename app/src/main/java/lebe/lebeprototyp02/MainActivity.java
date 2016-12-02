@@ -146,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
+
+
+
         this.pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
 
         this.pagerAdapter = new PagerAdapter(getSupportFragmentManager());

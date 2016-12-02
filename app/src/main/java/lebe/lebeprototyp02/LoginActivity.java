@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
          * Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
          * entscheidet darüber welches Design der GUIController läd
          */
-        this.guiController = new GUIController(GUIStyles.FEMALE);
+        this.guiController = new GUIController(GUIStyles.DEFAULT);
         //this.guiController = null;
 
         /**

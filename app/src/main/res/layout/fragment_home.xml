@@ -28,6 +28,92 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                  />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/fav0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                        <TextView
+                            android:id="@+id/fav0_text"
+                            android:layout_width="55dp"
+                            android:maxWidth="55dp"
+                            android:layout_height="20dp"
+                            android:maxHeight="20dp"
+                            android:layout_marginRight="30dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/fav1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/fav1_text"
+                        android:layout_width="55dp"
+                        android:maxWidth="55dp"
+                        android:layout_height="20dp"
+                        android:maxHeight="20dp"
+                        android:layout_marginRight="30dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/fav2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/fav2_text"
+                        android:layout_width="55dp"
+                        android:maxWidth="55dp"
+                        android:layout_height="20dp"
+                        android:maxHeight="20dp"
+                        android:layout_marginRight="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/fav3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/fav3_text"
+                        android:layout_width="55dp"
+                        android:maxWidth="55dp"
+                        android:layout_height="20dp"
+                        android:maxHeight="20dp"
+                        android:layout_marginRight="30dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <TextView
                 style="@style/UserViewText"
