@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import lebe.lebeprototyp02.gui.fragments.HomeFragment;
+import lebe.lebeprototyp02.gui.fragments.MarketFragment;
 import lebe.lebeprototyp02.gui.fragments.StoreFragment;
 import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
 
@@ -29,6 +30,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 f = new StoreFragment();
+
                 break;
             case 2:
                 f = new UserViewFragment();

@@ -172,6 +172,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="Email"/>
+
             <EditText
                 style="@style/EditText"
                 android:id="@+id/editEmail"
@@ -180,6 +181,21 @@
                 android:layout_alignParentStart="true"
                 android:text="test@testmann.test"/>
 
+
+            <CheckBox
+                android:text="RememberMe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBoxRemember"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:text="Geschlecht:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_uf_geschlecht"
+                android:paddingTop="10dp" />
 
             <Button
                 style="@style/UserViewButton"
