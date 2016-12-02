@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lebe.lebeprototyp02">
 
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="10"/>
     android:versionCode="1"
     android:versionName="0.2" >
     <uses-permission android:name="android.permission.INTERNET" />
