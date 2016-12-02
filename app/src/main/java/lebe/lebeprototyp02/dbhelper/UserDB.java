@@ -19,7 +19,7 @@ public class UserDB {
 
     private static UserDB dbhelper;// = new UserDB();
 
-    public static boolean reset = true;
+    public static boolean reset = false;
 
     private String style;
     private String email;
@@ -193,12 +193,12 @@ public class UserDB {
      * aktualisiert den Zeitpunkt des letzten logins
      */
     private void updateLastLogin(){
-        db.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email ="+email+";");
+        db.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email = '"+email+"';");
     }
     private boolean rememberMe(String email){
         boolean temp=false;
 
-        Cursor resultSet = db.rawQuery("Select Remember FROM UserProfile WHERE Email ='"+email+"'",null);
+        Cursor resultSet = db.rawQuery("Select Remember FROM UserProfile WHERE Email = '"+email+"';",null);
 
         if(resultSet.moveToFirst()) {
 
