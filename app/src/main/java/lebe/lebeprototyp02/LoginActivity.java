@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
+
 /**
  * Created by Höling on 23.10.2016.
  */
@@ -32,15 +34,15 @@ public class LoginActivity extends AppCompatActivity{
         //wird zum resetten benutzt
       if(false){
           dataBase.execSQL("DROP TABLE UserProfile;");
-          dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN);");
-          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'),'true');");
-          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'),'true');");
+          dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
+          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'),'false', 'test', 'true');");
+          dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'),'false', 'test', 'false');");
       }
 
 
         autoLogin();
 
-        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER);");
+        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
         emailFeld.setText(getEmail());
@@ -64,7 +66,7 @@ public class LoginActivity extends AppCompatActivity{
                 if(validate()){
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
-                    login();
+                    login(emailFeld.getText().toString());
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
                     toast.show();
@@ -104,7 +106,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
 
                 //last login aktualisieren anhand der email
-                aktualisiereLastLogin(resultSet.getString(0));
+//                aktualisiereLastLogin(resultSet.getString(0));
 
                 return true;
 
@@ -112,8 +114,8 @@ public class LoginActivity extends AppCompatActivity{
             }else{
                 //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
 
-                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test123', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'));");
-                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'));");
+//                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test123', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'));");
+//                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'));");
 
             }
 
@@ -142,10 +144,13 @@ public class LoginActivity extends AppCompatActivity{
     private void aktualisiereLastLogin(String email){
 
         dataBase.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email ='"+email+"';");
+        UserViewFragment.emailAddresse=email;
 
 
     }
-    private void login(){
+    private void login(String email){
+
+        aktualisiereLastLogin(email);
         finish();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
@@ -168,7 +173,7 @@ public class LoginActivity extends AppCompatActivity{
         if(!(tempMail.equals("")) && tempRemeber.equals("true")){
 
             aktualisiereLastLogin(tempMail);
-            login();
+            login(tempMail);
         }
 
 

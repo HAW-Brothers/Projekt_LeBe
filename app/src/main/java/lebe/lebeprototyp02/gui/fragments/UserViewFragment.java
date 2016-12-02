@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import lebe.lebeprototyp02.R;
@@ -30,6 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class UserViewFragment extends Fragment {
 
     private SQLiteDatabase db;
+    public static String emailAddresse;
 
     public UserViewFragment() {
         // Required empty public constructor
@@ -74,7 +76,7 @@ public class UserViewFragment extends Fragment {
 
         //db.execSQL("INSERT INTO UserProfile VALUES ('Schorzz','Test123', NOW(), NOW());");
 
-        Cursor resultSet = db.rawQuery("Select * FROM UserProfile",null);
+        Cursor resultSet = db.rawQuery("Select * FROM UserProfile WHERE Email ='"+emailAddresse+"'",null);
 
 
         if(resultSet.moveToFirst()){
@@ -91,6 +93,7 @@ public class UserViewFragment extends Fragment {
             String email = resultSet.getString(5);
 
             String rememberMe = resultSet.getString(7);
+            String geschlecht = resultSet.getString(9);
 
             EditText usernameEdit = (EditText) getView().findViewById(R.id.userNameEdit);
             usernameEdit.setText(username);
@@ -107,6 +110,16 @@ public class UserViewFragment extends Fragment {
             anzeigename.setText(anzeigeName);
             EditText emailEdit = (EditText)getView().findViewById(R.id.editEmail);
             emailEdit.setText(email);
+            TextView geschlechtFeld = (TextView)getView().findViewById(R.id.tv_uf_geschlecht);
+
+
+            if(geschlecht.equals("true")){
+                geschlechtFeld.setText("Geschlecht: maennlich");
+            }else{
+                geschlechtFeld.setText("Geschlecht: weiblich");
+            }
+
+
 
             CheckBox remember = (CheckBox)getView().findViewById(R.id.checkBoxRemember);
             if (rememberMe.equals("true")){
@@ -133,7 +146,7 @@ public class UserViewFragment extends Fragment {
 
 
         }else{
-            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
+//            db.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', '28.02.1991', '18.07.2016','blahUsername','test@haw-hamburg.de');");
         }
 
         //db.execSQL("DROP TABLE IF EXISTS LeBe.UserProfile");

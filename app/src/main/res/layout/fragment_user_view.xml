@@ -187,6 +187,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBoxRemember"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:text="Geschlecht:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_uf_geschlecht"
                 android:paddingTop="10dp" />
 
             <Button
