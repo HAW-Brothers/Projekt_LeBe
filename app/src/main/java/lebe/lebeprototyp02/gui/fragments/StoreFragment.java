@@ -94,7 +94,7 @@ public class StoreFragment extends Fragment {
         private ProgressDialog progressDialog = new ProgressDialog(getContext());
 
 
-        private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
+        private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php?alter="+UserDB.getInstance().getGeburtsdatum();
         private JSONArray marketAsJSONArray;
 
 
