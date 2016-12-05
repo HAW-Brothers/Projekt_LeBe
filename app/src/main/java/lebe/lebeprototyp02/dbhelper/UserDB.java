@@ -19,7 +19,7 @@ public class UserDB {
 
     private static UserDB dbhelper;// = new UserDB();
 
-    public static boolean reset = false;
+    public static boolean reset = true;
 
     private String style;
     private String email;
@@ -71,7 +71,7 @@ public class UserDB {
 //            String[] temp= {};
 //            db.delete("UserProfile","",temp);
 //            SQLiteDatabase.deleteDatabase(new File(db.getPath()));
-//            db.execSQL("DROP TABLE IF EXIST "+"Lebe.UserProfile;");
+            db.execSQL("DROP TABLE IF EXISTS UserProfile;");
             db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN, Points INTEGER);");
             db.execSQL("INSERT INTO UserProfile VALUES ('Jung','Test', date('now','-6 years'), date('now'),'kind','jung@haw-hamburg.de', datetime('now','-1 month'),'false', 'test', 'true',0);");
             db.execSQL("INSERT INTO UserProfile VALUES ('Teen','Test', date('now','-15 years'), date('now'),'teenager','teen@haw-hamburg.de', datetime('now','-1 seconds'),'false', 'test', 'false',1000);");
