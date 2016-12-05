@@ -11,17 +11,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
 import lebe.lebeprototyp02.dbhelper.UserDB;
+import lebe.lebeprototyp02.gui.control.GUIController;
+import lebe.lebeprototyp02.gui.control.GUIStyles;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -36,6 +42,7 @@ public class UserViewFragment extends Fragment {
 
 
     private UserDB dbHelper;
+    private GUIController guiController;
 
 
     public UserViewFragment() {
@@ -62,6 +69,7 @@ public class UserViewFragment extends Fragment {
 
 
         dbHelper=UserDB.getInstance();
+        this.guiController = GUIController.getInstance();
 
         // Inflate the layout for this fragment
         return view;
@@ -199,7 +207,7 @@ public class UserViewFragment extends Fragment {
                 remember.setChecked(false);
             }
 
-
+        this.initializeSpinner();
 
 
     }
@@ -236,6 +244,55 @@ public class UserViewFragment extends Fragment {
         builder.show();*/
 
 
+
+    }
+
+    public void initializeSpinner(){
+        String[] arraySpinner;
+
+        arraySpinner = new String[] {
+                "Male", "Female", "Default"
+        };
+        Spinner s = (Spinner) getView().findViewById(R.id.Spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, arraySpinner);
+        s.setAdapter(adapter);
+
+        String acStyle = dbHelper.getInstance().getStyle();
+        if( acStyle.equals("MALE")){
+            s.setSelection(0);
+        } else if ( acStyle.equals("FEMALE")){
+            s.setSelection(1);
+        } else if ( acStyle.equals("DEFAULT")){
+            s.setSelection(2);
+        }
+
+
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,int position, long id) {
+                System.out.println("------>: " + position);
+                if(position == 0){
+                    guiController.setStyle(GUIStyles.MALE);
+                } else if(position == 1){
+                    guiController.setStyle(GUIStyles.FEMALE);
+                } else if(position == 2){
+                    guiController.setStyle(GUIStyles.DEFAULT);
+
+                }
+                guiController.changeStyle(getActivity().findViewById(R.id.main_activity), getView());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                System.out.println("------>: " + arg0);
+
+
+            }
+
+        });
 
     }
 

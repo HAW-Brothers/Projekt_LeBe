@@ -1,0 +1,5 @@
+<!-- Gibt das Aussehen für die Bibliothekt/Tabelrow an -CG -->
+<ImageView
+    android:layout_height="5000px"
+    android:layout_width="5000px"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

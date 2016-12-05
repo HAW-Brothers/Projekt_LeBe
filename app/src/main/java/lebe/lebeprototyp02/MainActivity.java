@@ -122,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Nimmt das GUIController Object von der LoginActivity entgegen
          */
-        guiController = (GUIController) getIntent().getSerializableExtra("gui");
+
+        guiController = GUIController.getInstance();
 
         /**
          * Setzt das Design für die Activity
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 
                 if (guiController != null) {
+
                     guiController.updateGUI(getWindow().getDecorView().getRootView(), pagerAdapter.getActiveFragment(viewPager, fm, viewPager.getCurrentItem()));
                 }
             }
