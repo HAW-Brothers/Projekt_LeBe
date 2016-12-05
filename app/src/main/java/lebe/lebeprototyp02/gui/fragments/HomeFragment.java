@@ -289,17 +289,20 @@ public class HomeFragment extends Fragment {
      * @param view Aktuelle View der Applikation
      */
     private void updateFavoritestrip(final View view) {
-
+        int nullCounter = 0;
         // Alle zurücksetzten
         for (int i = 0; i < MAX_FAV; i++) {
             updateFavoritestripHelper(view, "fav" + i, "fav" + i + "_text", null, null, false, i);
         }
         // Alle setzten
+
         for (int i = 0; i < favorites.size(); i++) {
 
             if (!(map.get(favorites.get(i))==null)){
-            updateFavoritestripHelper(view, "fav" + i, "fav" + i + "_text",
+            updateFavoritestripHelper(view, "fav" + (i - nullCounter), "fav" + (i - nullCounter) + "_text",
                     map.get(favorites.get(i)).getIcon(), map.get(favorites.get(i)).getLabel().toString(), true, i);
+            } else {
+                nullCounter++;
             }
 
         }
