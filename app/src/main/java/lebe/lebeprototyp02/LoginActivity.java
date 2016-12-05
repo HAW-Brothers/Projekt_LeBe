@@ -126,7 +126,6 @@ public class LoginActivity extends AppCompatActivity{
          * entscheidet darüber welches Design der GUIController läd
          */
 
-        System.out.println("++++++++++++++++++>: " + dbHelper.getInstance().getStyle());
 
         GUIStyles acceptedStyle;
         if(dbHelper.getInstance().getStyle().equals("MALE")){
@@ -154,7 +153,7 @@ public class LoginActivity extends AppCompatActivity{
 
         //this.guiController = null;
 
-        /**
+        /**System.out.print
          * Setzt das Design für die Activity
          */
         if(guiController != null){

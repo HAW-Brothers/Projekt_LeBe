@@ -273,7 +273,6 @@ public class UserViewFragment extends Fragment {
 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,int position, long id) {
-                System.out.println("------>: " + position);
                 if(position == 0){
                     guiController.setStyle(GUIStyles.MALE);
                 } else if(position == 1){
@@ -287,7 +286,7 @@ public class UserViewFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                System.out.println("------>: " + arg0);
+
 
 
             }

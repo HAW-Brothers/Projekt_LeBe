@@ -104,7 +104,6 @@ public class GUIController implements Serializable{
      */
     public void updateGUI(View view, Object object){
         this.verifyArguments(view, object);
-        System.out.println(" -------------------> Werden ausgeführt");
 
         if(this.style != GUIStyles.DEFAULT){
             if(object instanceof Activity){
@@ -120,7 +119,7 @@ public class GUIController implements Serializable{
     }
 
     public void changeStyle(View MainView, View view){
-        System.out.println("///////////////////>: " + style);
+
         this.verifyArguments(view);
         this.handleMainInterface(MainView);
         this.handleFragmentSettings(view);
