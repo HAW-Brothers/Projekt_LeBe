@@ -248,29 +248,7 @@
                     android:layout_toStartOf="@+id/regDateEdit"
                     android:id="@+id/button2"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <CheckBox
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/checkBoxRemember"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="10dp"
-                        android:backgroundTint="@drawable/check_box"
-
-
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Remember me"/>
-
-
-                </LinearLayout>
 
 
 

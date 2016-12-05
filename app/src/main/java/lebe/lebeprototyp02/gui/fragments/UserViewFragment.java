@@ -199,13 +199,14 @@ public class UserViewFragment extends Fragment {
             }
 
 
-
+            /*
             CheckBox remember = (CheckBox)getView().findViewById(R.id.checkBoxRemember);
             if (dbHelper.getRememberMe()){
                 remember.setChecked(true);
             }else{
                 remember.setChecked(false);
             }
+            */
 
         this.initializeSpinner();
 
