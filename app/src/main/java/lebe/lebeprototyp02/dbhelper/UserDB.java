@@ -19,7 +19,7 @@ public class UserDB {
 
     private static UserDB dbhelper;// = new UserDB();
 
-    public static boolean reset = true;
+    public static boolean reset = false;
 
     private String style;
     private String email;
@@ -129,12 +129,12 @@ public class UserDB {
 
 
                 if(!resultSet.getString(0).equals(email)){
-                    System.out.println("Email: "+resultSet.getString(0));
+
                     return false;
 
                 }
                 if(!resultSet.getString(1).equals(passwort)){
-                    System.out.println("passwd: "+resultSet.getString(1));
+
                     return false;
                 }
 
@@ -258,6 +258,9 @@ public class UserDB {
     public void updateToDB(){
 
 
+        db.execSQL("UPDATE UserProfile SET AnzeigeName = '"+anzeigeName+"', Remember = '"+rememberMe+"', Style = '"+style+"' WHERE Email = '"+email+"';");
+
+
 
 
     }
@@ -278,6 +281,7 @@ public class UserDB {
             throw new IllegalArgumentException("Parameter darf nicht null oder leer sein");
         }
         this.style=style;
+
 
 
     }
