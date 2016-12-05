@@ -42,6 +42,10 @@ public class StoreFragment extends Fragment {
     private ArrayList<MarketItem> datensatz = new ArrayList<>();
     private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
 
+    private ListView marketviewTop;
+    private ArrayList<MarketItem> datensatzTop = new ArrayList<>();
+    private final String urlStringTop = "http://lebe-app.hol.es/dbabfrage/jsontopddl.php";
+
 
     public StoreFragment() {
         // Required empty public constructor
@@ -71,16 +75,26 @@ public class StoreFragment extends Fragment {
 
         String geburtsdatum = UserDB.getInstance().getGeburtsdatum();
 
-        TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString+"?alter="+geburtsdatum);
+        TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString+"?alter="+geburtsdatum,datensatz);
         testTask.execute();
 
-
-
-        marketview = (ListView) getView().findViewById(R.id.listview_market);
+        marketview = (ListView) getView().findViewById(R.id.lv_download);
 
         CVAMarket adapter = new CVAMarket(this.getContext(),datensatz);
 
         marketview.setAdapter(adapter);
+
+
+
+        //--------------------ab hier die 2te liste
+        marketviewTop = (ListView) getView().findViewById(R.id.lv_top_download);
+        TestAsyncTask testTaskTop = new TestAsyncTask(getContext(), urlStringTop+"?alter="+geburtsdatum,datensatzTop);
+        testTaskTop.execute();
+
+        CVAMarket adapterTop = new CVAMarket(this.getContext(),datensatzTop);
+
+        marketviewTop.setAdapter(adapterTop);
+
 
     }
 
@@ -96,11 +110,13 @@ public class StoreFragment extends Fragment {
 
         private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php?alter="+UserDB.getInstance().getGeburtsdatum();
         private JSONArray marketAsJSONArray;
+        private ArrayList<MarketItem> datensaetze;
 
 
-        public TestAsyncTask(Context context, String url) {
+        public TestAsyncTask(Context context, String url,ArrayList<MarketItem> daten) {
             mContext = context;
             mUrl = url;
+            datensaetze=daten;
         }
 
 
@@ -151,7 +167,7 @@ public class StoreFragment extends Fragment {
                     item.setDiscription(json.getString("beschreibung"));
                     item.setImgpath(json.getString("pfadBild"));
                     item.setDdlpath(json.getString("pfadApp"));
-                    datensatz.add(item);
+                    datensaetze.add(item);
 
 
                 }

@@ -34,10 +34,13 @@ import lebe.lebeprototyp02.market.MarketItem;
 public class MarketFragment extends Fragment {
 
     private ListView marketview;
+    private ListView marketViewTop;
     private ArrayList<MarketItem> datensatz;
+    private ArrayList<MarketItem> datensatzTop;
 
 
     private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
+    private final String urlStringTop = "http://lebe-app.hol.es/dbabfrage/jsontopddl.php";
     private JSONArray marketAsJSONArray;
 
 
@@ -51,8 +54,8 @@ public class MarketFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString);
-        testTask.execute();
+//        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString);
+//        testTask.execute();
 
 
         // Inflate the layout for this fragment
@@ -65,14 +68,27 @@ public class MarketFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        marketview = (ListView) getView().findViewById(R.id.listview_market);
+        marketview = (ListView) getView().findViewById(R.id.lv_download);
 
-        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString);
+        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString, datensatz);
         testTask.execute();
 
         CVAMarket adapter = new CVAMarket(this.getContext(),datensatz);
 
         marketview.setAdapter(adapter);
+
+
+//        //ab hier werden die top 5 downloads angezeigt
+//        marketViewTop = marketview = (ListView) getView().findViewById(R.id.lv_top_download);
+//        TestAsyncTask testTask2 = new TestAsyncTask(this.getContext(), urlStringTop, datensatzTop);
+//        testTask.execute();
+//        CVAMarket adapter2 = new CVAMarket(this.getContext(),datensatzTop);
+//
+//        marketViewTop.setAdapter(adapter);
+//
+
+
+
 
     }
 
@@ -80,12 +96,14 @@ public class MarketFragment extends Fragment {
 public class TestAsyncTask extends AsyncTask<Void, Void, String> {
     private Context mContext;
     private String mUrl;
+    private ArrayList<MarketItem> datensaetze;
 
     private ProgressDialog progressDialog = new ProgressDialog(getContext());
 
-    public TestAsyncTask(Context context, String url) {
+    public TestAsyncTask(Context context, String url, ArrayList daten) {
         mContext = context;
         mUrl = url;
+        datensaetze=daten;
     }
 
     @Override
@@ -145,7 +163,7 @@ public class TestAsyncTask extends AsyncTask<Void, Void, String> {
                 tempItem.setName(c.getString("name"));
                 tempItem.setDiscription(c.getString("pfadApp"));
                 tempItem.setDdlpath(c.getString("pfadApp"));
-                datensatz.add(tempItem);
+                datensaetze.add(tempItem);
 
             }
 
