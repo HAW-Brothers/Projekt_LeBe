@@ -209,6 +209,16 @@ public class UserViewFragment extends Fragment {
 
         this.initializeSpinner();
 
+        Button knopp = (Button)getView().findViewById(R.id.button2);
+
+        knopp.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                dbHelper.updateToDB();
+            }
+        });
+
 
     }
 
@@ -276,10 +286,13 @@ public class UserViewFragment extends Fragment {
                 System.out.println("------>: " + position);
                 if(position == 0){
                     guiController.setStyle(GUIStyles.MALE);
+                    dbHelper.setStyle("MALE");
                 } else if(position == 1){
                     guiController.setStyle(GUIStyles.FEMALE);
+                    dbHelper.setStyle("FEMALE");
                 } else if(position == 2){
                     guiController.setStyle(GUIStyles.DEFAULT);
+                    dbHelper.setStyle("DEFAULT");
 
                 }
                 guiController.changeStyle(getActivity().findViewById(R.id.main_activity), getView());
