@@ -55,6 +55,15 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
 
     }
+
+    /**
+     * diese Methode füllt die Liste mit den Daten
+     * @param position
+     *              Die position des Elementes
+     * @param convertview
+     * @param parent
+     * @return
+     */
     public View getView(int position, View convertview, ViewGroup parent){
 
 

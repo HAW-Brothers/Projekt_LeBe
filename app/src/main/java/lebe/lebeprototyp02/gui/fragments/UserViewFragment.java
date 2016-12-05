@@ -223,40 +223,9 @@ public class UserViewFragment extends Fragment {
     }
 
 
-    public void updateTodatabase(View view){
-
-
-//        EditText anzeigename = (EditText) getView().findViewById(R.id.anzeigeNameEdit);
-//        EditText emailAdresse = (EditText)getView().findViewById(R.id.editEmail);
-//        CheckBox remember = (CheckBox) getView().findViewById(R.id.checkBoxRemember);
-//
-//
-//        String rememberMe="false";
-//        if(remember.isChecked()){
-//            rememberMe="true";
-//        }else{
-//            rememberMe="false";
-//        }
-//
-//
-//
-//        String query = "UPDATE UserProfile SET AnzeigeName='"+anzeigename.getText().toString()+"', Email='"+emailAdresse.getText().toString()+"', Remember='"+rememberMe+"';";
-//        db.execSQL(query);
-//        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Daten an datenbank übergeben",Toast.LENGTH_LONG);
-//        toast.show();
-
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppTheme);
-        builder.setTitle("AppCompatDialog");
-        builder.setMessage("Lorem ipsum dolor...");
-        builder.setPositiveButton("OK", null);
-        builder.setNegativeButton("Cancel", null);
-        builder.show();*/
-
-
-
-    }
-
+    /**
+     * Initialisiert den Dropdownfeld indem man den Style auswählen kann
+     */
     public void initializeSpinner(){
         String[] arraySpinner;
 

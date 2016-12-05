@@ -22,7 +22,6 @@ import java.net.URL;
  * Created by Höling on 14.11.2016.
  * Diese Klasse lädt und installiert ein neues Plugin
  */
-
 public class InstallAPK extends AsyncTask<String, Void, Void> {
 
     private String pfad="Android/data/com.example.chris.lebeprototyp02/LeBePlugins/";
@@ -34,6 +33,11 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
     int status = 0;
 
     private Context context;
+
+    /**
+     * Setzt den übergebenen Context als ApplicationContext
+     * @param context
+     */
     public void setContext(Context context){
         this.context = context;
 
@@ -43,6 +47,11 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
 
     }
 
+    /**
+     * Hier werden die apks heruntergeladen. diese Methode wird automatisch nach {@see onpreExecute()} ausgeführt
+     * @param arg0
+     * @return
+     */
     @Override
     protected Void doInBackground(String... arg0) {
 
@@ -134,6 +143,10 @@ public class InstallAPK extends AsyncTask<String, Void, Void> {
         return null;
     }
 
+    /**
+     * wird automatisch nach beendigung von {@see doInBackground()} automatisch aufgerufen und installiert die fertig geladene Datei
+     * @param unused
+     */
     public void onPostExecute(Void unused) {
 
         File sdcard = Environment.getExternalStorageDirectory().getAbsoluteFile();
