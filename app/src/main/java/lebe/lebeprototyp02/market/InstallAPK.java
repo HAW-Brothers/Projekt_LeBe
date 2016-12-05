@@ -20,6 +20,7 @@ import java.net.URL;
 
 /**
  * Created by Höling on 14.11.2016.
+ * Diese Klasse lädt und installiert ein neues Plugin
  */
 
 public class InstallAPK extends AsyncTask<String, Void, Void> {

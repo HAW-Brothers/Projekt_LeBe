@@ -34,7 +34,7 @@ import lebe.lebeprototyp02.market.MarketItem;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Diese Klasse stellt den Store dar
  */
 public class StoreFragment extends Fragment {
 
@@ -101,6 +101,10 @@ public class StoreFragment extends Fragment {
 
     //-------------------------------------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Diese Interne Klasse startet einen Asynchronen Task im hintergrund um die Daten des markets (welche apps gibt es, Name, Downloadlink..)
+     * im Hintergrund herunter zu laden
+     */
     public class TestAsyncTask extends AsyncTask<Void, Void, String> {
         private Context mContext;
         private String mUrl;
@@ -113,6 +117,12 @@ public class StoreFragment extends Fragment {
         private ArrayList<MarketItem> datensaetze;
 
 
+        /**
+         * Der Konstruktor für einen neuen Asynchronen Task im Hintergrund
+         * @param context
+         * @param url
+         * @param daten
+         */
         public TestAsyncTask(Context context, String url,ArrayList<MarketItem> daten) {
             mContext = context;
             mUrl = url;
@@ -120,6 +130,9 @@ public class StoreFragment extends Fragment {
         }
 
 
+        /**
+         * Diese Methode wird ausgeführt bevor die eigentliche Arbeit getan wird
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -135,6 +148,11 @@ public class StoreFragment extends Fragment {
 
         }
 
+        /**
+         * Hier verrichtet der Thread seine Arbeit. Hier wird ein JSON Objekt vom Webserver geholt und es wird geparst
+         * @param params
+         * @return
+         */
         @Override
         protected String doInBackground(Void... params) {
             //hier wird die komplette seite als String geholt
@@ -144,6 +162,11 @@ public class StoreFragment extends Fragment {
             return resultString;
         }
 
+        /**
+         * Diese Methode wird automatisch nach {@see doInBackground()} ausgeführt. Es wird ein MarketItem-Objekt mit den Daten
+         * aus dem JSON Objekt.
+         * @param strings
+         */
         @Override
         protected void onPostExecute(String strings) {
             super.onPostExecute(strings);
@@ -183,6 +206,12 @@ public class StoreFragment extends Fragment {
 
             //dynamictext.setText(strings);
         }
+
+        /**
+         * Diese Methode holt sich die Webseite als String und parst daraus ein JSON Objekt.
+         * @param url Die URL die das JSON als HTML generiert
+         * @return Das JSON aus der Webseite geparst
+         */
         public String getJSON(String url) {
             HttpURLConnection c = null;
             try {
