@@ -1,5 +1,6 @@
 package lebe.lebeprototyp02;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Set;
+
 import lebe.lebeprototyp02.dbhelper.UserDB;
+import lebe.lebeprototyp02.gui.control.GUIController;
+import lebe.lebeprototyp02.gui.control.GUIStyles;
 import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
 
 /**
@@ -26,6 +35,13 @@ public class LoginActivity extends AppCompatActivity{
     Button loginButton;
     SQLiteDatabase dataBase;
     UserDB dbHelper;
+    String lastStyle;
+
+    /**
+     * GUI - Setzt das gewähte Design um
+     */
+    private GUIController guiController;
+
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -74,6 +90,9 @@ public class LoginActivity extends AppCompatActivity{
             login(email,passwd);
         }
 
+        /**
+         * GUI - Initialisierung - Startet hier
+         */
 
 
     }
@@ -88,11 +107,71 @@ public class LoginActivity extends AppCompatActivity{
     private void login(String email, String passwd){
 
         dbHelper.login(email, passwd);
+        this.initializeGUI();
         finish();
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class));
 
     }
+
+    /**
+     * GUI - GUIContoller - Initialisierung.<br>
+     * Erstellt den GUIController, setzt das Design für die LoginActivity und verpackt denn
+     * GUIController in den Intent für die MainActivity.
+     */
+    private void initializeGUI(){
+        int age = this.identifyAge(dbHelper.getInstance().getGeburtsdatum());
+
+        /**
+         * Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
+         * entscheidet darüber welches Design der GUIController läd
+         */
+
+        System.out.println("++++++++++++++++++>: " + dbHelper.getInstance().getStyle());
+
+        GUIStyles acceptedStyle;
+        if(dbHelper.getInstance().getStyle().equals("MALE")){
+            acceptedStyle = GUIStyles.MALE;
+        } else if (dbHelper.getInstance().getStyle().equals("FEMALE")) {
+            acceptedStyle = GUIStyles.FEMALE;
+        } else if(dbHelper.getInstance().getStyle().equals("DEFAULT")){
+            acceptedStyle = GUIStyles.DEFAULT;
+        } else {
+
+            if(age < 2000){
+                acceptedStyle = GUIStyles.DEFAULT;
+            } else if (dbHelper.getInstance().getGeschlecht().equals("true")){
+                acceptedStyle = GUIStyles.MALE;
+            } else if((dbHelper.getInstance().getGeschlecht().equals("false"))){
+                acceptedStyle = GUIStyles.FEMALE;
+            } else {
+                acceptedStyle = GUIStyles.DEFAULT;
+            }
+
+        }
+
+        this.guiController = GUIController.getInstance();
+        guiController.setStyle(acceptedStyle);
+
+        //this.guiController = null;
+
+        /**
+         * Setzt das Design für die Activity
+         */
+        if(guiController != null){
+            guiController.updateGUI(getWindow().getDecorView().getRootView(), this);
+        }
+    }
+
+
+    public int identifyAge(String dateString){
+
+        String zu = dbHelper.getInstance().getGeburtsdatum();
+        int index = zu.length();
+        String date = zu.substring(0,4);
+
+        return Integer.valueOf(date);
+    }
+
 
 
 }

@@ -30,18 +30,22 @@
                  />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="75px">
 
 
                     <ImageView
                         android:id="@+id/fav0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="175px"
+                        android:layout_height="175px"
+                        android:layout_gravity="center"
                         />
 
                         <TextView
@@ -50,19 +54,23 @@
                             android:maxWidth="55dp"
                             android:layout_height="20dp"
                             android:maxHeight="20dp"
-                            android:layout_marginRight="30dp"/>
+                            android:gravity="center"
+                            />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginRight="75px">
 
                     <ImageView
                         android:id="@+id/fav1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="175px"
+                        android:layout_height="175px"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:id="@+id/fav1_text"
@@ -70,19 +78,24 @@
                         android:maxWidth="55dp"
                         android:layout_height="20dp"
                         android:maxHeight="20dp"
-                        android:layout_marginRight="30dp"/>
+                        android:gravity="center"
+
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginRight="75px">
 
                     <ImageView
                         android:id="@+id/fav2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="175px"
+                        android:layout_height="175px"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:id="@+id/fav2_text"
@@ -90,26 +103,30 @@
                         android:maxWidth="55dp"
                         android:layout_height="20dp"
                         android:maxHeight="20dp"
-                        android:layout_marginRight="30dp" />
+                        android:gravity="center"
+                         />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
                     <ImageView
                         android:id="@+id/fav3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="175px"
+                        android:layout_height="175px"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:id="@+id/fav3_text"
                         android:layout_width="55dp"
                         android:maxWidth="55dp"
                         android:layout_height="20dp"
-                        android:maxHeight="20dp"
-                        android:layout_marginRight="30dp" />
+                        android:gravity="center"
+                        />
                 </LinearLayout>
 
 

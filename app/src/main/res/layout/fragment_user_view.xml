@@ -23,7 +23,6 @@
             android:paddingTop="10dp">
 
 
-
             <TextView
                 style="@style/UserViewText"
                 android:text="UserName:"
@@ -150,45 +149,75 @@
 
         </LinearLayout>
 
+
+
         </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
-            <TextView
-                style="@style/UserViewText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:text="Email"/>
-
-            <EditText
-                style="@style/EditText"
-                android:id="@+id/editEmail"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:text="test@testmann.test"/>
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
 
 
-            <CheckBox
-                android:text="RememberMe"
+                <TextView
+                    style="@style/UserViewText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Email"/>
+
+                <EditText
+                    style="@style/EditText"
+                    android:id="@+id/editEmail"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="test@testmann.test"/>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkBoxRemember"
-                android:paddingTop="15dp"
-                android:paddingBottom="10dp" />
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Style"/>
+
+                <Spinner
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:id="@+id/Spinner"
+                    >
+                </Spinner>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+                android:paddingTop="10dp"
+            >
+
 
             <TextView
                 android:text="Geschlecht:"
@@ -197,18 +226,67 @@
                 android:id="@+id/tv_uf_geschlecht"
                 android:paddingTop="10dp" />
 
-            <Button
-                style="@style/LoginButton"
-                android:text="save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toLeftOf="@+id/regDateEdit"
-                android:layout_toStartOf="@+id/regDateEdit"
-                android:layout_marginBottom="28dp"
-                android:layout_marginTop="40dp"
-                android:id="@+id/button2"/>
+
 
         </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                >
+
+                <Button
+                    style="@style/LoginButton"
+                    android:text="save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/regDateEdit"
+                    android:layout_toStartOf="@+id/regDateEdit"
+                    android:id="@+id/button2"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <CheckBox
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBoxRemember"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="10dp"
+                        android:backgroundTint="@drawable/check_box"
+
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remember me"/>
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
     </ScrollView>
 </FrameLayout>

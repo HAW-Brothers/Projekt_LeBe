@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +67,6 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
         TextView name = (TextView) rowViev.findViewById(R.id.market_Name);
         TextView beschreibung = (TextView) rowViev.findViewById(R.id.market_beschreibung);
         Button download = (Button) rowViev.findViewById(R.id.market_download);
-
 
 
 

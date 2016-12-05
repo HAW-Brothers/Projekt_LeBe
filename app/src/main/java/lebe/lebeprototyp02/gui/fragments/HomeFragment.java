@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
      *     Es werden alle vorhandenen Lebe-Plug-Ins gesucht und einem TableLayout hinzugefügt
      * @param view
      */
-    public void initilizeBibliothek(final View view) {
+    private void initilizeBibliothek(final View view) {
 
         tableLayout = (TableLayout) view.findViewById(R.id.table);
 
@@ -106,8 +106,26 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < applications.size(); i++) {
             final TableRow toAdd = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow, null);
 
-            ImageView pluginIcon = new ImageView(getActivity());
+            ImageView pluginIcon = (ImageView) getActivity().getLayoutInflater().inflate(R.layout.image_view, null);
+            //ImageView pluginIcon = new ImageView(getActivity());
+
             pluginIcon.setImageDrawable(applications.get(i).getIcon());
+
+
+            /*
+            pluginIcon.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            pluginIcon.setPadding(0,0,25,0);
+
+            pluginIcon.setImageDrawable(applications.get(i).getIcon());
+
+            pluginIcon.setMaxHeight(200);
+            pluginIcon.setMinimumHeight(200);
+            pluginIcon.setMaxWidth(225);
+            pluginIcon.setMinimumWidth(225);
+            */
+
+
             toAdd.addView(pluginIcon);
 
             final String name = applications.get(i).getLabel().toString();
@@ -147,6 +165,8 @@ public class HomeFragment extends Fragment {
             tableRows.add(toAdd);
         }
         tableLayout.setClickable(true);
+
+
     }
 
     /**
@@ -154,7 +174,7 @@ public class HomeFragment extends Fragment {
      *
      * @param toSave - Set gefüllt mit den Benutzerfavoriten
      */
-    public void saveFavorites(Set<String> toSave) {
+    private void saveFavorites(Set<String> toSave) {
         SharedPreferences.Editor edit = this.getActivity().getSharedPreferences("bib_favorites", Context.MODE_PRIVATE).edit();
         edit.putStringSet("bib_favorites", toSave).commit();
     }
@@ -162,7 +182,7 @@ public class HomeFragment extends Fragment {
     /**
      * Läd die Benutzerfavoriten aus dem lokalen Speicher.
      */
-    public void loadFavorites() {
+    private void loadFavorites() {
         Set<String> set = this.getActivity().getSharedPreferences("bib_favorites", Context.MODE_PRIVATE).getStringSet("bib_favorites", null);
 
         if (set != null) {
@@ -181,7 +201,7 @@ public class HomeFragment extends Fragment {
      * @param buttonName2 Zweite Buttonbeschriftung
      * @param type Typ des Popup, entweder add oder remove
      */
-    public void showPopup(View anchorView, final String pluginName, final View view, String text, String buttonName1, String buttonName2, String type) {
+    private void showPopup(View anchorView, final String pluginName, final View view, String text, String buttonName1, String buttonName2, String type) {
         //Pop nicht öffnen wenn typ add und bereits in der list
         //Pop nicht öffnet wenn Liste voll
         if (this.favorites.contains(pluginName)) {
@@ -243,7 +263,7 @@ public class HomeFragment extends Fragment {
      * @param view Aktuelle View der Applikation
      * @param name Name des Favoriten
      */
-    public void addFavorite(View view, String name) {
+    private void addFavorite(View view, String name) {
         if (favorites.size() < MAX_FAV && (!favorites.contains(name))) {
             favorites.add(name);
         }
@@ -257,7 +277,7 @@ public class HomeFragment extends Fragment {
      * @param view Aktuelle View der Applikation
      * @param name Name des Favoriten
      */
-    public void removeFavorite(View view, String name) {
+    private void removeFavorite(View view, String name) {
         if (favorites.size() > 0) {
             favorites.remove(name);
         }
@@ -293,11 +313,13 @@ public class HomeFragment extends Fragment {
      * @param clicklistiner - ClickListiner auf dem ImageView. Wenn man auf das Icon drückt, soll das Plug-In geöffnet werden
      * @param i Index des Plug-In in der Favortien Map(Dort sind alle vorhandenen Plug-Ins hinterlegt)
      */
-    public void updateFavoritestripHelper(final View view, String imageView, String textView, Drawable toDraw, String text, boolean clicklistiner, int i) {
+    private void updateFavoritestripHelper(final View view, String imageView, String textView, Drawable toDraw, String text, boolean clicklistiner, int i) {
 
         ImageView fav = (ImageView) view.findViewById(view.getContext().getResources()
                 .getIdentifier(imageView, "id", view.getContext().getPackageName()));
+
         fav.setImageDrawable(toDraw);
+
 
         TextView fav_text = (TextView) view.findViewById(view.getContext()
                 .getResources().getIdentifier(textView, "id", view.getContext()
@@ -349,7 +371,7 @@ public class HomeFragment extends Fragment {
      * @param context Applikations-Context
      * @param packageName PackageName der Applikation
      */
-    public static void openPlugin(Context context, String packageName) {
+    private static void openPlugin(Context context, String packageName) {
         PackageManager manager = context.getPackageManager();
         try {
             Intent i = manager.getLaunchIntentForPackage(packageName);

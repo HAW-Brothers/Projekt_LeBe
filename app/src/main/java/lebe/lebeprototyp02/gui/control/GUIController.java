@@ -2,7 +2,9 @@ package lebe.lebeprototyp02.gui.control;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TableRow;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -22,6 +25,7 @@ import java.util.List;
 import lebe.lebeprototyp02.LoginActivity;
 import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.dbhelper.UserDB;
 import lebe.lebeprototyp02.gui.fragments.HomeFragment;
 import lebe.lebeprototyp02.gui.fragments.StoreFragment;
 import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
@@ -37,32 +41,44 @@ import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
 
 public class GUIController implements Serializable{
 
+    private static GUIController instance = new GUIController(GUIStyles.DEFAULT);
+
     /*
     Hier wird das Design für male und female gesetzt.
     Color werden in der res/values/color.xml gesucht
     Drawables werden in res/drawable gesucht
      */
+    private static String LOGIN_COLOR_BACKGROUNG_DEFAULT   = "colorLebePrimaryBackground_Male";
     private static String LOGIN_COLOR_BACKGROUNG_MALE   = "colorLebePrimaryBackground_Male";
     private static String LOGIN_COLOR_BACKGROUNG_FEMALE = "colorLebePrimaryBackground_Female";
+    private static String LOGIN_DRAWABLE_LOGO_DEFAULT      = "logo_main";
     private static String LOGIN_DRAWABLE_LOGO_MALE      = "logo_male";
     private static String LOGIN_DRAWABLE_LOGO_FEMALE    = "logo_female";
+    private static String LOGIN_DRAWABLE_BUTTON_DEFAULT    = "button_main";
     private static String LOGIN_DRAWABLE_BUTTON_MALE    = "button_male";
     private static String LOGIN_DRAWABLE_BUTTON_FEMALE  = "button_female";
 
+    private static String MAIN_COLOR_NAVIGATION_DEFAULT          = "colorLebePrimaryBackground_Male";
     private static String MAIN_COLOR_NAVIGATION_MALE          = "colorLebePrimaryBackground_Male";
     private static String MAIN_COLOR_NAVIGATION_FEMALE        = "colorLebePrimaryBackground_Female";
+    private static String MAIN_COLOR_SLIDER_INDICATOR_DEFAULT    = "color_pageslider_indicator_male";
     private static String MAIN_COLOR_SLIDER_INDICATOR_MALE    = "color_pageslider_indicator_male";
     private static String MAIN_COLOR_SLIDER_INDICATOR_FEMALE  = "color_pageslider_indicator_female";
+    private static String MAIN_COLOR_SLIDER_BACKGROUND_DEFAULT   =  "colorLebePrimaryBackground_Male";
     private static String MAIN_COLOR_SLIDER_BACKGROUND_MALE   =  "colorLebePrimaryBackground_Male";
     private static String MAIN_COLOR_SLIDER_BACKGROUND_FEMALE = "colorLebePrimaryBackground_Female";
+    private static String MAIN_DRAWABLE_HEADER_DEFAULT           = "header_main";
     private static String MAIN_DRAWABLE_HEADER_MALE           = "header_male";
     private static String MAIN_DRAWABLE_HEADER_FEMALE         = "header_female";
 
+    private static String HOME_DRAWABLE_TABLEROW_DEFAULT   = "table_row_bib_main";
     private static String HOME_DRAWABLE_TABLEROW_MALE   = "table_row_bib_male";
     private static String HOME_DRAWABLE_TABLEROW_FEMALE = "table_row_bib_female";
 
+    private static String SETTINGS_DRAWABLE_EDITTEXT_DEFAULT   = "edittext_user_view_main";
     private static String SETTINGS_DRAWABLE_EDITTEXT_MALE   = "edittext_user_view_male";
     private static String SETTINGS_DRAWABLE_EDITTEXT_FEMALE = "edittext_user_view_female";
+    private static String SETTINGS_DRAWABLE_BUTTON_DEFAULT     = "button_main";
     private static String SETTINGS_DRAWABLE_BUTTON_MALE     = "button_male";
     private static String SETTINGS_DRAWABLE_BUTTON_FEMALE   = "button_female";
 
@@ -80,10 +96,6 @@ public class GUIController implements Serializable{
         this.style = gender;
     }
 
-    public void changeGUI(){
-
-    }
-
     /**
      * Bei Ausführung wird das Style des GUIController auf die übergebende View und Object angewandt.
      * Es passiert nur eine Design anpassung, wenn nicht GUIStyle.DEFAULT gewählt ist
@@ -94,18 +106,28 @@ public class GUIController implements Serializable{
         this.verifyArguments(view, object);
         System.out.println(" -------------------> Werden ausgeführt");
 
-       if(this.style != GUIStyles.DEFAULT){
-           if(object instanceof Activity){
-               this.updateGUIActivity(view, (Activity) object);
-           } else if (object instanceof Fragment){
-               this.updateGUIFragment(view, (Fragment) object);
-           } else {
-               throw new IllegalArgumentException("only works on activitys or fragments");
-           }
-       }
+        if(this.style != GUIStyles.DEFAULT){
+            if(object instanceof Activity){
+                this.updateGUIActivity(view, (Activity) object);
+            } else if (object instanceof Fragment){
+                this.updateGUIFragment(view, (Fragment) object);
+            } else {
+                throw new IllegalArgumentException("only works on activitys or fragments");
+            }
+        }
 
 
     }
+
+    public void changeStyle(View MainView, View view){
+        System.out.println("///////////////////>: " + style);
+        this.verifyArguments(view);
+        this.handleMainInterface(MainView);
+        this.handleFragmentSettings(view);
+
+    }
+
+
 
     /**
      * Identifiziert welche Activity angepasst werden muss.
@@ -162,7 +184,9 @@ public class GUIController implements Serializable{
                     LOGIN_DRAWABLE_LOGO_FEMALE, LOGIN_DRAWABLE_BUTTON_FEMALE);
 
         } else {
-            this.missingSytle();
+            this.handleLoginInterfaceHelper(view, LOGIN_COLOR_BACKGROUNG_DEFAULT,
+                    LOGIN_DRAWABLE_LOGO_DEFAULT, LOGIN_DRAWABLE_BUTTON_DEFAULT);
+
         }
 
     }
@@ -210,7 +234,9 @@ public class GUIController implements Serializable{
                     MAIN_DRAWABLE_HEADER_FEMALE);
 
         } else {
-            this.missingSytle();
+            this.handleMainInterfaceHelper(view, MAIN_COLOR_NAVIGATION_DEFAULT,
+                    MAIN_COLOR_SLIDER_INDICATOR_DEFAULT, MAIN_COLOR_SLIDER_BACKGROUND_DEFAULT,
+                    MAIN_DRAWABLE_HEADER_DEFAULT);
         }
     }
 
@@ -233,6 +259,7 @@ public class GUIController implements Serializable{
         ImageView header_view = (ImageView) view.findViewById(R.id.header);
 
         navigation.setBackgroundColor(this.getColor(view, navigationColor));
+
         slider.setIndicatorColor(this.getColor(view, sliderIndicatorColor));
         slider.setBackgroundColor(this.getColor(view, sliderBackgroundColor));
         header_view.setImageDrawable(this.getDrawable(view, headerDrawable));
@@ -264,7 +291,8 @@ public class GUIController implements Serializable{
                     SETTINGS_DRAWABLE_BUTTON_FEMALE);
 
         } else {
-            this.missingSytle();
+            handleFragmentSettingsHelper(view, editTexts, SETTINGS_DRAWABLE_EDITTEXT_DEFAULT,
+                    SETTINGS_DRAWABLE_BUTTON_DEFAULT);
         }
     }
 
@@ -308,6 +336,9 @@ public class GUIController implements Serializable{
         Button button_login = (Button) view.findViewById(R.id.button2);
         Drawable buttonDraw = this.getDrawable(view, button);
         button_login.setBackground(buttonDraw);
+
+        Spinner s = (Spinner) view.findViewById(this.getIdentifier(view, "Spinner"));
+        s.setBackground(toDraw);
     }
 
 
@@ -344,7 +375,7 @@ public class GUIController implements Serializable{
             this.handleTableRowHelper(view, list, HOME_DRAWABLE_TABLEROW_FEMALE);
 
         } else {
-            this.missingSytle();
+            this.handleTableRowHelper(view, list, HOME_DRAWABLE_TABLEROW_DEFAULT);
         }
 
     }
@@ -428,12 +459,38 @@ public class GUIController implements Serializable{
      * Wenn ein Argument null ist, wird eine IllegalArgumentException geworfen
      * @param arguments
      */
-    public void verifyArguments(Object ...arguments){
+    private void verifyArguments(Object ...arguments){
         for(int i = 0 ; i< arguments.length; i++){
             if(arguments[i] == null){
                 throw new IllegalArgumentException("arguments incorrect");
             }
         }
+    }
+
+    private void loadLastSytleTyp(Activity activity){
+        String style = activity.getSharedPreferences("last_style", Context.MODE_PRIVATE).getString("last_style", null);
+        /*
+        if (style != null) {
+            this.lastStyle = style;
+        }
+
+        System.out.println("**********> " + lastStyle);
+        */
+
+    }
+
+    private void saveLastStyle(Activity activity, GUIStyles style){
+        SharedPreferences.Editor edit = activity.getSharedPreferences("bib_favorites", Context.MODE_PRIVATE).edit();
+        edit.putString("last_style", style.toString()).commit();
+    }
+
+    public static GUIController getInstance(){
+        return instance;
+    }
+
+    public void setStyle(GUIStyles styl){
+        style = styl;
+        UserDB.getInstance().setStyle(styl.toString());
     }
 
 
