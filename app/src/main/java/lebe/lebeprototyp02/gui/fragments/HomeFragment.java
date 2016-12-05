@@ -296,8 +296,12 @@ public class HomeFragment extends Fragment {
         }
         // Alle setzten
         for (int i = 0; i < favorites.size(); i++) {
+
+            if (!(map.get(favorites.get(i))==null)){
             updateFavoritestripHelper(view, "fav" + i, "fav" + i + "_text",
                     map.get(favorites.get(i)).getIcon(), map.get(favorites.get(i)).getLabel().toString(), true, i);
+            }
+
         }
         saveFavorites(new HashSet<String>(this.favorites));
 
