@@ -3,63 +3,42 @@ package lebe.lebeprototyp02;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
+import lebe.lebeprototyp02.dbhelper.UserDB;
 import lebe.lebeprototyp02.gui.fragments.UserViewFragment;
-import lebe.lebeprototyp02.gui.control.GUIController;
-import lebe.lebeprototyp02.gui.control.GUIStyles;
 
 /**
  * Created by Höling on 23.10.2016.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     EditText emailFeld;
     EditText passwordFeld;
     Button loginButton;
     SQLiteDatabase dataBase;
-    ScrollView sc;
-
-    /**
-     * GUI - Setzt das gewähte Design um
-     */
-    private GUIController guiController;
-    /**
-     * GUI - Intent, um den GUIController an die MainActivity zu übergeben
-     */
-    private Intent intent;
+    UserDB dbHelper;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        intent = new Intent(LoginActivity.this, MainActivity.class);
-
-        dataBase=openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
-
-        //wird zum resetten benutzt
-        if (true) {
-            dataBase.execSQL("DROP TABLE IF EXISTS UserProfile;");
-            dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
-            dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'),'false', 'test', 'true');");
-            dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'),'false', 'test', 'false');");
-        }
 
 
-        autoLogin();
+
+        dbHelper = UserDB.getInstance(this.getApplicationContext());
 
 
-        dataBase.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN);");
 
         emailFeld = (EditText)findViewById(R.id.login_email);
-        emailFeld.setText(getEmail());
+        emailFeld.setText(dbHelper.getLastEmail());
         passwordFeld = (EditText)findViewById(R.id.login_password);
         loginButton = (Button)findViewById(R.id.login_button);
 
@@ -74,14 +53,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validate()){
+                if(dbHelper.validate(emailFeld.getText().toString(), passwordFeld.getText().toString())){
                     Toast toast = Toast.makeText(getApplicationContext(),"erfolgreich angemeldet!",Toast.LENGTH_LONG);
                     toast.show();
-                    login(emailFeld.getText().toString());
+                    login(emailFeld.getText().toString(), passwordFeld.getText().toString());
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(),"Nicht erfolgreich!",Toast.LENGTH_LONG);
                     toast.show();
@@ -90,11 +68,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        /**
-         * GUI - Initialisierung - Startet hier
-         */
-        this.initializeIntent();
-        this.initializeGUI();
+        if(dbHelper.autoLogin()){
+            String email = dbHelper.getEmail();
+            String passwd = dbHelper.getPasswort();
+            login(email,passwd);
+        }
+
 
 
     }
@@ -103,137 +82,18 @@ public class LoginActivity extends AppCompatActivity {
         // disable going back to the MainActivity
         moveTaskToBack(true);
     }
-    public boolean validate(){
-
-        boolean temp = false;
-
-        if(Patterns.EMAIL_ADDRESS.matcher(emailFeld.getText().toString()).matches()){
-            temp=false;
-
-
-            Cursor resultSet = dataBase.rawQuery("Select Email, Password FROM UserProfile WHERE Email ='"+emailFeld.getText()+"';",null);
 
 
 
-            if(resultSet.moveToFirst()){
+    private void login(String email, String passwd){
 
-
-                if(!resultSet.getString(0).equals(emailFeld.getText().toString())){
-                    System.out.println("Email: "+resultSet.getString(0));
-                    return false;
-
-                }
-                if(!resultSet.getString(1).equals(passwordFeld.getText().toString())){
-                    System.out.println("passwd: "+resultSet.getString(1));
-                    return false;
-                }
-                //last login aktualisieren anhand der email
-                //aktualisiereLastLogin(resultSet.getString(0));
-
-                return true;
-
-
-            }else{
-                //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
-
-                //                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser2','Test123', date('now','-3 month'), date('now'),'blahUsername','test2@haw-hamburg.de', date('now','-1 month'));");
-                //                dataBase.execSQL("INSERT INTO UserProfile VALUES ('TestUser','Test123', date('now','-3 month'), date('now'),'blahUsername','test@haw-hamburg.de', date('now'));");
-            }
-
-        }
-
-
-        return temp;
-    }
-    public String getEmail(){
-
-
-        String temp="";
-        Cursor resultSet = dataBase.rawQuery("Select Email, Password, LastLogin FROM UserProfile ORDER BY LastLogin DESC",null);
-
-
-
-        if(resultSet.moveToFirst()){
-            temp=resultSet.getString(0);
-
-        }else{
-            temp="Email";
-        }
-
-     return temp;
-    }
-
-
-    private void aktualisiereLastLogin(String email) {
-
-        dataBase.execSQL("UPDATE UserProfile SET LastLogin = date('now') WHERE Email ='" + email + "';");
-        UserViewFragment.emailAddresse = email;
-
-
-    }
-
-    private void login(String email) {
-
-        aktualisiereLastLogin(email);
+        dbHelper.login(email, passwd);
         finish();
-
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
 
     }
 
-    private void autoLogin() {
-
-        String tempMail = "";
-        String tempRemeber = "";
-        Cursor resultSet = dataBase.rawQuery("Select Email, Password, Remember,LastLogin FROM UserProfile ORDER BY LastLogin DESC", null);
-
-
-        if (resultSet.moveToFirst()) {
-            tempMail = resultSet.getString(0);
-            tempRemeber = resultSet.getString(2);
-
-        }
-
-        if (!(tempMail.equals("")) && tempRemeber.equals("true")) {
-
-            aktualisiereLastLogin(tempMail);
-            login(tempMail);
-        }
-
-
-    }
-
-    /**
-     * GUI - GUIContoller - Initialisierung.<br>
-     * Erstellt den GUIController, setzt das Design für die LoginActivity und verpackt denn
-     * GUIController in den Intent für die MainActivity.
-     */
-    private void initializeGUI(){
-        /**
-         * Von der Datenbank wird das Geschlecht des User ausgelesen. Das Geschlecht
-         * entscheidet darüber welches Design der GUIController läd
-         */
-        this.guiController = new GUIController(GUIStyles.FEMALE);
-        //this.guiController = null;
-
-        /**
-         * Setzt das Design für die Activity
-         */
-        if(guiController != null){
-            guiController.updateGUI(getWindow().getDecorView().getRootView(), this);
-        }
-
-        /**
-         * Verpackt den GUIController in den Intent, damit er an die MainActivity gesendet werden kann
-         */
-        this.intent.putExtra("gui", guiController);
-    }
-
-    /**
-     * Initialisiert den Intent für die MainActivity.
-     */
-    private void initializeIntent(){
-        this.intent = new Intent(this, MainActivity.class);
-    }
 
 }
+

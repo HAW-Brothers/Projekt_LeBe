@@ -34,10 +34,13 @@ import lebe.lebeprototyp02.market.MarketItem;
 public class MarketFragment extends Fragment {
 
     private ListView marketview;
+    private ListView marketViewTop;
     private ArrayList<MarketItem> datensatz;
+    private ArrayList<MarketItem> datensatzTop;
 
 
     private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
+    private final String urlStringTop = "http://lebe-app.hol.es/dbabfrage/jsontopddl.php";
     private JSONArray marketAsJSONArray;
 
 
@@ -51,8 +54,8 @@ public class MarketFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString);
-        testTask.execute();
+//        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString);
+//        testTask.execute();
 
 
         // Inflate the layout for this fragment
@@ -65,131 +68,149 @@ public class MarketFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        marketview = (ListView) getView().findViewById(R.id.listview_market);
+        marketview = (ListView) getView().findViewById(R.id.lv_download);
 
-        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString);
+        TestAsyncTask testTask = new TestAsyncTask(this.getContext(), urlString, datensatz);
         testTask.execute();
 
-        CVAMarket adapter = new CVAMarket(this.getContext(), datensatz);
+        CVAMarket adapter = new CVAMarket(this.getContext(),datensatz);
 
         marketview.setAdapter(adapter);
 
+
+//        //ab hier werden die top 5 downloads angezeigt
+//        marketViewTop = marketview = (ListView) getView().findViewById(R.id.lv_top_download);
+//        TestAsyncTask testTask2 = new TestAsyncTask(this.getContext(), urlStringTop, datensatzTop);
+//        testTask.execute();
+//        CVAMarket adapter2 = new CVAMarket(this.getContext(),datensatzTop);
+//
+//        marketViewTop.setAdapter(adapter);
+//
+
+
+
+
     }
 
-    //----------------------------------------------------------------------------------------------------
-    public class TestAsyncTask extends AsyncTask<Void, Void, String> {
-        private Context mContext;
-        private String mUrl;
+//----------------------------------------------------------------------------------------------------
+public class TestAsyncTask extends AsyncTask<Void, Void, String> {
+    private Context mContext;
+    private String mUrl;
+    private ArrayList<MarketItem> datensaetze;
 
-        private ProgressDialog progressDialog = new ProgressDialog(getContext());
+    private ProgressDialog progressDialog = new ProgressDialog(getContext());
 
-        public TestAsyncTask(Context context, String url) {
-            mContext = context;
-            mUrl = url;
-        }
+    public TestAsyncTask(Context context, String url, ArrayList daten) {
+        mContext = context;
+        mUrl = url;
+        datensaetze=daten;
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-
-            progressDialog.setMessage("Downloade Daten...");
-            progressDialog.show();
-            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface arg0) {
-                    TestAsyncTask.this.cancel(true);
-                }
-            });
-
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            //hier wird die komplette seite als String geholt
-            String resultString = null;
-            resultString = getJSON(mUrl);
-
-            return resultString;
-        }
-
-        @Override
-        protected void onPostExecute(String strings) {
-            super.onPostExecute(strings);
-
-            progressDialog.dismiss();
-
-            //hier dann die objekte mit jsondaten befüllen
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
 
 
-            try {
-                JSONObject json = new JSONObject(strings);
-                marketAsJSONArray = json.getJSONArray("market");
+        progressDialog.setMessage("Downloade Daten...");
+        progressDialog.show();
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                TestAsyncTask.this.cancel(true);
+            }
+        });
+
+    }
+
+    @Override
+    protected String doInBackground(Void... params) {
+        //hier wird die komplette seite als String geholt
+        String resultString = null;
+        resultString = getJSON(mUrl);
+
+        return resultString;
+    }
+
+    @Override
+    protected void onPostExecute(String strings) {
+        super.onPostExecute(strings);
+
+        progressDialog.dismiss();
+
+        //hier dann die objekte mit jsondaten befüllen
 
 
-                JSONObject temp = marketAsJSONArray.getJSONObject(0);
-
-                TextView name = (TextView) getView().findViewById(R.id.market_Name);
-
-                //marketAsJSON.get
-                // name.setText(marketAsJSONArray.get(0).);
-
-                TextView link = (TextView) getView().findViewById(R.id.market_beschreibung);
-                // link.setText(json.get("pfad").toString());
-
-                for (int i = 0; i < marketAsJSONArray.length(); i++) {
-                    JSONObject c = marketAsJSONArray.getJSONObject(i);
-                    MarketItem tempItem = new MarketItem();
-
-                    tempItem.setName(c.getString("name"));
-                    tempItem.setDiscription(c.getString("pfadApp"));
-                    tempItem.setDdlpath(c.getString("pfadApp"));
-                    datensatz.add(tempItem);
-
-                }
+        try {
+            JSONObject json = new JSONObject(strings);
+            marketAsJSONArray = json.getJSONArray("market");
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+
+            JSONObject temp = marketAsJSONArray.getJSONObject(0);
+
+            TextView name = (TextView) getView().findViewById(R.id.market_Name);
+
+            //marketAsJSON.get
+            // name.setText(marketAsJSONArray.get(0).);
+
+            TextView link = (TextView) getView().findViewById(R.id.market_beschreibung);
+            // link.setText(json.get("pfad").toString());
+
+            for (int i =0; i< marketAsJSONArray.length(); i++){
+                JSONObject c = marketAsJSONArray.getJSONObject(i);
+                MarketItem tempItem = new MarketItem();
+
+                tempItem.setName(c.getString("name"));
+                tempItem.setDiscription(c.getString("pfadApp"));
+                tempItem.setDdlpath(c.getString("pfadApp"));
+                datensaetze.add(tempItem);
+
             }
 
 
-            //dynamictext.setText(strings);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        public String getJSON(String url) {
-            HttpURLConnection c = null;
-            try {
-                URL u = new URL(url);
-                c = (HttpURLConnection) u.openConnection();
-                c.connect();
-                int status = c.getResponseCode();
-                switch (status) {
-                    case 200:
-                    case 201:
-                        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            sb.append(line + "\n");
-                        }
-                        br.close();
-                        return sb.toString();
-                }
 
-            } catch (Exception ex) {
-                return ex.toString();
-            } finally {
-                if (c != null) {
-                    try {
-                        c.disconnect();
-                    } catch (Exception ex) {
-                        //disconnect error
+        //dynamictext.setText(strings);
+    }
+    public String getJSON(String url) {
+        HttpURLConnection c = null;
+        try {
+            URL u = new URL(url);
+            c = (HttpURLConnection) u.openConnection();
+            c.connect();
+            int status = c.getResponseCode();
+            switch (status) {
+                case 200:
+                case 201:
+                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line+"\n");
                     }
+                    br.close();
+                    return sb.toString();
+            }
+
+        } catch (Exception ex) {
+            return ex.toString();
+        } finally {
+            if (c != null) {
+                try {
+                    c.disconnect();
+                } catch (Exception ex) {
+                    //disconnect error
                 }
             }
-            return null;
         }
-
+        return null;
     }
+
+}
 
 }

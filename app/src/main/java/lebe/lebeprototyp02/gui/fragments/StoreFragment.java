@@ -1,5 +1,6 @@
 package lebe.lebeprototyp02.gui.fragments;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,19 +28,23 @@ import java.util.ArrayList;
 
 import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
+import lebe.lebeprototyp02.dbhelper.UserDB;
 import lebe.lebeprototyp02.market.CVAMarket;
 import lebe.lebeprototyp02.market.MarketItem;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Diese Klasse stellt den Store dar
  */
 public class StoreFragment extends Fragment {
-
 
     private ListView marketview;
     private ArrayList<MarketItem> datensatz = new ArrayList<>();
     private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
+
+    private ListView marketviewTop;
+    private ArrayList<MarketItem> datensatzTop = new ArrayList<>();
+    private final String urlStringTop = "http://lebe-app.hol.es/dbabfrage/jsontopddl.php";
 
 
     public StoreFragment() {
@@ -50,40 +55,56 @@ public class StoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_market, container, false);
-
-        //  return view;
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
 
-        /*  MarketItem item = new MarketItem();
+      /*  MarketItem item = new MarketItem();
         item.setName("hallo");
-item.setDiscription("beschreibung");
-item.setImgpath("https://de.wikipedia.org/wiki/Federal_Bureau_of_Investigation#/media
-/File:Federal_Bureau_of_Investigation.svg");
-datensatz.add(item);*/
+        item.setDiscription("beschreibung");
+        item.setImgpath("https://de.wikipedia.org/wiki/Federal_Bureau_of_Investigation#/media/File:Federal_Bureau_of_Investigation.svg");
+        datensatz.add(item);*/
 
-        TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString);
+
+        String geburtsdatum = UserDB.getInstance().getGeburtsdatum();
+
+        TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString+"?alter="+geburtsdatum,datensatz);
         testTask.execute();
 
+        marketview = (ListView) getView().findViewById(R.id.lv_download);
 
-        marketview = (ListView) getView().findViewById(R.id.listview_market);
-
-        CVAMarket adapter = new CVAMarket(this.getContext(), datensatz);
+        CVAMarket adapter = new CVAMarket(this.getContext(),datensatz);
 
         marketview.setAdapter(adapter);
+
+
+
+        //--------------------ab hier die 2te liste
+        marketviewTop = (ListView) getView().findViewById(R.id.lv_top_download);
+        TestAsyncTask testTaskTop = new TestAsyncTask(getContext(), urlStringTop+"?alter="+geburtsdatum,datensatzTop);
+        testTaskTop.execute();
+
+        CVAMarket adapterTop = new CVAMarket(this.getContext(),datensatzTop);
+
+        marketviewTop.setAdapter(adapterTop);
 
 
     }
 
 
-//-------------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Diese Interne Klasse startet einen Asynchronen Task im hintergrund um die Daten des markets (welche apps gibt es, Name, Downloadlink..)
+     * im Hintergrund herunter zu laden
+     */
     public class TestAsyncTask extends AsyncTask<Void, Void, String> {
         private Context mContext;
         private String mUrl;
@@ -91,18 +112,32 @@ datensatz.add(item);*/
         private ProgressDialog progressDialog = new ProgressDialog(getContext());
 
 
-        private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
+        private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php?alter="+UserDB.getInstance().getGeburtsdatum();
         private JSONArray marketAsJSONArray;
+        private ArrayList<MarketItem> datensaetze;
 
 
-        public TestAsyncTask(Context context, String url) {
+        /**
+         * Der Konstruktor für einen neuen Asynchronen Task im Hintergrund
+         * @param context
+         * @param url
+         * @param daten
+         */
+        public TestAsyncTask(Context context, String url,ArrayList<MarketItem> daten) {
             mContext = context;
             mUrl = url;
+            datensaetze=daten;
         }
 
+
+        /**
+         * Diese Methode wird ausgeführt bevor die eigentliche Arbeit getan wird
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+
             progressDialog.setMessage("Downloade Daten...");
             progressDialog.show();
             progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -110,18 +145,28 @@ datensatz.add(item);*/
                     TestAsyncTask.this.cancel(true);
                 }
             });
+
         }
 
+        /**
+         * Hier verrichtet der Thread seine Arbeit. Hier wird ein JSON Objekt vom Webserver geholt und es wird geparst
+         * @param params
+         * @return
+         */
         @Override
         protected String doInBackground(Void... params) {
             //hier wird die komplette seite als String geholt
             String resultString = null;
             resultString = getJSON(mUrl);
 
-
             return resultString;
         }
 
+        /**
+         * Diese Methode wird automatisch nach {@see doInBackground()} ausgeführt. Es wird ein MarketItem-Objekt mit den Daten
+         * aus dem JSON Objekt.
+         * @param strings
+         */
         @Override
         protected void onPostExecute(String strings) {
             super.onPostExecute(strings);
@@ -136,7 +181,7 @@ datensatz.add(item);*/
                 marketAsJSONArray = json.getJSONArray("market");
                 MarketItem item = new MarketItem();
 
-                for (int i = 0; i < marketAsJSONArray.length(); i++) {
+                for (int i=0;i<marketAsJSONArray.length();i++){
                     json = marketAsJSONArray.getJSONObject(i);
 
 
@@ -145,12 +190,13 @@ datensatz.add(item);*/
                     item.setDiscription(json.getString("beschreibung"));
                     item.setImgpath(json.getString("pfadBild"));
                     item.setDdlpath(json.getString("pfadApp"));
-                    datensatz.add(item);
+                    datensaetze.add(item);
 
 
                 }
 
                 //JSONObject temp = marketAsJSONArray.getJSONObject(0);
+
 
 
             } catch (JSONException e) {
@@ -161,6 +207,11 @@ datensatz.add(item);*/
             //dynamictext.setText(strings);
         }
 
+        /**
+         * Diese Methode holt sich die Webseite als String und parst daraus ein JSON Objekt.
+         * @param url Die URL die das JSON als HTML generiert
+         * @return Das JSON aus der Webseite geparst
+         */
         public String getJSON(String url) {
             HttpURLConnection c = null;
             try {
@@ -175,7 +226,7 @@ datensatz.add(item);*/
                         StringBuilder sb = new StringBuilder();
                         String line;
                         while ((line = br.readLine()) != null) {
-                            sb.append(line + "\n");
+                            sb.append(line+"\n");
                         }
                         br.close();
                         return sb.toString();
@@ -196,6 +247,4 @@ datensatz.add(item);*/
         }
 
     }
-
-
 }
