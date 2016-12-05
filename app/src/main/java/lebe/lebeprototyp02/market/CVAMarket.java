@@ -20,9 +20,11 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -105,6 +107,7 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 //                    System.out.println(tempdownload);
 //                    tempdownload.replaceAll("\\","");
                     System.out.println(tempdownload);
+                    count(tempDateiname);
                     downloadAndInstall.execute(tempdownload, tempDateiname+".apk");
                 }
             }
@@ -128,6 +131,45 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
 
         return rowViev;
+    }
+
+    /**
+     * Diese methode sollte eigentlich den downloadzähler auf dem server Inkrementiren indem eine phpseite ausgeführt wird
+     * @param name der app die inkrementiert werden soll.
+     */
+    private void count(String name){
+
+        HttpURLConnection c = null;
+        try {
+            URL u = new URL("http://lebe-app.hol.es/dbabfrage/inkrement.php?name="+name);
+            c = (HttpURLConnection) u.openConnection();
+            c.connect();
+            int status = c.getResponseCode();
+            switch (status) {
+                case 200:
+                case 201:
+                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line+"\n");
+                        System.out.println("UPDATE DOWNLOAD!!! "+sb);
+                    }
+                    br.close();
+
+            }
+
+        } catch (Exception ex) {
+            ex.toString();
+        } finally {
+            if (c != null) {
+                try {
+                    c.disconnect();
+                } catch (Exception ex) {
+                    //disconnect error
+                }
+            }
+        }
     }
 
 
