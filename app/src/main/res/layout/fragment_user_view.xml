@@ -25,7 +25,7 @@
 
             <TextView
                 style="@style/UserViewText"
-                android:text="UserName:"
+                android:text="Benutzername:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -98,7 +98,7 @@
 
                 <TextView
                     style="@style/UserViewText"
-                    android:text="Geburtdatum"
+                    android:text="Geburtdatum:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/labelBirthdate"
@@ -129,7 +129,7 @@
 
         <TextView
                 style="@style/UserViewText"
-                android:text="Registierungsdatum"
+                android:text="Registierungsdatum:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -168,7 +168,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="Email"/>
+                    android:text="Email:"/>
 
                 <EditText
                     style="@style/EditText"
@@ -196,7 +196,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="Style"/>
+                    android:text="Design"/>
 
                 <Spinner
                     style="@style/EditText"
@@ -240,13 +240,15 @@
 
                 <Button
                     style="@style/LoginButton"
-                    android:text="save"
+                    android:text="Änderungen speichern"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_toLeftOf="@+id/regDateEdit"
                     android:layout_toStartOf="@+id/regDateEdit"
-                    android:id="@+id/button2"/>
+                    android:id="@+id/button2"
+                    android:layout_marginBottom="25dp"
+                    />
 
 
 

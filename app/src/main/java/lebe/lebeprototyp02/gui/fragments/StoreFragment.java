@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import lebe.lebeprototyp02.MainActivity;
 import lebe.lebeprototyp02.R;
@@ -38,6 +40,7 @@ import lebe.lebeprototyp02.market.MarketItem;
  */
 public class StoreFragment extends Fragment {
 
+    private int counter = 0;
     private ListView marketview;
     private ArrayList<MarketItem> datensatz = new ArrayList<>();
     private final String urlString = "http://lebe-app.hol.es/dbabfrage/jsontestv2.php";
@@ -55,16 +58,17 @@ public class StoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        View view = inflater.inflate(R.layout.fragment_market, container, false);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_market, container, false);
+        return view;
     }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
 
       /*  MarketItem item = new MarketItem();
         item.setName("hallo");
@@ -72,11 +76,20 @@ public class StoreFragment extends Fragment {
         item.setImgpath("https://de.wikipedia.org/wiki/Federal_Bureau_of_Investigation#/media/File:Federal_Bureau_of_Investigation.svg");
         datensatz.add(item);*/
 
-
         String geburtsdatum = UserDB.getInstance().getGeburtsdatum();
 
         TestAsyncTask testTask = new TestAsyncTask(getContext(), urlString+"?alter="+geburtsdatum,datensatz);
-        testTask.execute();
+
+        /*
+          Es mmuss auf den Task gewartet werden, damit dieser die ListViews befüllen kann.
+         */
+        try {
+            testTask.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         marketview = (ListView) getView().findViewById(R.id.lv_download);
 
@@ -85,11 +98,21 @@ public class StoreFragment extends Fragment {
         marketview.setAdapter(adapter);
 
 
-
         //--------------------ab hier die 2te liste
         marketviewTop = (ListView) getView().findViewById(R.id.lv_top_download);
         TestAsyncTask testTaskTop = new TestAsyncTask(getContext(), urlStringTop+"?alter="+geburtsdatum,datensatzTop);
-        testTaskTop.execute();
+
+
+        /*
+          Es mmuss auf den Task gewartet werden, damit dieser die ListViews befüllen kann.
+         */
+        try {
+            testTaskTop.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         CVAMarket adapterTop = new CVAMarket(this.getContext(),datensatzTop);
 

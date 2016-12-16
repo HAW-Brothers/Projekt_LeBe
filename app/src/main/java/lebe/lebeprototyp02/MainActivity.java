@@ -1,8 +1,10 @@
 package lebe.lebeprototyp02;
 
 
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import lebe.lebeprototyp02.gui.control.GUIController;
 import lebe.lebeprototyp02.gui.control.PagerAdapter;
+import lebe.lebeprototyp02.gui.fragments.StoreFragment;
 
 import static lebe.lebeprototyp02.R.styleable.PagerSlidingTabStrip;
 
@@ -138,19 +141,6 @@ public class MainActivity extends AppCompatActivity {
          */
         this.viewPager = (ViewPager) findViewById(R.id.pager);
         final android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
-        this.viewPager.addOnLayoutChangeListener((new View.OnLayoutChangeListener() {
-
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-
-                if (guiController != null) {
-
-                    guiController.updateGUI(getWindow().getDecorView().getRootView(), pagerAdapter.getActiveFragment(viewPager, fm, viewPager.getCurrentItem()));
-                }
-            }
-        }));
-
-
 
 
         this.pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.PageSliderTabs);
@@ -158,6 +148,21 @@ public class MainActivity extends AppCompatActivity {
         this.pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         this.viewPager.setAdapter(pagerAdapter);
         this.pagerSlidingTabStrip.setViewPager(viewPager);
+
+
+        this.viewPager.addOnLayoutChangeListener((new View.OnLayoutChangeListener() {
+
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+                if (guiController != null) {
+                    guiController.updateGUI(getWindow().getDecorView().getRootView(), pagerAdapter.getActiveFragment(viewPager, fm, viewPager.getCurrentItem()));
+                }
+            }
+        }));
+
+
+
 
     }
 

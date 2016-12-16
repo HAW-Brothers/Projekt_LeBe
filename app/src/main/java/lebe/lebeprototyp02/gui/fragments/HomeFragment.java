@@ -413,6 +413,9 @@ public class HomeFragment extends Fragment {
                     resolveInfo.activityInfo.loadIcon(packageManager));
             applications.add(applicationDetail);
         }
+
+
+
     }
 
 }

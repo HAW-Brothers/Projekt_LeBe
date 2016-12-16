@@ -21,6 +21,7 @@
     <TextView
 
         android:layout_width="match_parent"
+        android:maxLength="42"
         android:layout_height="26dip"
         android:id="@+id/market_beschreibung"
         android:layout_toRightOf="@+id/market_logo"
@@ -30,6 +31,7 @@
         android:textSize="12sp"
         android:ellipsize="marquee"
         android:text="Beschreibung"
+
         />
     <TextView
         android:id="@+id/market_Name"
@@ -42,7 +44,7 @@
         android:textSize="20sp"
         android:gravity="center_vertical"
         android:text="Name"
-        />
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -51,7 +53,7 @@
 
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="download"
+        android:text="Runterladen"
         android:id="@+id/market_download" />
 
 

@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity{
     SQLiteDatabase dataBase;
     UserDB dbHelper;
     String lastStyle;
+    TextView registration;
 
     /**
      * GUI - Setzt das gewähte Design um
@@ -57,6 +59,7 @@ public class LoginActivity extends AppCompatActivity{
         emailFeld.setText(dbHelper.getLastEmail());
         passwordFeld = (EditText)findViewById(R.id.login_password);
         loginButton = (Button)findViewById(R.id.login_button);
+        registration = (TextView) findViewById(R.id.login_registerText);
 
 
 
@@ -89,6 +92,15 @@ public class LoginActivity extends AppCompatActivity{
             String passwd = dbHelper.getPasswort();
             login(email,passwd);
         }
+
+        registration.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RegActivity.class);
+                startActivity(intent);
+            }
+        });
 
         /**
          * GUI - Initialisierung - Startet hier

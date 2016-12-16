@@ -2,27 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lebe.lebeprototyp02">
 
-    <uses-sdk android:minSdkVersion="10"/>
+    <uses-sdk android:minSdkVersion="10" />
     android:versionCode="1"
     android:versionName="0.2" >
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <!--<uses-permission android:name="android.permission.INSTALL_PACKAGES" />-->
 
-
-
+    <!-- <uses-permission android:name="android.permission.INSTALL_PACKAGES" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,7 +25,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"> <!-- Entfernt die ActionBar (Blaue Headline der App) festgelegt in res/values/sytles.xml - CG-->
+            android:theme="@style/AppTheme.NoActionBar"> <!-- Entfernt die ActionBar (Blaue Headline der App) festgelegt in res/values/sytles.xml - CG -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +34,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -50,13 +44,20 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <service android:name="lebe.lebeprototyp02.MessageBroker"
+        <service
+            android:name=".MessageBroker"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="lebe.lebeprototyp02.MessageBroker.ACTION_BIND" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".RegActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
     </application>
 
 </manifest>

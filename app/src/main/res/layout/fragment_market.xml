@@ -2,33 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
     <TextView
         android:id="@+id/tv_top_downloads"
-        android:text="Top Downloads"
+        android:text="Am meisten Heruntergeladen"
+        android:textSize="10pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
 
         />
     <ListView
         android:id="@+id/lv_top_download"
         android:layout_width="wrap_content"
-        android:layout_height="260dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="200dp"
 
         />
     <TextView
         android:id="@+id/tv_downloads"
-        android:text="Alle"
-        android:layout_width="wrap_content"
-        android:layout_height="260dp"
-        android:layout_marginTop="290dp"
-        />
-    <ListView
-        android:id="@+id/lv_download"
+        android:text="Übersicht"
+        android:textSize="10pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="10dp"
         />
+    <ListView
+
+        android:id="@+id/lv_download"
+        android:layout_width="wrap_content"
+        android:layout_height="170dp"
+        />
+</LinearLayout>
+
 
 
 </RelativeLayout>
