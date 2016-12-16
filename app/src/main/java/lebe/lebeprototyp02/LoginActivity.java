@@ -115,13 +115,18 @@ public class LoginActivity extends AppCompatActivity{
     }
 
 
-
+    /**
+     * Meldet den Benutzer mit der Email an und startet die eigentliche app.
+     * @param email
+     * @param passwd
+     */
     private void login(String email, String passwd){
 
         dbHelper.login(email, passwd);
         this.initializeGUI();
         finish();
         startActivity(new Intent(this, MainActivity.class));
+
 
     }
 
@@ -174,7 +179,12 @@ public class LoginActivity extends AppCompatActivity{
     }
 
 
-    public int identifyAge(String dateString){
+    /**
+     * Ein helferlein welches das momentane alter des users bestimmt
+     * @param dateString
+     * @return
+     */
+    private int identifyAge(String dateString){
 
         String zu = dbHelper.getInstance().getGeburtsdatum();
         int index = zu.length();
