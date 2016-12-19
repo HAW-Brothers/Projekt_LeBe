@@ -38,21 +38,31 @@ public class Zeitmessung {
 
 
 
+        String emailAddr="";
         String start = "";
         String ende = "";
         String dauer = "";
 
         if(resultSet.moveToFirst()){
 
+            emailAddr=resultSet.getString(0);
             start=resultSet.getString(1);
             ende=resultSet.getString(2);
             dauer=resultSet.getString(3);
 
+
+            ZeiterfassungSync neueZeit = new ZeiterfassungSync();
+            neueZeit.setmContext(mContext);
+            neueZeit.execute(emailAddr,start,ende,dauer);
+
+            //hier die datenbank wieder leeren
+            db.delete("Zeitmessung",null,null);
+
+        }else{
+            System.out.println("------------------------------------------keine vorherigen daten vorhanden");
         }
 
-        ZeiterfassungSync neueZeit = new ZeiterfassungSync();
-        neueZeit.setmContext(mContext);
-        neueZeit.execute(email,start,ende,dauer);
+
 
 
         startzeit=System.currentTimeMillis();

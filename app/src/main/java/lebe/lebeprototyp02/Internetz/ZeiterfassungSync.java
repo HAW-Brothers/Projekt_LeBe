@@ -20,6 +20,7 @@ public class ZeiterfassungSync extends AsyncTask <String, Void, Void>{
         String dauer = params[3];
 
 
+        System.out.println("--------------------------------------parameter fuer serversync: "+email+" start: "+start+" ende: "+ende+" dauer: "+dauer);
 
 
         return null;
