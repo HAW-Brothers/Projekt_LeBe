@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import lebe.lebeprototyp02.Internetz.ZeiterfassungSync;
+
 /**
  * Created by Höling on 19.12.2016.
  */
@@ -35,16 +37,22 @@ public class Zeitmessung {
         Cursor resultSet = db.rawQuery("Select Email, Start, Ende, Dauer FROM Zeitmessung",null);
 
 
+
         String start = "";
         String ende = "";
         String dauer = "";
 
         if(resultSet.moveToFirst()){
-            temp=resultSet.getString(0);
-            email=temp;
-            passwort=resultSet.getString(1);
+
+            start=resultSet.getString(1);
+            ende=resultSet.getString(2);
+            dauer=resultSet.getString(3);
 
         }
+
+        ZeiterfassungSync neueZeit = new ZeiterfassungSync();
+        neueZeit.setmContext(mContext);
+        neueZeit.execute(email,start,ende,dauer);
 
 
         startzeit=System.currentTimeMillis();

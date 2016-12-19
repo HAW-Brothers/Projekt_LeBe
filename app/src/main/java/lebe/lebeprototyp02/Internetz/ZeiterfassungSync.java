@@ -1,5 +1,6 @@
 package lebe.lebeprototyp02.Internetz;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 /**
@@ -7,6 +8,9 @@ import android.os.AsyncTask;
  */
 
 public class ZeiterfassungSync extends AsyncTask <String, Void, Void>{
+
+    private Context mContext;
+
     @Override
     protected Void doInBackground(String... params) {
 
@@ -19,5 +23,9 @@ public class ZeiterfassungSync extends AsyncTask <String, Void, Void>{
 
 
         return null;
+    }
+
+    public void setmContext(Context cont){
+        mContext=cont;
     }
 }
