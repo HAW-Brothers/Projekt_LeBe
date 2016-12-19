@@ -19,6 +19,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 
+import lebe.lebeprototyp02.Zeitmessung.Zeitmessung;
+import lebe.lebeprototyp02.dbhelper.UserDB;
 import lebe.lebeprototyp02.gui.control.GUIController;
 import lebe.lebeprototyp02.gui.control.PagerAdapter;
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
      * GUI - Setzt das gewähte Design um
      */
     private GUIController guiController;
+
+    private Zeitmessung zeitMesser = new Zeitmessung(UserDB.getInstance().getEmail(),getApplicationContext());
 
 
     /**
@@ -89,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+
+        zeitMesser.startZeit();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
 
+
+        zeitMesser.endZeit();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
