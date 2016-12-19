@@ -34,6 +34,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import lebe.lebeprototyp02.Internetz.DownloadCounter;
 import lebe.lebeprototyp02.R;
 
 /**
@@ -115,9 +116,13 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
 
 //                    System.out.println(tempdownload);
 //                    tempdownload.replaceAll("\\","");
-                    System.out.println(tempdownload);
+//                    System.out.println(tempdownload);
                     count(tempDateiname);
                     downloadAndInstall.execute(tempdownload, tempDateiname+".apk");
+
+
+
+
                 }
             }
 
@@ -148,37 +153,10 @@ public class CVAMarket extends ArrayAdapter<MarketItem> {
      */
     private void count(String name){
 
-        HttpURLConnection c = null;
-        try {
-            URL u = new URL("http://lebe-app.hol.es/dbabfrage/inkrement.php?name="+name);
-            c = (HttpURLConnection) u.openConnection();
-            c.connect();
-            int status = c.getResponseCode();
-            switch (status) {
-                case 200:
-                case 201:
-                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line+"\n");
-                        System.out.println("UPDATE DOWNLOAD!!! "+sb);
-                    }
-                    br.close();
+        DownloadCounter dc = new DownloadCounter();
+        dc.setmContext(getContext());
+        dc.execute(name);
 
-            }
-
-        } catch (Exception ex) {
-            ex.toString();
-        } finally {
-            if (c != null) {
-                try {
-                    c.disconnect();
-                } catch (Exception ex) {
-                    //disconnect error
-                }
-            }
-        }
     }
 
 
