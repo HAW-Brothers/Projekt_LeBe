@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private GUIController guiController;
 
-    private Zeitmessung zeitMesser = new Zeitmessung(UserDB.getInstance().getEmail(),getApplicationContext());
+    private Zeitmessung zeitMesser; //= new Zeitmessung(UserDB.getInstance().getEmail(),getApplicationContext());
 
 
     /**
@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        zeitMesser = new Zeitmessung(UserDB.getInstance().getEmail(),getApplicationContext());
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -107,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         zeitMesser.endZeit();
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
