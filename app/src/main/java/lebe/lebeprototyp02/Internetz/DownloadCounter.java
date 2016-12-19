@@ -37,7 +37,7 @@ public class DownloadCounter extends AsyncTask <String, Void, Void>{
                     String line;
                     while ((line = br.readLine()) != null) {
                         sb.append(line+"\n");
-                        System.out.println("UPDATE DOWNLOAD!!! "+sb);
+
                     }
                     br.close();
 
