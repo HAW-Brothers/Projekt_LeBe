@@ -17,6 +17,7 @@
         android:layout_marginRight="6dip"
 
 
+
         app:srcCompat="@drawable/common_plus_signin_btn_icon_light_normal" />
     <TextView
 
@@ -44,7 +45,8 @@
         android:textSize="20sp"
         android:gravity="center_vertical"
         android:text="Name"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:maxLength="11"/>
 
     <Button
         android:layout_width="wrap_content"

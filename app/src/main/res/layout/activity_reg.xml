@@ -32,7 +32,7 @@
             style="@style/LoginText"
             android:textSize="16dp"
             android:textStyle="bold"
-            android:text="Registerung"
+            android:text="Registrierung"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
