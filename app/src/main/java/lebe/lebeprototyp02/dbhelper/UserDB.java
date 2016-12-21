@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Patterns;
 
 import java.io.File;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -67,18 +70,18 @@ public class UserDB {
 //
 //        oh.getWritableDatabase().execSQL("DROP TABLE UserProfile");
 
-        if(reset){
-//            String[] temp= {};
-//            db.delete("UserProfile","",temp);
-//            SQLiteDatabase.deleteDatabase(new File(db.getPath()));
-            db.execSQL("DROP TABLE IF EXISTS UserProfile;");
-            db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN, Points INTEGER);");
-            db.execSQL("INSERT INTO UserProfile VALUES ('Jung','Test', date('now','-6 years'), date('now'),'kind','jung@haw-hamburg.de', datetime('now','-1 month'),'false', 'test', 'true',0);");
-            db.execSQL("INSERT INTO UserProfile VALUES ('Teen','Test', date('now','-15 years'), date('now'),'teenager','teen@haw-hamburg.de', datetime('now','-1 seconds'),'false', 'test', 'false',1000);");
-            db.execSQL("INSERT INTO UserProfile VALUES ('Alt','Test', date('now','-30 years'), date('now'),'hentai jiji','alt@haw-hamburg.de', datetime('now','-1 year'),'false', 'test', 'true',13);");
-
-//            db = context.openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
-        }
+//        if(reset){
+////            String[] temp= {};
+////            db.delete("UserProfile","",temp);
+////            SQLiteDatabase.deleteDatabase(new File(db.getPath()));
+//            db.execSQL("DROP TABLE IF EXISTS UserProfile;");
+//            db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN, Points INTEGER);");
+//            db.execSQL("INSERT INTO UserProfile VALUES ('Jung','Test', date('now','-6 years'), date('now'),'kind','jung@haw-hamburg.de', datetime('now','-1 month'),'false', 'test', 'true',0);");
+//            db.execSQL("INSERT INTO UserProfile VALUES ('Teen','Test', date('now','-15 years'), date('now'),'teenager','teen@haw-hamburg.de', datetime('now','-1 seconds'),'false', 'test', 'false',1000);");
+//            db.execSQL("INSERT INTO UserProfile VALUES ('Alt','Test', date('now','-30 years'), date('now'),'hentai jiji','alt@haw-hamburg.de', datetime('now','-1 year'),'false', 'test', 'true',13);");
+//
+////            db = context.openOrCreateDatabase("LeBe", MODE_PRIVATE, null);
+//        }
 
 
         db.execSQL("CREATE TABLE IF NOT EXISTS UserProfile(Username VARCHAR, Password VARCHAR, Birthdate INTEGER, Regdate INTEGER, AnzeigeName VARCHAR, Email VARCHAR, LastLogin INTEGER, Remember BOOLEAN, Style VARCHAR, Geschlecht BOOLEAN, Points INTEGER);");
@@ -147,6 +150,27 @@ public class UserDB {
             }else{
                 //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
 
+                Emailchecker ec = new Emailchecker();
+                ec.setmContext(mContext);
+                ec.execute(email,passwort);
+
+
+                //hier weitermachen
+                try {
+                   String ergebnis = ec.get(2, TimeUnit.SECONDS);
+
+                    if(ergebnis.startsWith("OK")) {
+
+                        String[] ergebnisArray = ergebnis.split("<>");
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
 
             }
 
@@ -384,5 +408,14 @@ public class UserDB {
         }
     }
 
+    /**
+     * Ein neuer User wird lokal angelegt
+     */
+    public void addUser(String email, String password, String anzeigename, String benutzername, String bdate){
+
+
+
+        db.execSQL("INSERT INTO UserProfile VALUES ('"+benutzername+"','"+password+"', date('now','-20 years'), date('now'),'"+anzeigename+"','"+email+"', datetime('now'),'false', 'DEFAULT', 'true',0);");
+    }
 
 }
