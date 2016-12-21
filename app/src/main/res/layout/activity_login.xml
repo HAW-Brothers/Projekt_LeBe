@@ -35,14 +35,14 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/login_password"
-            tools:text="Password"
-            android:hint="Password"
+            tools:text="Passwort"
+            android:hint="Passwort"
             android:singleLine="true"
             />
 
         <Button
             style="@style/LoginButton"
-            android:text="LOGIN"
+            android:text="Anmeldung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/login_button"

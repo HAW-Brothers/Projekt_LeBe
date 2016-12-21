@@ -3,6 +3,7 @@ package lebe.lebeprototyp02.gui.control;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import lebe.lebeprototyp02.gui.fragments.HomeFragment;
@@ -71,14 +72,14 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) { // Set the tab text
         if (position == 0) {
-            return "Home";
+            return "Start";
         }
         if (position == 1) {
-            return "Store";
+            return "Markt";
         }
         if (position == 2) {
-            return "Settings";
-        }
+            return "Profil";
+    }
         return getPageTitle(position);
     }
 
@@ -103,4 +104,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
     private static String makeFragmentName(int viewId, int index) {
         return "android:switcher:" + viewId + ":" + index;
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        // POSITION_NONE makes it possible to reload the PagerAdapter
+        return POSITION_NONE;
+    }
+
+
+
 }

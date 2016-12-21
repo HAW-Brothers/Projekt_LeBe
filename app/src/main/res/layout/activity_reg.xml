@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="lebe.lebeprototyp02.RegActivity"
+    android:background="@color/colorLebePrimaryBackground_Male">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/regLogo"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_main"
+            android:layout_gravity="center"/>
+
+        <TextView
+            style="@style/LoginText"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:text="Registerung"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/LoginText"
+                    android:textStyle="bold"
+                    android:text="Benutzername:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="30dp" />
+
+                <EditText
+                    style="@style/LoginTextfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/regUserNameEdit"
+                    android:layout_alignBaseline="@+id/labelUserName"
+                    android:layout_alignBottom="@+id/labelUserName"
+                    android:layout_alignLeft="@+id/passwortEdit"
+                    android:layout_alignStart="@+id/passwortEdit" />
+
+
+                <TextView
+                    style="@style/LoginText"
+                    android:textStyle="bold"
+                    android:text="Anzeigename:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userNameEdit"
+                    android:layout_alignParentStart="true" />
+
+                <EditText
+                    style="@style/LoginTextfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/regAnzeigeNameEdit" />
+
+
+                <TextView
+                    style="@style/LoginText"
+                    android:textStyle="bold"
+                    android:text="Passwort:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userNameEdit"
+                    android:layout_alignParentStart="true" />
+
+
+                <EditText
+                    style="@style/LoginTextfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/regPasswortEdit"
+                    android:layout_alignBaseline="@+id/textPasswd"
+                    android:layout_alignBottom="@+id/textPasswd"
+                    android:layout_toRightOf="@+id/labelRegDate"
+                    android:layout_toEndOf="@+id/labelRegDate" />
+
+
+                <TextView
+                    style="@style/LoginText"
+                    android:textStyle="bold"
+                    android:text="Geburtdatum:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/birthdateEdit"
+                    android:layout_alignBottom="@+id/birthdateEdit"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <EditText
+                    style="@style/LoginTextfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/regBirthdateEdit"
+                    android:layout_below="@+id/passwortEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:hint="Bsp.: 2016-12-16"/>
+
+
+
+                <TextView
+                    style="@style/LoginText"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Email:"/>
+
+                <EditText
+                    style="@style/LoginTextfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/regEmail"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
+
+                <Button
+                    style="@style/LoginButton"
+                    android:text="Account erstellen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/regDateEdit"
+                    android:layout_toStartOf="@+id/regDateEdit"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="28dp"
+                    android:id="@+id/regSave"
+                   />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</ScrollView>
+
