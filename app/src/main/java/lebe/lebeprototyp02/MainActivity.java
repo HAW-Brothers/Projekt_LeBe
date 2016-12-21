@@ -21,6 +21,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 
+import lebe.lebeprototyp02.Zeitmessung.Zeitmessung;
+import lebe.lebeprototyp02.dbhelper.UserDB;
 import lebe.lebeprototyp02.gui.control.GUIController;
 import lebe.lebeprototyp02.gui.control.PagerAdapter;
 import lebe.lebeprototyp02.gui.fragments.StoreFragment;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private GUIController guiController;
 
+    private Zeitmessung zeitMesser; //= new Zeitmessung(UserDB.getInstance().getEmail(),getApplicationContext());
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -59,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        zeitMesser = new Zeitmessung(UserDB.getInstance().getEmail(),getApplicationContext());
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+
+        zeitMesser.startZeit();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -101,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+
+
+        zeitMesser.endZeit();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -165,5 +177,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }
