@@ -159,7 +159,10 @@ public class UserDB {
                 try {
                    String ergebnis = ec.get(2, TimeUnit.SECONDS);
 
-                    String[] ergebnisArray = ergebnis.split("<>");
+                    if(ergebnis.startsWith("OK")) {
+
+                        String[] ergebnisArray = ergebnis.split("<>");
+                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
