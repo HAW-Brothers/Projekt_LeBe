@@ -193,7 +193,10 @@ public class LoginActivity extends AppCompatActivity{
         return Integer.valueOf(date);
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        emailFeld.setText(dbHelper.getLastEmail());
+    }
 }
 

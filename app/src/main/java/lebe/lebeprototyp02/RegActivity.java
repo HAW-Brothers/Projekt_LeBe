@@ -67,6 +67,8 @@ public class RegActivity extends AppCompatActivity {
 
                     UserDB.getInstance().addUser(email,passwort,anzeigeName,usrname,geburtstag);
 
+
+
                     finish();
 
 
