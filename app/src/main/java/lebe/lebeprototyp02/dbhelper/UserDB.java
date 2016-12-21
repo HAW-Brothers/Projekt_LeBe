@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Patterns;
 
 import java.io.File;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -147,6 +150,24 @@ public class UserDB {
             }else{
                 //hier mit dem internet synchronisierenund feststellen ob es den user online gibt.
 
+                Emailchecker ec = new Emailchecker();
+                ec.setmContext(mContext);
+                ec.execute(email,passwort);
+
+
+                //hier weitermachen
+                try {
+                   String ergebnis = ec.get(2, TimeUnit.SECONDS);
+
+                    String[] ergebnisArray = ergebnis.split("<>");
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
 
             }
 
