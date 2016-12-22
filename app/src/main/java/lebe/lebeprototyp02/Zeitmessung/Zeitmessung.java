@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import lebe.lebeprototyp02.Internetz.ZeiterfassungSync;
 
 /**
+ * Misst die Zeit der Aktiven Nutzung und synchronisiert das mit dem DB-Server
  * Created by Höling on 19.12.2016.
  */
 

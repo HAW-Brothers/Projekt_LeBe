@@ -11,6 +11,7 @@ import java.net.URL;
 import lebe.lebeprototyp02.RegActivity;
 
 /**
+ * Legt die Email online auf dem DB-Server an
  * Created by Höling on 21.12.2016.
  */
 
@@ -75,6 +76,11 @@ public class EmailAnleger extends AsyncTask<String, Void, String> {
 
         return null;
     }
+
+    /**
+     * Setzt den ApplikationsContext
+     * @param cont
+     */
     public void setmContext(Context cont){
         mContext=cont;
     }

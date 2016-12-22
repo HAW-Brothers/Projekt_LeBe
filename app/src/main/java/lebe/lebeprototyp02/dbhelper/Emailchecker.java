@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+ * Überprüft ob es eine Emailadresse auf dem Server schon gibt
  * Created by Höling on 21.12.2016.
  */
 
