@@ -64,9 +64,21 @@ public class RegActivity extends AppCompatActivity {
                     String anzeigeName = anzName.getText().toString();
                     String geburtstag = bdate.getText().toString();
 
+                    long datumMilli = 0;
+
+                    try {
+                        Date datum = new SimpleDateFormat("yyyy-MM-dd").parse(geburtstag);
+
+
+
+                        datumMilli = datum.getTime();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                     EmailAnleger ec = new EmailAnleger();
                     ec.setmContext(getApplicationContext());
-                    ec.execute(email, passwort, usrname, anzeigeName, geburtstag);
+                    ec.execute(email, passwort, usrname, anzeigeName, ""+datumMilli);
 
                     String ergebnis = "ERR";
 
@@ -85,17 +97,7 @@ public class RegActivity extends AppCompatActivity {
                         //den USer in die Lokale datenbank legen
 
 
-                        long datumMilli = 0;
 
-                        try {
-                            Date datum = new SimpleDateFormat("yyyy-MM-dd").parse(geburtstag);
-
-
-
-                            datumMilli = datum.getTime();
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
 
                         boolean geschlechtBool = geschlecht.isChecked();
                         UserDB.getInstance().addUser(email, passwort, anzeigeName, usrname, "" + datumMilli, geschlechtBool);

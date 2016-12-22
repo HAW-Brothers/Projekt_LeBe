@@ -31,7 +31,7 @@ public class EmailAnleger extends AsyncTask<String, Void, String> {
 
         HttpURLConnection c = null;
         try {
-            URL u = new URL("http://lebe-app.hol.es/dbabfrage/emailanlegen.php?email="+email+"&passwd="+passwd+"&usrname="+usrname+"&anzName="+anzeigeName+"&bdate=88");
+            URL u = new URL("http://lebe-app.hol.es/dbabfrage/emailanlegen.php?email="+email+"&passwd="+passwd+"&usrname="+usrname+"&anzName="+anzeigeName+"&bdate="+geburtstag);
             System.out.println("--------------------------------------URL:----------"+u.toString());
             c = (HttpURLConnection) u.openConnection();
             c.connect();
