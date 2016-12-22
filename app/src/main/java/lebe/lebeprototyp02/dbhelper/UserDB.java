@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Patterns;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -207,7 +210,7 @@ public class UserDB {
                 username = resultSet.getString(0);
                 this.passwort = resultSet.getString(1);
 
-                geburtsdatum = resultSet.getString(2);
+                geburtsdatum = resultSet.getString(2).substring(0,10);
                 regDatum = resultSet.getString(3);
                 anzeigeName = resultSet.getString(4);
 //                email = resultSet.getString(5);
