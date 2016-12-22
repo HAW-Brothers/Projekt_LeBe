@@ -17,14 +17,26 @@ public class Zeitmessung {
     private long dauer=0;
     private String email;
     private Context mContext;
+    public final int MODE_ACTIVE = 1;
+    public final int MODE_ONLINE = 2;
+    private int modus=0;
 
+    /**
+     * misst die zeit in der die app offen war
+     * @param emailAdresse
+     * @param context
+     */
     public Zeitmessung(String emailAdresse, Context context){
 
         email=emailAdresse;
         mContext=context;
 
+
     }
 
+    /**
+     * Startet die Zeitmessung durch setzten einen neuen Zeitstempels als beginn. Zudem wird im Hintergrund mit dem LeBe Server synchronisiert
+     */
     public void startZeit(){
         //alle datensätze aus der Datenbank an server übertragen
 
@@ -69,6 +81,10 @@ public class Zeitmessung {
 
 
     }
+
+    /**
+     * schliesst das messen der Zeit ab und speichert die ergebnisse in der Datenbank ab
+     */
     public void endZeit(){
 
         endzeit=System.currentTimeMillis();

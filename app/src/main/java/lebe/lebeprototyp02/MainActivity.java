@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-        zeitMesser.startZeit();
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
 
-        zeitMesser.endZeit();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -178,5 +178,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        zeitMesser.startZeit();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        zeitMesser.endZeit();
+    }
 }

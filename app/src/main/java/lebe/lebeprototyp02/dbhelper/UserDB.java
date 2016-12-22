@@ -162,6 +162,17 @@ public class UserDB {
                     if(ergebnis.startsWith("OK")) {
 
                         String[] ergebnisArray = ergebnis.split("<>");
+
+                        String emailadresseServer = ergebnisArray[1];
+                        String passwortServer  = ergebnisArray[2];
+                        String usernameServer  = ergebnisArray[3];
+                        String anzeigenameServer = ergebnisArray[4];
+                        String geburtsdatumServer = ergebnisArray[5];
+                        String regDateServer = ergebnisArray[6];
+                        String pointsServer = ergebnisArray[7];
+
+                        addUser(emailadresseServer,passwortServer,anzeigenameServer,usernameServer,geburtsdatumServer,true);
+
                     }
 
                 } catch (InterruptedException e) {
@@ -411,11 +422,11 @@ public class UserDB {
     /**
      * Ein neuer User wird lokal angelegt
      */
-    public void addUser(String email, String password, String anzeigename, String benutzername, String bdate){
+    public void addUser(String email, String password, String anzeigename, String benutzername, String bdate, boolean geschlecht){
 
 
 
-        db.execSQL("INSERT INTO UserProfile VALUES ('"+benutzername+"','"+password+"', date('now','-20 years'), date('now'),'"+anzeigename+"','"+email+"', datetime('now'),'false', 'DEFAULT', 'true',0);");
+        db.execSQL("INSERT INTO UserProfile VALUES ('"+benutzername+"','"+password+"', (SELECT datetime("+bdate+" / 1000, 'unixepoch', 'localtime')), date('now'),'"+anzeigename+"','"+email+"', datetime('now'),'false', 'DEFAULT', '"+geschlecht+"',0);");
     }
 
 }
